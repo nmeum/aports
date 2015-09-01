@@ -36,12 +36,12 @@ build() {
 		--with-terminfo=/usr/share/terminfo \
 		--enable-256-color \
 		--enable-font-styles \
+		--enable-frills \
 		--enable-keepscrolling \
 		--enable-startup-notification \
 		--enable-text-blink \
 		--enable-xft \
 		--disable-fading \
-		--disable-frills \
 		--disable-lastlog \
 		--disable-mousewheel \
 		--disable-perl \
