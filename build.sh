@@ -1,12 +1,11 @@
 #!/bin/sh
 
-set -e -x
-
 ##
 # Default values
 ##
 
 OPTS="-f /etc/lxc/default.conf"
+PKGS="build-base abuild"
 PREFIX="alpinebuild"
 ARCHES="$(uname -m)"
 RELEASES="edge"
@@ -58,16 +57,20 @@ setup() {
 	if ! lxc-info -n "${name}" >/dev/null 2>&1; then
 		lxc-create -n "${name}" \
 			-t alpine ${OPTS} -- \
-			-a "${arch}" -R "${release}" build-base abuild
+			-a "${arch}" -R "${release}" build-base
+		apk add --root "$(lxc-config lxc.lxcpath)/${name}/rootfs" $PKGS
 	fi
 
 	lxc-start -q -n "${name}"
-	lxc-attach -n "${name}" -- /usr/sbin/adduser -D -G abuild buildozer
+	lxc-attach -n "${name}" -- /usr/sbin/adduser -s /bin/sh -D -G abuild buildozer
 
 	lbind "${name}" "${SRCDEST}" "var/cache/distfiles"
 	lbind "${name}" "${DESTDIR}" "home/buildozer/packages"
-
 	lbind "${name}" "$(pwd)" "home/buildozer/aports"
+
+	lxc-stop -q -n "${name}"
+	lxc-start -q -n "${name}"
+
 	lxc-attach -n "${name}" -- /bin/ln -s "/home/buildozer/aports/.abuild" "/home/buildozer/.abuild"
 }
 
@@ -112,4 +115,5 @@ for arg in $@; do
 	fi
 done
 
+mkdir -p packages
 forall setup && forall build
