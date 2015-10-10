@@ -56,14 +56,16 @@ static void togglefullscrn(const Arg *arg) {
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_e,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_r,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_t,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_r,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_t,      movestack,      {.i = -1 } },
 	{ MODKEY,                       XK_n,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_u,      togglebar,      {0} },

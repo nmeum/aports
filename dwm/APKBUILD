@@ -3,7 +3,7 @@
 # Maintainer:
 pkgname=dwm
 pkgver=6.0
-pkgrel=1
+pkgrel=3
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
@@ -14,7 +14,10 @@ makedepends="libx11-dev libxinerama-dev"
 install=""
 subpackages="$pkgname-doc"
 source="http://dl.suckless.org/dwm/$pkgname-$pkgver.tar.gz
-	config.h"
+	config.h
+
+	movestack.patch
+	attachabove.patch"
 
 _builddir="$srcdir"/dwm-$pkgver
 prepare() {
@@ -41,8 +44,14 @@ package() {
 }
 
 md5sums="8bb00d4142259beb11e13473b81c0857  dwm-6.0.tar.gz
-a937f26af9e4abc4c1162d33e2fca7c2  config.h"
+0b61abfeb20619dcd69c692d5ededcab  config.h
+5128947c8a0c3cec471c74b9061d2f60  movestack.patch
+07d8c3a31188ba203556917bfca6f89e  attachabove.patch"
 sha256sums="b2b9483de69259eeea56844899bb2385158d3e79a42d82b10c142099fc8eeb56  dwm-6.0.tar.gz
-805379030881caded0659e011952d1d7a74cb4a1dc1ba390ec81b890ed85e8c2  config.h"
+b764b7d827fb3d1bf5deb30e0487d98f42d5599a796e8b3988a67a6490e58958  config.h
+8bf0657c344aa4b6d13a64f02a210e35089bbd62db605b9e26df428c6acb00e5  movestack.patch
+9a6ee909cd9087d41341ce59fe9b1debdea05c79d53b7a9d66bfdc3276fb3dab  attachabove.patch"
 sha512sums="895d1d363b3756c9ba19dbf06af34be753c1ae5971d540113d7f8901ad174c2e5944ef769b43e65f7b700f34832bb24082bc91d999b287610c9925182ce70c00  dwm-6.0.tar.gz
-d7c67ff9c885fb70bd8505f1a7c923ff986557e2a4e596047a5a966475bdc7775d1c9e45ab0c092d83191231cfe628c23af9c4a429be8a7b4cfe8187cdb7d4f7  config.h"
+6baac9c436f8347aaaa75d28f5597a7e19708995244c669fbfa7408f04d9cabbfb62c942a51a679aec896d18059ccceb091297dc497e378bf57adecec4156a54  config.h
+1faa8639d8a5a8385108a0543f47cf720933833bad6aaa5d2612eed3c86fd6036a1acd05e7eb8b0b5e18cafbdabe256100fbde43f371455182f5d62b0203a068  movestack.patch
+4608de492d13fc5fa34239a7efdd5deef6345038b6c495e7f74db206261b8ab8b220afec33a412cc898df70cb408a4f5f7394cae018c7715a0bee52d020e0cad  attachabove.patch"
