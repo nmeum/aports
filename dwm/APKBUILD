@@ -1,0 +1,48 @@
+# Contributor: Sören TEmpel <soeren+alpine@soeren-tempel.net>
+# Contributor: Gaber Ayoubi <gaber.ayoubi@gmail.com>
+# Maintainer:
+pkgname=dwm
+pkgver=6.0
+pkgrel=0
+pkgdesc="dwm - dynamic window manager"
+url="http://dwm.suckless.org"
+arch="all"
+license="MIT/X"
+depends=""
+depends_dev=""
+makedepends="libx11-dev libxinerama-dev"
+install=""
+subpackages="$pkgname-doc"
+source="http://dl.suckless.org/dwm/$pkgname-$pkgver.tar.gz
+	config.h"
+
+_builddir="$srcdir"/dwm-$pkgver
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+
+	# Copy our configuration file to the build directory
+	cp "$srcdir"/config.h "$_builddir"/config.h || return 1
+}
+
+build() {
+	cd "$_builddir"
+	make || return 1
+}
+
+package() {
+	cd "$_builddir"
+	make PREFIX=/usr DESTDIR="$pkgdir" install || return 1
+}
+
+md5sums="8bb00d4142259beb11e13473b81c0857  dwm-6.0.tar.gz
+038cae135488f41f0e85e802daf1abb0  config.h"
+sha256sums="b2b9483de69259eeea56844899bb2385158d3e79a42d82b10c142099fc8eeb56  dwm-6.0.tar.gz
+384e66e973c8fc01b7d67cf432aa5d6f7ffa2a9d6f3f06fed1ce8d0da7f59c40  config.h"
+sha512sums="895d1d363b3756c9ba19dbf06af34be753c1ae5971d540113d7f8901ad174c2e5944ef769b43e65f7b700f34832bb24082bc91d999b287610c9925182ce70c00  dwm-6.0.tar.gz
+7634cf43416857c386190a4037fe143fa4dbbe5c02d73a83b18d0b1fecda43bbaf5bdcdbdcbc8d3ce2f6d8cdf88ab4e623d0f032634825f7e9b81228ced760d8  config.h"
