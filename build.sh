@@ -57,7 +57,7 @@ setup() {
 	if ! lxc-info -n "${name}" >/dev/null 2>&1; then
 		lxc-create -n "${name}" \
 			-t alpine ${OPTS} -- \
-			-a "${arch}" -R "${release}" build-base
+			-a "${arch}" -R "${release}"
 		apk add --root "$(lxc-config lxc.lxcpath)/${name}/rootfs" $PKGS
 	fi
 
