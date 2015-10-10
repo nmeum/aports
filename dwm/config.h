@@ -57,8 +57,8 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_e,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_t,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_r,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_r,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_t,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_n,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },

@@ -3,7 +3,7 @@
 # Maintainer:
 pkgname=dwm
 pkgver=6.0
-pkgrel=0
+pkgrel=1
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
@@ -41,8 +41,8 @@ package() {
 }
 
 md5sums="8bb00d4142259beb11e13473b81c0857  dwm-6.0.tar.gz
-038cae135488f41f0e85e802daf1abb0  config.h"
+a937f26af9e4abc4c1162d33e2fca7c2  config.h"
 sha256sums="b2b9483de69259eeea56844899bb2385158d3e79a42d82b10c142099fc8eeb56  dwm-6.0.tar.gz
-384e66e973c8fc01b7d67cf432aa5d6f7ffa2a9d6f3f06fed1ce8d0da7f59c40  config.h"
+805379030881caded0659e011952d1d7a74cb4a1dc1ba390ec81b890ed85e8c2  config.h"
 sha512sums="895d1d363b3756c9ba19dbf06af34be753c1ae5971d540113d7f8901ad174c2e5944ef769b43e65f7b700f34832bb24082bc91d999b287610c9925182ce70c00  dwm-6.0.tar.gz
-7634cf43416857c386190a4037fe143fa4dbbe5c02d73a83b18d0b1fecda43bbaf5bdcdbdcbc8d3ce2f6d8cdf88ab4e623d0f032634825f7e9b81228ced760d8  config.h"
+d7c67ff9c885fb70bd8505f1a7c923ff986557e2a4e596047a5a966475bdc7775d1c9e45ab0c092d83191231cfe628c23af9c4a429be8a7b4cfe8187cdb7d4f7  config.h"
