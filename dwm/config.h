@@ -49,8 +49,12 @@ static const char *termcmd[]  = { "urxvtc", NULL };
 
 /* toggle full-screen mode */
 static void togglefullscrn(const Arg *arg) {
-	if (selmon->sel)
-		setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
+	Client *c = selmon->sel;
+	if (!c)
+		return;
+
+	setfullscreen(c, !c->isfullscreen);
+	c->isfloating = False;
 }
 
 static Key keys[] = {
