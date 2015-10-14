@@ -55,17 +55,8 @@ while getopts a:b:r:- flag; do
 done
 
 shift $((OPTIND - 1))
-if [ $# -gt 1 ]; then
-	echo "${0##*/} does not accept more than one argument" 1>&2
-	exit 1
-fi
-
-local file="${1}"
-if [ -n "${file}" ]; then
-	cd "${file}" && foreach build
-else
-	for file in 8pit/*; do
-		[ -r "${file}/APKBUILD" ] || continue
-		cd "${file}" && foreach build
-	done
-fi
+local file=
+for file in ${@:-8pit/*}; do
+	[ -r "${file}/APKBUILD" ] || continue
+	(cd "${file}" && foreach build)
+done
