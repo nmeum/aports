@@ -46,12 +46,12 @@ destroy() {
 ##
 
 if [ ! -x "${ACHROOT}" ]; then
-	echo "missing achroot, please install it" 1>&2
+	echo "Missing achroot, please install it" 1>&2
 	exit 1
 fi
 
 local keepflag=0
-while getopts a:b:k:r flag; do
+while getopts a:k:r:b flag; do
 	case "${flag}" in
 		a) ARCHES="$(listify "${OPTARG}")" ;;
 		b) BASEDIR="${OPTARG}" ;;
@@ -61,10 +61,15 @@ while getopts a:b:k:r flag; do
 done
 
 shift $((OPTIND - 1))
+if [ $# -le 0 ]; then
+	echo "Usage: ${0##*/} APORT..." 1>&2
+	exit 1
+fi
+
 local file=
-for file in ${@:-8pit/*}; do
+for file in "${@}"; do
 	[ -r "${file}/APKBUILD" ] || continue
 	(cd "${file}" && foreach build)
 done
 
-[ "${keepflag}" -eq 0 ] || foreach destroy
+[ "${keepflag}" -eq 0 ] && foreach destroy
