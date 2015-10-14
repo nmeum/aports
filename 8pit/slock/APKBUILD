@@ -1,0 +1,52 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=slock
+pkgver=1.2
+pkgrel=1
+pkgdesc="A simple screen locker for X"
+url="http://tools.suckless.org/slock/"
+arch="all"
+license="MIT"
+depends=""
+depends_dev=""
+makedepends="libxext-dev linux-headers"
+install=""
+options="suid"
+source="http://dl.suckless.org/tools/$pkgname-$pkgver.tar.gz
+	safer-oom-killer-disablement.patch
+	config.h"
+
+_builddir="$srcdir/$pkgname-$pkgver"
+prepare() {
+	cd "$_builddir"
+
+	local i=
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1 ;;
+		esac
+	done
+
+	# Copy our configuration file to the build directory
+	cp "$srcdir"/config.h . || return 1
+}
+
+build() {
+	cd "$_builddir"
+	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 || return 1
+}
+
+package() {
+	make PREFIX=/usr DESTDIR="$pkgdir" \
+		-C "$_builddir" install || return 1
+}
+
+md5sums="ee65f6e9f5ce71f3a6088d53b2485430  slock-1.2.tar.gz
+5ce27461215d35614b7c7697ae827e1f  safer-oom-killer-disablement.patch
+ea4acfe8d40a6641b42b67cca2073d32  config.h"
+sha256sums="3402658f890a88da3f34db04fca1783ed549ade45c2ebb8d8f0cd2b549f633b3  slock-1.2.tar.gz
+65eee712e2f07d9d5b6b241a703a9340d2456579ed253a73bf354ba37d2e900a  safer-oom-killer-disablement.patch
+db08984b701ee5f1ef234d097a858cf849db8aea160ce0fda6e8802f8d6fa770  config.h"
+sha512sums="0e66c5451c72a5df391a61eefa6b1a1493705fc9c0b04d9db934a56c11852c284ecca8706f47ceb1d1c8cfc5241c818c6026afb30fc9cf3938e44ea282338bee  slock-1.2.tar.gz
+60583375fcfeff3d5d16a39f0fc010a57e251988e58fef47c9a65f062cebaab7fa9f2e9c3ce019d9918398ee86448fdc8dcf15bc25a8cbda830f686b5f3840f1  safer-oom-killer-disablement.patch
+6cbfd78e79489e7b83e26ea2fef1cb989fc1e00aebf8ff38bf8190fd9f477e777dd36cb2f02ff9ee503dac12bb175080ac1cea49f15f84f160f5447882709876  config.h"
