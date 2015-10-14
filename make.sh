@@ -45,6 +45,7 @@ destroy() {
 # Go for it!
 ##
 
+export APORTSDIR="$(pwd)"
 if [ ! -x "${ACHROOT}" ]; then
 	echo "Missing achroot, please install it" 1>&2
 	exit 1
