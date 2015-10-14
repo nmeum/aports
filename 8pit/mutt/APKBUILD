@@ -1,6 +1,6 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
-# Contributor: Andrew Manison<amanison@anselsystems.com>
-# Maintainer: Andrew Manison<amanison@anselsystems.com>
+# Contributor: Andrew Manison <amanison@anselsystems.com>
+# Maintainer: Andrew Manison <amanison@anselsystems.com>
 pkgname=mutt
 pkgver=1.5.24
 pkgrel=2
