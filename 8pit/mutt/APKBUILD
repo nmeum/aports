@@ -31,7 +31,6 @@ build() {
 		--with-mailpath=/var/spool/mail \
 		--enable-hcache \
 		--enable-gpgme \
-		--disable-hcache \
 		--disable-imap \
 		--disable-pop \
 		--disable-smtp \
