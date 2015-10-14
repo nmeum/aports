@@ -45,12 +45,11 @@ if [ ! -x "${ACHROOT}" ]; then
 	exit 1
 fi
 
-while getopts a:b:r:- flag; do
+while getopts a:b:r flag; do
 	case "${flag}" in
 		a) ARCHES="$(listify "${OPTARG}")" ;;
 		b) BASEDIR="${OPTARG}" ;;
 		r) RELEASES="$(listify "${RELEASES}")" ;;
-		-) break ;;
 	esac
 done
 
