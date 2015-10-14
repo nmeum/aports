@@ -41,7 +41,7 @@ build() {
 ##
 
 if [ ! -x "${ACHROOT}" ]; then
-	echo "missing achroot, please install it" 2>&1
+	echo "missing achroot, please install it" 1>&2
 	exit 1
 fi
 
@@ -54,18 +54,18 @@ while getopts a:b:r:- flag; do
 	esac
 done
 
-local opts= pos=0 arg=
-for arg in $@; do
-	pos=$((pos + 1))
-	if [ "${arg}" = "--" ]; then
-		shift ${pos}
-		ABUILD_OPTS="${@}"
-		break
-	fi
-done
+shift $((OPTIND - 1))
+if [ $# -gt 1 ]; then
+	echo "${0##*/} does not accept more than one argument" 1>&2
+	exit 1
+fi
 
-local file=
-for file in 8pit/*; do
-	[ -r "${file}/APKBUILD" ] || continue
+local file="${1}"
+if [ -n "${file}" ]; then
 	cd "${file}" && foreach build
-done
+else
+	for file in 8pit/*; do
+		[ -r "${file}/APKBUILD" ] || continue
+		cd "${file}" && foreach build
+	done
+fi
