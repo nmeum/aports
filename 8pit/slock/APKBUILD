@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=slock
 pkgver=1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple screen locker for X"
 url="http://tools.suckless.org/slock/"
 arch="all"
