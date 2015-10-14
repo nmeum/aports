@@ -32,8 +32,13 @@ foreach() {
 
 build() {
 	local name="${1}" release="${2}" arch="${3}"
-	sudo -E -s ${ACHROOT} -d "${BASEDIR}/${name}" \
+	sudo -E -s "${ACHROOT}" -d "${BASEDIR}/${name}" -k \
 		-a "${arch}" -r "${release}" -- ${ABUILD_OPTS}
+}
+
+destroy() {
+	local name="${1}" release="${2}" arch="${3}"
+	sudo -E -s "${ACHROOT}" -d "${BASEDIR}/${name}" -b
 }
 
 ##
@@ -45,10 +50,12 @@ if [ ! -x "${ACHROOT}" ]; then
 	exit 1
 fi
 
-while getopts a:b:r flag; do
+local keepflag=0
+while getopts a:b:k:r flag; do
 	case "${flag}" in
 		a) ARCHES="$(listify "${OPTARG}")" ;;
 		b) BASEDIR="${OPTARG}" ;;
+		k) keepflag=1 ;;
 		r) RELEASES="$(listify "${RELEASES}")" ;;
 	esac
 done
@@ -59,3 +66,5 @@ for file in ${@:-8pit/*}; do
 	[ -r "${file}/APKBUILD" ] || continue
 	(cd "${file}" && foreach build)
 done
+
+[ "${keepflag}" -eq 0 ] || foreach destroy
