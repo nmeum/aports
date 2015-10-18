@@ -61,7 +61,7 @@ while getopts a:k:r:b flag; do
 	esac
 done
 
-shift $((OPTIND - 1))
+shift $(expr "$OPTIND" - 1)
 if [ $# -le 0 ]; then
 	echo "Usage: ${0##*/} APORT..." 1>&2
 	exit 1
