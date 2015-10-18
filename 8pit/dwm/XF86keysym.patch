@@ -1,0 +1,11 @@
+diff -upr dwm-6.0.orig/dwm.c dwm-6.0/dwm.c
+--- dwm-6.0.orig/dwm.c	2015-10-18 19:34:13.192878355 +0200
++++ dwm-6.0/dwm.c	2015-10-18 19:34:51.809342046 +0200
+@@ -32,6 +32,7 @@
+ #include <sys/wait.h>
+ #include <X11/cursorfont.h>
+ #include <X11/keysym.h>
++#include <X11/XF86keysym.h>
+ #include <X11/Xatom.h>
+ #include <X11/Xlib.h>
+ #include <X11/Xproto.h>

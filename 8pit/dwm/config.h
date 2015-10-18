@@ -47,7 +47,14 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvtc", NULL };
 
-/* toggle full-screen mode */
+/* volume control */
+static const char *raisevol[] = { "amixer", "set", "Master", "volume", "+5", NULL };
+static const char *lowervol[] = { "amixer", "set", "Master", "volume", "-5", NULL };
+
+/* backlight control */
+static const char *raiseblight[] = { "xbacklight", "-inc", "5", NULL };
+static const char *lowerblight[] = { "xbacklight", "-dec", "5", NULL };
+
 static void togglefullscrn(const Arg *arg) {
 	Client *c = selmon->sel;
 	if (!c)
@@ -90,6 +97,16 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+
+	/* volume level control hotkeys */
+
+	{ 0, XF86XK_AudioRaiseVolume,  spawn, {.v = raisevol } },
+	{ 0, XF86XK_AudioLowerVolume,  spawn, {.v = lowervol } },
+
+	/* backlight brightness control hotkeys */
+
+	{ 0, XF86XK_MonBrightnessUp,   spawn, {.v = raiseblight } },
+	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = lowerblight } },
 };
 
 /* button definitions */
