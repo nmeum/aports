@@ -52,7 +52,7 @@ if [ ! -x "${ACHROOT}" ]; then
 fi
 
 local keepflag=0
-while getopts a:k:r:b flag; do
+while getopts a:r:bk flag; do
 	case "${flag}" in
 		a) ARCHES="$(listify "${OPTARG}")" ;;
 		b) BASEDIR="${OPTARG}" ;;
