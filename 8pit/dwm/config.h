@@ -48,8 +48,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, 
 static const char *termcmd[]  = { "urxvtc", NULL };
 
 /* volume control */
-static const char *raisevol[] = { "amixer", "set", "Master", "volume", "+5", NULL };
-static const char *lowervol[] = { "amixer", "set", "Master", "volume", "-5", NULL };
+static const char *raisevol[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
+static const char *lowervol[] = { "amixer", "-q", "set", "Master", "5%-", NULL };
 
 /* backlight control */
 static const char *raiseblight[] = { "xbacklight", "-inc", "5", NULL };
