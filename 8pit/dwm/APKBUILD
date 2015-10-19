@@ -2,7 +2,7 @@
 # Maintainer:
 pkgname=dwm
 pkgver=6.0
-pkgrel=8
+pkgrel=3
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
