@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
 pkgver=6.0
-pkgrel=6
+pkgrel=5
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
@@ -16,7 +16,6 @@ source="http://dl.suckless.org/dwm/$pkgname-$pkgver.tar.gz
 	XF86keysym.patch
 	layout-symbol.patch
 	movestack.patch
-	monitor-topbar.patch
 	config.h"
 
 _builddir="$srcdir"/dwm-$pkgver
@@ -46,17 +45,14 @@ md5sums="8bb00d4142259beb11e13473b81c0857  dwm-6.0.tar.gz
 f0cd34ea167b3be1d62bc48a2c755f5f  XF86keysym.patch
 88a87652533a50a6735d4f1280186542  layout-symbol.patch
 5128947c8a0c3cec471c74b9061d2f60  movestack.patch
-b85efc35a822bb5aff4126e3f8bedcc6  monitor-topbar.patch
 384c9646162081221372e25da8fc65a9  config.h"
 sha256sums="b2b9483de69259eeea56844899bb2385158d3e79a42d82b10c142099fc8eeb56  dwm-6.0.tar.gz
 82e1ec591feae6aee1d81f02725a0aacd1f193875f74aa4367aa0012b1dd39bb  XF86keysym.patch
 bb8bb171be30797d43e01764847d83f1e7b478452fe22eba3e1115e6379cb1f1  layout-symbol.patch
 8bf0657c344aa4b6d13a64f02a210e35089bbd62db605b9e26df428c6acb00e5  movestack.patch
-a8d7940e00f62d398bd925b82a7607835c32653ff7090f5973a43fcb2c5bb3a1  monitor-topbar.patch
 cabcac490c815e0403aac0af9140b986193047b7e36fd54fd16d7b01f0c5bede  config.h"
 sha512sums="895d1d363b3756c9ba19dbf06af34be753c1ae5971d540113d7f8901ad174c2e5944ef769b43e65f7b700f34832bb24082bc91d999b287610c9925182ce70c00  dwm-6.0.tar.gz
 5bf51190f6e20e38847ffd78272a44ea0a62cb89c453360a8a52de87fe561afff90826fee32234a8fbf4bd4bb134d4232691c2aa54ab76df30c3b306296fa946  XF86keysym.patch
 79f9f30f71e5b834782fa7d1cf4f14a6f6f20bfe8abb26eda371b2277355650a77e3c2623ad115f44a5e430663e0d1b1ab4e3f1dc4c83c2dd8cb564a26933d1c  layout-symbol.patch
 1faa8639d8a5a8385108a0543f47cf720933833bad6aaa5d2612eed3c86fd6036a1acd05e7eb8b0b5e18cafbdabe256100fbde43f371455182f5d62b0203a068  movestack.patch
-75b4ae8ef2f87c4f2b1ba971ac361007884cd0fd5d22c619dd2afc4138600df3c0cca1519bfbb4783d89a9b682cdc3f974138056a506facfbea7a2f288d414b7  monitor-topbar.patch
 1bd82154263592bb95abc1252050c0da68906ddf6050b2d15183420667f792ded354c985a7a7538ab346dfdd783c3b3aca62cec299c6aaa4e70323f800507631  config.h"
