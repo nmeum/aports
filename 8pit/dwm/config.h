@@ -52,15 +52,6 @@ static const char *lowervol[] = { "amixer", "-q", "set", "Master", "5%-", NULL }
 static const char *raiseblight[] = { "xbacklight", "-inc", "5", NULL };
 static const char *lowerblight[] = { "xbacklight", "-dec", "5", NULL };
 
-static void togglefullscrn(const Arg *arg) {
-	Client *c = selmon->sel;
-	if (!c)
-		return;
-
-	setfullscreen(c, !c->isfullscreen);
-	c->isfloating = False;
-}
-
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_e,      spawn,          {.v = dmenucmd } },
