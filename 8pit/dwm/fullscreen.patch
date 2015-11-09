@@ -1,60 +1,24 @@
-diff -upr dwm-6.0.orig/dwm.c dwm-6.0/dwm.c
---- dwm-6.0.orig/dwm.c	2015-11-03 19:05:45.579277608 +0100
-+++ dwm-6.0/dwm.c	2015-11-03 19:06:35.452395802 +0100
-@@ -230,6 +230,7 @@ static int textnw(const char *text, unsi
+diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
+--- dwm-6.1.orig/dwm.c	2015-11-09 12:05:23.088598473 +0100
++++ dwm-6.1/dwm.c	2015-11-09 12:10:44.217513469 +0100
+@@ -211,6 +211,7 @@ static void tagmon(const Arg *arg);
  static void tile(Monitor *);
  static void togglebar(const Arg *arg);
  static void togglefloating(const Arg *arg);
 +static void togglefullscrn(const Arg *arg);
  static void toggletag(const Arg *arg);
  static void toggleview(const Arg *arg);
- static void unfocus(Client *c, Bool setfocus);
-@@ -574,7 +575,7 @@ configurenotify(XEvent *e) {
- 	Bool dirty;
- 
- 	if(ev->window == root) {
--		dirty = (sw != ev->width);
-+		dirty = (sw != ev->width || sh != ev->height);
- 		sw = ev->width;
- 		sh = ev->height;
- 		if(updategeom() || dirty) {
-@@ -889,7 +890,7 @@ void
- focusstack(const Arg *arg) {
+ static void unfocus(Client *c, int setfocus);
+@@ -847,7 +848,7 @@ focusstack(const Arg *arg)
+ {
  	Client *c = NULL, *i;
  
--	if(!selmon->sel)
+-	if (!selmon->sel)
 +	if(!selmon->sel || selmon->sel->isfullscreen)
  		return;
- 	if(arg->i > 0) {
- 		for(c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
-@@ -1227,6 +1228,8 @@ movemouse(const Arg *arg) {
- 
- 	if(!(c = selmon->sel))
- 		return;
-+	if(c->isfullscreen) /* no support moving fullscreen windows by mouse */
-+		return;
- 	restack(selmon);
- 	ocx = c->x;
- 	ocy = c->y;
-@@ -1371,6 +1374,8 @@ resizemouse(const Arg *arg) {
- 
- 	if(!(c = selmon->sel))
- 		return;
-+	if(c->isfullscreen) /* no support resizing fullscreen windows by mouse */
-+		return;
- 	restack(selmon);
- 	ocx = c->x;
- 	ocy = c->y;
-@@ -1739,6 +1744,8 @@ void
- togglefloating(const Arg *arg) {
- 	if(!selmon->sel)
- 		return;
-+	if(selmon->sel->isfullscreen) /* no support for fullscreen windows */
-+		return;
- 	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
- 	if(selmon->sel->isfloating)
- 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
-@@ -1747,6 +1754,18 @@ togglefloating(const Arg *arg) {
+ 	if (arg->i > 0) {
+ 		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+@@ -1713,6 +1714,18 @@ togglefloating(const Arg *arg)
  }
  
  void
@@ -70,6 +34,6 @@ diff -upr dwm-6.0.orig/dwm.c dwm-6.0/dwm.c
 +}
 +
 +void
- toggletag(const Arg *arg) {
+ toggletag(const Arg *arg)
+ {
  	unsigned int newtags;
- 
