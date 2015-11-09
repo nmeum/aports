@@ -48,9 +48,12 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* commands */
+static const char *termcmd[] = { "urxvtc", NULL };
+static const char *lockcmd[] = { "physlock", NULL };
+
+/* dmenu configuration */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "urxvtc", NULL };
 
 /* volume control */
 static const char *raisevol[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
@@ -63,6 +66,7 @@ static const char *lowerblight[] = { "xbacklight", "-dec", "5", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_e,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Pause,  spawn,          {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_r,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_t,      focusstack,     {.i = -1 } },
