@@ -2,9 +2,9 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"terminus:size=10"
+	"terminus:size=12"
 };
-static const char dmenufont[]       = "terminus:size=10";
+static const char dmenufont[]       = "terminus:size=12";
 static const char normbordercolor[] = "#282828";
 static const char normbgcolor[]     = "#282828";
 static const char normfgcolor[]     = "#585858";
