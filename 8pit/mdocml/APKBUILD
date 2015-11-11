@@ -1,7 +1,7 @@
 # Maintainer:  Natanael Copa <ncopa@alpinelinux.org>
 pkgname=mdocml
 pkgver=1.13.3
-pkgrel=5
+pkgrel=6
 pkgdesc="mdoc/man compiler"
 url="http://mdocml.bsd.lv/"
 arch="all"
@@ -58,7 +58,7 @@ man() {
 
 apropos() {
 	# Provided for compatiblity with upstream package
-	return 0
+	mkdir -p "$subpkgdir"
 }
 
 md5sums="7be80e1116a11abe2aabd6b2f04434ef  mdocml-1.13.3.tar.gz
