@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=vim
-pkgver=7.4.861
-pkgrel=2
+pkgver=7.4.943
+pkgrel=1
 pkgdesc="advanced text editor"
 url="http://www.vim.org"
 arch="all"
@@ -9,10 +9,11 @@ license="custom"
 depends=""
 makedepends="ncurses-dev libxt-dev"
 subpackages="$pkgname-doc ${pkgname}diff"
-source="vim-$pkgver.tar.gz::https://github.com/vim/vim/archive/v$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz
 	vimrc
 	"
-_builddir="$srcdir"/vim-$pkgver
+
+_builddir="$srcdir"/$pkgname-$pkgver
 prepare() {
 	cd "$_builddir"
 	# Read vimrc from /etc/vim
@@ -52,6 +53,7 @@ vimdiff() {
 	install -d "$subpkgdir"/usr/bin || return 1
 	mv "$pkgdir"/usr/bin/vimdiff "$subpkgdir"/usr/bin
 }
+
 md5sums="52288ba525c6e6e09c1a5f85b4c0da87  vim-7.4.861.tar.gz
 97aecde2ab504e543a96bec84b3b5638  vimrc"
 sha256sums="fc24e318073db486bf99204eca8cdfd71174810c327c42cc20aad941858d1636  vim-7.4.861.tar.gz
