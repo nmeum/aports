@@ -22,8 +22,8 @@ listify() {
 
 foreach() {
 	local a= r=
-	for r in "${RELEASES}"; do
-		for a in "${ARCHES}"; do
+	for r in ${RELEASES}; do
+		for a in ${ARCHES}; do
 			n="alpinechroot-${r}-${a}"
 			eval $1 "$n" "$r" "$a"
 		done
