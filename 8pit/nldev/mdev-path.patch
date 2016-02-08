@@ -1,12 +1,12 @@
-diff -upr nldev-0_git20160208.orig/nldev.c nldev-0_git20160208/nldev.c
---- nldev-0_git20160208.orig/nldev.c	2016-02-08 18:22:52.267524808 +0100
-+++ nldev-0_git20160208/nldev.c	2016-02-08 18:23:17.228268178 +0100
-@@ -201,7 +201,7 @@ main(int argc, char *argv[])
+diff -upr nldev-0.3_git20160208.orig/nldev.c nldev-0.3_git20160208/nldev.c
+--- nldev-0.3_git20160208.orig/nldev.c	2016-02-08 19:51:51.256109706 +0100
++++ nldev-0.3_git20160208/nldev.c	2016-02-08 19:51:59.595276810 +0100
+@@ -202,7 +202,7 @@ main(int argc, char *argv[])
  	showkernel = 1;
  	showudev = 1;
  	subsystem = NULL;
 -	runpath = "/bin/mdev";
 +	runpath = "/sbin/mdev";
+ 	pidpath = "/var/run/nldev.pid";
  
  	ARGBEGIN {
- 	case 'b':

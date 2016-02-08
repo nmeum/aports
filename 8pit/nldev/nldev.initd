@@ -1,0 +1,24 @@
+#!/sbin/openrc-run
+
+name="$SVCNAME"
+command="/usr/bin/$SVCNAME"
+command_args="${NLDEV_OPTS:--k} -b"
+pidfile="/var/run/$SVCNAME.pid"
+
+depend() {
+	provide dev
+	need sysfs dev-mount
+	before checkfs fsck
+	keyword -lxc -systemd-nspawn -vserver
+}
+
+start_pre() {
+	if [ -e /proc/self/fd ]; then
+		rm -f /dev/fd 2>/dev/null
+		ln -sf /proc/self/fd /dev/fd
+	fi
+}
+
+start_post() {
+	/usr/bin/nltrigger &>/dev/null
+}

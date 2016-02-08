@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=nldev
 pkgver=0.3_git20160208
-pkgrel=0
+pkgrel=1
 verbase=0.3
 pkgdesc="A simple netlink device manager"
 url="http://git.r-36.net/nldev/"
@@ -14,7 +14,9 @@ makedepends="linux-headers"
 install=""
 subpackages="$pkgname-doc"
 source="http://files.8pit.net/alpine/distfiles/$pkgname-$pkgver.tar.gz
-	nldev-path.patch
+	$pkgname.initd
+
+	pidfile.patch
 	mdev-path.patch"
 
 disturl="lithium:/var/www/htdocs/files.8pit.net/alpine/distfiles/"
@@ -40,8 +42,15 @@ build() {
 
 package() {
 	cd "$_builddir"
-	make DESTDIR="$pkgdir" PREFIX=/usr install || return 1
 
+	make DESTDIR="$pkgdir" PREFIX=/usr install || return 1
+	install -Dm755 "$srcdir"/$pkgname.initd \
+		"$pkgdir"/etc/init.d/$pkgname || return 1
+
+	# We don't need run_nldev, use the init script instead
+	rm -f "$pkgdir"/usr/bin/run_nldev
+
+	# Install additional documentation
 	mkdir -p "$pkgdir"/usr/share/doc/$pkgname/examples/
 	install -m644 FIXES.md README.md \
 		"$pkgdir"/usr/share/doc/$pkgname/ || return 1
@@ -52,11 +61,14 @@ package() {
 }
 
 md5sums="180f83ca7127c933df6b23470f4f00f4  nldev-0.3_git20160208.tar.gz
-38dba8b01732b39cd5f298defafb014a  nldev-path.patch
-32f0308b3fe53945e414e8e0fdc8e011  mdev-path.patch"
+5e5fc7fdf73f8a64358b656e7b1fc8ba  nldev.initd
+c03e4bc5fde6357e5927c33f339940e6  pidfile.patch
+e759835119a3eeb1b05a9c1bf9701ce6  mdev-path.patch"
 sha256sums="5e361bf923b617dd68cc646acdebb83cc730027ac7f8b0dc40cc3a70c4f6915e  nldev-0.3_git20160208.tar.gz
-5c581188325bb87143a701faa6ba7ff7fcbca9487c0150316655573099346a82  nldev-path.patch
-e0747984c69a0561070a62601a5e58a27ed94d4858529f3ca7af2bc9f85c5479  mdev-path.patch"
+5e2f8bf3bf52dba56e1dac84b9af1a373ce4de2d758643221686f592fe0520b3  nldev.initd
+ea656d59e5c05c4f38c214c074c0021e2a8fe2e98e717a120dbd8982db4f8f24  pidfile.patch
+58f12c351130e7fdbaac525f78c534efe0b39ba5b1fa31019bb2ed00b6c6fbab  mdev-path.patch"
 sha512sums="70d9243593030e40735b5d089654f80dce8f8f33f0eea677b30a165be2a78c029688cc05922347ee37538178e5f6302fc8787114d5f0e790ec3018b1d79a56fa  nldev-0.3_git20160208.tar.gz
-9e249dd877b4aa937cbae260442acc43f501015442f42af986e0884bb6a163bc9d30fc849afd3cb5257480a0f9c2b1c43aaa15953c9a77c4dfcb84b35a897389  nldev-path.patch
-1d17460e83f4f0a48b3c591c6966cb9cad88f0f5bbc631aef68e4fe70efef2569032bf0a1d6a378a9aed7edfa7a08e203b519545bc500635e520ff46f4e4d622  mdev-path.patch"
+ae082ba3ceedf86b1dff1e8fdd950f34f74dd882fc456b2123383ac663617eb7d42ab4cfc4eca706ffac3017efb58eea3d132674f1afc9004e54b956b251158b  nldev.initd
+ebbf1d2bfe9605613211d4ecd9654779a61d9c845ca4661a36f5dda03c2772cca587c93b4f53d91a7518b72d75b43efa1cd7d6303f85423394b7131a3adcfd57  pidfile.patch
+db50f1427732bb1e331323b07b792e9379afc8f9c631bd90dc7c257c45a862f092a9f3c99e0e108a75fbb635cb1323815366d5d03f81beefeadb314ccb5d8e55  mdev-path.patch"

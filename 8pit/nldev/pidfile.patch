@@ -1,0 +1,37 @@
+Only in nldev-0.3_git20160208/: nldev
+diff -upr nldev-0.3_git20160208.orig/nldev.c nldev-0.3_git20160208/nldev.c
+--- nldev-0.3_git20160208.orig/nldev.c	2016-02-08 19:52:49.440298407 +0100
++++ nldev-0.3_git20160208/nldev.c	2016-02-08 19:53:32.052709048 +0100
+@@ -193,15 +193,17 @@ main(int argc, char *argv[])
+ 	struct msghdr hdr;
+ 	struct iovec iov;
+ 	char buf[4097], *subsystem, *runpath, *key, *value,
+-	     cbuf[CMSG_SPACE(sizeof(struct ucred))];
++	     *pidpath, cbuf[CMSG_SPACE(sizeof(struct ucred))];
+ 	struct cmsghdr *chdr;
+ 	struct ucred *cred;
++	FILE *pidfp;
+ 	int i, len, slen, showudev, showkernel;
+ 
+ 	showkernel = 1;
+ 	showudev = 1;
+ 	subsystem = NULL;
+ 	runpath = "/bin/mdev";
++	pidpath = "/var/run/nldev.pid";
+ 
+ 	ARGBEGIN {
+ 	case 'b':
+@@ -236,6 +238,12 @@ main(int argc, char *argv[])
+ 		umask(022);
+ 	}
+ 
++	if ((pidfp = fopen(pidpath, "w")) == NULL)
++		die("fopen");
++
++	fprintf(pidfp, "%ld\n", (long)getpid());
++	fclose(pidfp);
++
+ 	initsignals();
+ 	disableoom();
+ 
+Only in nldev-0.3_git20160208/: nldev.o
