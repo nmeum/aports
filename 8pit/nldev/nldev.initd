@@ -10,7 +10,7 @@ depend() {
 	provide dev
 	need sysfs dev-mount
 	before checkfs fsck
-	keyword -lxc -systemd-nspawn -vserver
+	keyword -lxc -vserver
 }
 
 start_pre() {
@@ -18,10 +18,4 @@ start_pre() {
 		rm -f /dev/fd 2>/dev/null
 		ln -sf /proc/self/fd /dev/fd
 	fi
-}
-
-start_post() {
-	ebegin "Populating /dev with existing devices through uevents"
-	/usr/bin/nltrigger add all
-	eend $?
 }
