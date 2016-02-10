@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=nldev
 pkgver=0.3_git20160208
-pkgrel=3
+pkgrel=4
 verbase=0.3
 pkgdesc="A simple netlink device manager"
 url="http://git.r-36.net/nldev/"
@@ -17,6 +17,7 @@ source="http://files.8pit.net/alpine/distfiles/$pkgname-$pkgver.tar.gz
 	$pkgname.initd
 
 	increase-buffer.patch
+	preserve-path.patch
 	mdev-path.patch"
 
 disturl="lithium:/var/www/htdocs/files.8pit.net/alpine/distfiles/"
@@ -63,12 +64,15 @@ package() {
 md5sums="180f83ca7127c933df6b23470f4f00f4  nldev-0.3_git20160208.tar.gz
 b03761847f96b03a630eba4c27882137  nldev.initd
 05697c7f5073f2fb979499dd03cf5215  increase-buffer.patch
-2941964739082d3a7b9ef7780251c24e  mdev-path.patch"
+ab3393eddcb8c653d6150e5578e4a36b  preserve-path.patch
+d0ec31ac3d291d7407a93eb9937d4723  mdev-path.patch"
 sha256sums="5e361bf923b617dd68cc646acdebb83cc730027ac7f8b0dc40cc3a70c4f6915e  nldev-0.3_git20160208.tar.gz
 e19a26e7a6bf91be6744dda6579dfc5b80241543aa8014c4af64d02db475810d  nldev.initd
 5510964a91ce55e47ee9fc6054682bf000d06c4fffbb40ce92530c59fcc1a211  increase-buffer.patch
-ef2df9ae75c8d7426e385075ee6377ec575dbd4ec9c06ca95b98716318a493bf  mdev-path.patch"
+79163f03637dc2acae8eea52ae7b3fe17f5687f45a7a07bcb39c092768d511da  preserve-path.patch
+cc77fa2599b0b4e18e6307a21081bf4ffe2f0320c114cd2e44a0d2787e780701  mdev-path.patch"
 sha512sums="70d9243593030e40735b5d089654f80dce8f8f33f0eea677b30a165be2a78c029688cc05922347ee37538178e5f6302fc8787114d5f0e790ec3018b1d79a56fa  nldev-0.3_git20160208.tar.gz
 0cc2138d1e20743de176d0aa754d71f5ef9c6acff949308642e34a6822913a8bac6d5234ad8394f51f2eeca5201692a2bc84fc5c1b68eeebd358a023621b9efc  nldev.initd
 155eaaab6fa263280d91f1d8480eff605b2bde4873552f5b6de56d9dc1a9f06fdf452171f38349b80fb53a3817d51440b3f5e3b63e94ee847358d6698cba9aaf  increase-buffer.patch
-898a020aa0215ca46889a8d5f3eae761e6b3a3c98396c720e8a05bc456bddce52be90e8348858bde67b6deb938bda85282538c9f14353736e0018be92c0f42ff  mdev-path.patch"
+9040fb970c0c5109fa201298913d3fe854a6b69bda999bc72a03c1a521d3ab0a31327c11fa2893a75fefe5352c3a908dd8d81b6f3ff8b4583e3ffe303a458b26  preserve-path.patch
+f779f844fd4753f2dbb2474c5a2b2d90cc6288f9101f2e38b97add521bef8f0bb0abfa55fc75fa9004c7232fdef6a02ce9e19477d91ec7141bd51f59d2221489  mdev-path.patch"

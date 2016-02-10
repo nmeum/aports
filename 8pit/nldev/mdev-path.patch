@@ -1,6 +1,32 @@
-diff -upr nldev-0.3_git20160208.orig/nldev.c nldev-0.3_git20160208/nldev.c
---- nldev-0.3_git20160208.orig/nldev.c	2016-02-10 22:55:42.918936670 +0100
-+++ nldev-0.3_git20160208/nldev.c	2016-02-10 22:55:58.057382562 +0100
+From 9521d52c1bc2dccebfcae4041e49783961d583c3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
+Date: Wed, 10 Feb 2016 23:29:04 +0100
+Subject: [PATCH] Change the default mdev path to /sbin/mdev
+
+You can set it using the -r command line flag but I prefer it when
+things work out of the box (the flag is nice to have non the less).
+---
+ nldev.8 | 2 +-
+ nldev.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nldev.8 b/nldev.8
+index b1c18db..45c307b 100644
+--- a/nldev.8
++++ b/nldev.8
+@@ -56,7 +56,7 @@ Only show netlink messages from libudev.
+ .
+ .It Fl r Ar runpath
+ This option specifies the runpath for the helper that is launched
+-on every received netlink event (default: /bin/mdev).
++on every received netlink event (default: /sbin/mdev).
+ .El
+ .
+ .Sh AUTHORS
+diff --git a/nldev.c b/nldev.c
+index deabf10..a1d529a 100644
+--- a/nldev.c
++++ b/nldev.c
 @@ -201,7 +201,7 @@ main(int argc, char *argv[])
  	showkernel = 1;
  	showudev = 1;
@@ -8,5 +34,8 @@ diff -upr nldev-0.3_git20160208.orig/nldev.c nldev-0.3_git20160208/nldev.c
 -	runpath = "/bin/mdev";
 +	runpath = "/sbin/mdev";
  
- 	ARGBEGIN {
- 	case 'b':
+ 	origpath = getenv("PATH");
+ 	if (!origpath || strlen(origpath) <= 0)
+-- 
+2.7.1
+
