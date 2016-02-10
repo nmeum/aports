@@ -3,9 +3,7 @@ From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
 Date: Wed, 10 Feb 2016 23:26:23 +0100
 Subject: [PATCH] Preserve the PATH environment variable
 
-No idea why this wasn't done before but the kernel seems to be able to
-override it by sending PATH=<...> on the netlink socket, however, even
-the hardcoded default path would be overwritten in this case.
+No idea why this wasn't done before...
 ---
  nldev.c | 8 ++++++--
  1 file changed, 6 insertions(+), 2 deletions(-)
