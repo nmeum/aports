@@ -2,8 +2,9 @@
 
 name="$SVCNAME"
 command="/usr/bin/$SVCNAME"
-command_args="${NLDEV_OPTS:--k} -b"
+command_args="${NLDEV_OPTS:--k}"
 pidfile="/var/run/$SVCNAME.pid"
+command_background="yes"
 
 depend() {
 	provide dev
@@ -20,5 +21,7 @@ start_pre() {
 }
 
 start_post() {
-	/usr/bin/nltrigger &>/dev/null
+	ebegin "Populating /dev with existing devices through uevents"
+	/usr/bin/nltrigger add all
+	eend $?
 }
