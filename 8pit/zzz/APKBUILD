@@ -1,0 +1,30 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=zzz
+pkgver=20160211
+pkgrel=0
+pkgdesc="A really simple suspend script"
+url="https://github.com/nmeum/aports/blob/master/8pit/zzz/zzz.sh"
+arch="noarch"
+license="public-domain"
+depends=""
+depends_dev=""
+makedepends=""
+install=""
+subpackages="$pkgname-doc"
+source="$pkgname.sh $pkgname.8"
+
+package() {
+	cd "$srcdir"
+	install -Dm755 $pkgname.sh \
+		"$pkgdir"/usr/sbin/zzz || return 1
+	install -Dm644 $pkgname.8 \
+		"$pkgdir"/usr/share/man/man8/zzz.8 || return 1
+}
+
+md5sums="893c12e400bccc1e39e648f8d22283cb  zzz.sh
+68352c88d6c3983c723ffd976ad49ec4  zzz.8"
+sha256sums="8aaa8abc24c2a3fdc44e85aeeba66d6a5ffac3649b4e1e67bf678862952940a4  zzz.sh
+08f3eb9cfec54905e630a6d8b55b395fec729ee02ebe9e645665cda96f62cfdd  zzz.8"
+sha512sums="e1aa41569fe2bf90a25bef2b084d21e211ffecc7b9cb766fcfd990a5a4c1dce3648cb0214b15a03712f58260a49642f641be51fb88aceb1e8b46cd6cafddc9ff  zzz.sh
+c1d7121cf8caf56de22d94078f7da565cce0556e309331beefcb0217db0dd6973a06e7806417ae18b650b86962e6314cc74258705ddf92efd8c65dcb8cca9708  zzz.8"
