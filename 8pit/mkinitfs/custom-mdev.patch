@@ -1,6 +1,6 @@
 diff -upr mkinitfs-3.0.3.orig/features.d/base.files mkinitfs-3.0.3/features.d/base.files
---- mkinitfs-3.0.3.orig/features.d/base.files	2016-02-14 17:30:11.420166389 +0100
-+++ mkinitfs-3.0.3/features.d/base.files	2016-02-14 17:30:16.482952511 +0100
+--- mkinitfs-3.0.3.orig/features.d/base.files	2016-02-14 17:57:49.494318090 +0100
++++ mkinitfs-3.0.3/features.d/base.files	2016-02-14 17:57:52.457347240 +0100
 @@ -3,5 +3,4 @@
  /lib/mdev
  /sbin/apk
@@ -8,17 +8,19 @@ diff -upr mkinitfs-3.0.3.orig/features.d/base.files mkinitfs-3.0.3/features.d/ba
 -/etc/mdev.conf
  /sbin/nlplug-findfs
 diff -upr mkinitfs-3.0.3.orig/mkinitfs.in mkinitfs-3.0.3/mkinitfs.in
---- mkinitfs-3.0.3.orig/mkinitfs.in	2016-02-14 17:29:16.772739617 +0100
-+++ mkinitfs-3.0.3/mkinitfs.in	2016-02-14 17:29:19.125818618 +0100
-@@ -9,6 +9,7 @@ init="$datadir"/initramfs-init
+--- mkinitfs-3.0.3.orig/mkinitfs.in	2016-02-14 17:57:49.494318090 +0100
++++ mkinitfs-3.0.3/mkinitfs.in	2016-02-14 17:58:12.705268593 +0100
+@@ -9,6 +9,9 @@ init="$datadir"/initramfs-init
  fstab="$datadir"/fstab
  passwd="$datadir"/passwd
  group="$datadir"/group
 +mdev="$datadir"/mdev.conf
++
++[ -e "$mdev" ] || mdev=/etc/mdev.conf
  
  startdir=$PWD
  
-@@ -51,7 +52,7 @@ initfs_base() {
+@@ -51,7 +54,7 @@ initfs_base() {
  	# copy init
  	cd "$startdir"
  	install -m755 "$init" "$tmpdir"/init || return 1
