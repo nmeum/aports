@@ -1,7 +1,7 @@
 #!/sbin/openrc-run
 
 name="$SVCNAME"
-command="/usr/bin/$SVCNAME"
+command="/sbin/$SVCNAME"
 command_args="${NLDEV_OPTS:--k}"
 pidfile="/var/run/$SVCNAME.pid"
 command_background="yes"

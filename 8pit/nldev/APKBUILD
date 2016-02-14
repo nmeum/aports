@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=nldev
 pkgver=0.3_git20160208
-pkgrel=6
+pkgrel=7
 verbase=0.3
 pkgdesc="A simple netlink device manager"
 url="http://git.r-36.net/nldev/"
@@ -44,14 +44,25 @@ build() {
 
 package() {
 	cd "$_builddir"
-	make DESTDIR="$pkgdir" PREFIX=/usr install || return 1
+	make DESTDIR="$pkgdir" PREFIX=/ \
+		MANPREFIX=/usr/share/man install || return 1
+
+	# Move nldev to /sbin
+	mkdir -p "$pkgdir"/sbin/
+	mv "$pkgdir"/bin/$pkgname "$pkgdir"/sbin/ || return 1
+
+	# We don't need run_nldev, use the init script instead
+	rm -f "$pkgdir"/bin/run_$pkgname
+
+	# Install OpenRC service files
 	for service in ${pkgname} ${pkgname}-trigger; do
 		install -Dm755 "$srcdir"/$service.initd \
 			"$pkgdir"/etc/init.d/$service || return 1
 	done
-
-	# We don't need run_nldev, use the init script instead
-	rm -f "$pkgdir"/usr/bin/run_nldev
+	
+	# Install utility scripts
+	mkdir -p "$pkgdir"/lib/$pkgname || return 1
+	install -m755 mdev/lib/* "$pkgdir"/lib/$pkgname/ || return 1
 
 	# Install additional documentation
 	mkdir -p "$pkgdir"/usr/share/doc/$pkgname/examples/
@@ -64,20 +75,20 @@ package() {
 }
 
 md5sums="180f83ca7127c933df6b23470f4f00f4  nldev-0.3_git20160208.tar.gz
-738f7756bcb5d8ed6bcf626fada7bf4f  nldev.initd
-bbf33dcd8d62a507fd2d0386319014ae  nldev-trigger.initd
+cfd5fdea112868ef460cd34a60c8bb6a  nldev.initd
+f57e754d52f06529e82979db8bd3106e  nldev-trigger.initd
 05697c7f5073f2fb979499dd03cf5215  increase-buffer.patch
 9368bb6eff39d8cfd4f4d1d8b646e91c  preserve-path.patch
 d0ec31ac3d291d7407a93eb9937d4723  mdev-path.patch"
 sha256sums="5e361bf923b617dd68cc646acdebb83cc730027ac7f8b0dc40cc3a70c4f6915e  nldev-0.3_git20160208.tar.gz
-303884e1207f13a6c372cf7dfc244109b368068cd19ed8218a408f726848fe0a  nldev.initd
-29f4863f3836adaba071c714c7b51920220a4cbb350c71eb1e4849894181031d  nldev-trigger.initd
+5bf4054e53415221929973f8e2b96944a138a30091f20a24de94cd062a5fef3a  nldev.initd
+1ab6163a350a7c7e377f0e6ea9070c736c434c9a55c3ef28438af552effa1714  nldev-trigger.initd
 5510964a91ce55e47ee9fc6054682bf000d06c4fffbb40ce92530c59fcc1a211  increase-buffer.patch
 089717cece9b04149cf3c5e096fd98474a1599c97ebf2daa19eceb64cf8b785f  preserve-path.patch
 cc77fa2599b0b4e18e6307a21081bf4ffe2f0320c114cd2e44a0d2787e780701  mdev-path.patch"
 sha512sums="70d9243593030e40735b5d089654f80dce8f8f33f0eea677b30a165be2a78c029688cc05922347ee37538178e5f6302fc8787114d5f0e790ec3018b1d79a56fa  nldev-0.3_git20160208.tar.gz
-6b2831cd3b3192c55a7d2b1f009745715236947d3e21c839988714f58b102c51e6c6c25d2de5166e5b27b8f72a21aec6d695082104c99f51aebff0dbec2e36fc  nldev.initd
-11adafb91454416eae4a7c6ed246d1442bc88563b9467baa5d2ad9f18623901e21bd2b4dccfee640f343f070767bb33d128e0ba54829065dbb156ef72b97ff7f  nldev-trigger.initd
+022d596e2c598a0904721d042d6b33151c2df5ea5643ba6f8acec4993ce5ce47e68cd7ecfec1236dd68daa306ea6bcc386b4c28ab610ddac8acf7dc79606d17b  nldev.initd
+0e34e2db640bcfe7ba8b8e2a07a681906e7e6a2fe267f255a216c36e93db5096b7ed4865935ef448aabc8c4c130a786e555113d8ba90bed58f4ae3450890a1ea  nldev-trigger.initd
 155eaaab6fa263280d91f1d8480eff605b2bde4873552f5b6de56d9dc1a9f06fdf452171f38349b80fb53a3817d51440b3f5e3b63e94ee847358d6698cba9aaf  increase-buffer.patch
 141fc3e09d15174dc4c83c07f93549061a1a62d4b1d45d671d81097688d239b18fb0f6f51c0bf456dc7830381e884721d393124692126196a35dbbfa80f01538  preserve-path.patch
 f779f844fd4753f2dbb2474c5a2b2d90cc6288f9101f2e38b97add521bef8f0bb0abfa55fc75fa9004c7232fdef6a02ce9e19477d91ec7141bd51f59d2221489  mdev-path.patch"

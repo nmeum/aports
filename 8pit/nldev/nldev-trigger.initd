@@ -8,6 +8,6 @@ depend() {
 
 start() {
 	ebegin "Populating /dev with existing devices through uevents"
-	/usr/bin/nltrigger add all
+	/bin/nltrigger add all
 	eend $?
 }
