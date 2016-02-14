@@ -1,0 +1,48 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=mkinitfs
+pkgver=3.0.3
+_ver=${pkgver%_git*}
+pkgrel=1
+pkgdesc="Tool to generate initramfs images for Alpine"
+url="http://git.alpinelinux.org/cgit/mkinitfs"
+makedepends="kmod-dev util-linux-dev cryptsetup-dev linux-headers"
+depends="acct busybox apk-tools>=2.0 lddtree>=1.25"
+install="$pkgname.pre-upgrade $pkgname.post-install $pkgname.post-upgrade"
+triggers="$pkgname.trigger=/usr/share/kernel/*"
+source="http://dev.alpinelinux.org/archive/$pkgname/$pkgname-$_ver.tar.xz
+	custom-mdev.patch"
+arch="all"
+license="GPL2"
+
+_builddir="$srcdir"/$pkgname-$_ver
+prepare() {
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch)
+			msg $i; patch -p1 -i "$srcdir"/$i || return 1
+			;;
+		esac
+	done
+}
+
+build() {
+	cd "$_builddir"
+	make VERSION=$pkgver-r$pkgrel || return 1
+}
+
+package() {
+	cd "$_builddir"
+	make install DESTDIR="$pkgdir" || return 1
+
+	# Use system mdev by default
+	ln -s /etc/mdev.conf \
+		"$pkgdir"/usr/share/$pkgname/mdev.conf || return 1
+}
+
+md5sums="3bd3f1ecf741edd1383b3ea2a1a1e535  mkinitfs-3.0.3.tar.xz
+1c47a42ea5a7504d6bd964fee49e0bed  custom-mdev.patch"
+sha256sums="42f6681e45e6655b25b8e3fdcb6ba75d38dc65d968cd2b2d33e57542aca23c6e  mkinitfs-3.0.3.tar.xz
+45a787e98bb48fb0dc6f76478073a9254235b7eff8130db16acf5cb264b8f462  custom-mdev.patch"
+sha512sums="3ab240c6fe5c44310da91933865fca0c6fdb1a0a54a4af1d33e9a5e1f682b7b2d5b55cd967899edbd5f99e5d76602df0410fc6d3a1dceb154f9bcb6e1b05b462  mkinitfs-3.0.3.tar.xz
+8060f194829d3396c76e539cf5f437c380143bfc3d447e2dffd25dffe18db6aa8a24c0f0211c2bc718bea101d6a8bd10af9095b5465705e081a0210f329a3ebe  custom-mdev.patch"

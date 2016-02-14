@@ -1,0 +1,29 @@
+diff -upr mkinitfs-3.0.3.orig/features.d/base.files mkinitfs-3.0.3/features.d/base.files
+--- mkinitfs-3.0.3.orig/features.d/base.files	2016-02-14 17:30:11.420166389 +0100
++++ mkinitfs-3.0.3/features.d/base.files	2016-02-14 17:30:16.482952511 +0100
+@@ -3,5 +3,4 @@
+ /lib/mdev
+ /sbin/apk
+ /etc/modprobe.d/*.conf
+-/etc/mdev.conf
+ /sbin/nlplug-findfs
+diff -upr mkinitfs-3.0.3.orig/mkinitfs.in mkinitfs-3.0.3/mkinitfs.in
+--- mkinitfs-3.0.3.orig/mkinitfs.in	2016-02-14 17:29:16.772739617 +0100
++++ mkinitfs-3.0.3/mkinitfs.in	2016-02-14 17:29:19.125818618 +0100
+@@ -9,6 +9,7 @@ init="$datadir"/initramfs-init
+ fstab="$datadir"/fstab
+ passwd="$datadir"/passwd
+ group="$datadir"/group
++mdev="$datadir"/mdev.conf
+ 
+ startdir=$PWD
+ 
+@@ -51,7 +52,7 @@ initfs_base() {
+ 	# copy init
+ 	cd "$startdir"
+ 	install -m755 "$init" "$tmpdir"/init || return 1
+-	for i in "$fstab" "$passwd" "$group"; do
++	for i in "$fstab" "$passwd" "$group" "$mdev"; do
+ 		install -Dm644 "$i" "$tmpdir"/etc/${i##*/} || return 1
+ 	done
+ 	cd "$oldpwd"
