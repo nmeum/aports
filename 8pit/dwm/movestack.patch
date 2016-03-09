@@ -1,0 +1,56 @@
+diff -rup dwm-6.0-orig/dwm.c dwm-6.0/dwm.c
+--- dwm-6.0-orig/dwm.c	2012-09-28 11:10:24.301490752 +0200
++++ dwm-6.0/dwm.c	2013-03-13 15:32:53.566039228 +0100
+@@ -45,7 +45,7 @@
+ #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
+ #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
+                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
+-#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
++#define ISVISIBLE(C)            ((C)->tags & (C)->mon->tagset[(C)->mon->seltags])
+ #define LENGTH(X)               (sizeof X / sizeof X[0])
+ #define MAX(A, B)               ((A) > (B) ? (A) : (B))
+ #define MIN(A, B)               ((A) < (B) ? (A) : (B))
+@@ -202,6 +202,7 @@ static void maprequest(XEvent *e);
+ static void monocle(Monitor *m);
+ static void motionnotify(XEvent *e);
+ static void movemouse(const Arg *arg);
++static void movestack(const Arg *arg);
+ static Client *nexttiled(Client *c);
+ static void pop(Client *);
+ static void propertynotify(XEvent *e);
+@@ -1273,6 +1274,35 @@ movemouse(const Arg *arg) {
+ 	}
+ }
+ 
++void
++movestack(const Arg *arg) {
++	Client **c, **at = NULL, **lt = NULL, **to = NULL;
++
++	if(!selmon->sel || selmon->sel->isfloating)
++		return;
++	for(c = &selmon->clients; *c; c = &(*c)->next) {
++		if(*c == selmon->sel)
++			at = c;
++		else if(ISVISIBLE(*c) && !(*c)->isfloating) {
++			lt = c;
++			if(arg->i < 0 && !at)
++				to = c;
++			if(arg->i > 0 && at && !to)
++				to = &(*c)->next;
++		}
++	}
++	if(!lt)
++		/* no other client tiled */
++	  return;
++	if(!to)
++		/* wrap around */
++	  to = arg->i > 0 ? &selmon->clients : &(*lt)->next;
++	*at = selmon->sel->next;
++	selmon->sel->next = *to;
++	*to = selmon->sel;
++	arrange(selmon);
++}
++
+ Client *
+ nexttiled(Client *c) {
+ 	for(; c && (c->isfloating || !ISVISIBLE(c)); c = c->next);

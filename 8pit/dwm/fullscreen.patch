@@ -1,0 +1,39 @@
+diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
+--- dwm-6.1.orig/dwm.c	2015-11-09 12:05:23.088598473 +0100
++++ dwm-6.1/dwm.c	2015-11-09 12:10:44.217513469 +0100
+@@ -211,6 +211,7 @@ static void tagmon(const Arg *arg);
+ static void tile(Monitor *);
+ static void togglebar(const Arg *arg);
+ static void togglefloating(const Arg *arg);
++static void togglefullscrn(const Arg *arg);
+ static void toggletag(const Arg *arg);
+ static void toggleview(const Arg *arg);
+ static void unfocus(Client *c, int setfocus);
+@@ -847,7 +848,7 @@ focusstack(const Arg *arg)
+ {
+ 	Client *c = NULL, *i;
+ 
+-	if (!selmon->sel)
++	if(!selmon->sel || selmon->sel->isfullscreen)
+ 		return;
+ 	if (arg->i > 0) {
+ 		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+@@ -1713,6 +1714,18 @@ togglefloating(const Arg *arg)
+ }
+ 
+ void
++togglefullscrn(const Arg *arg) {
++	Client *c = selmon->sel;
++	if (!c)
++		return;
++
++	setfullscreen(c, !c->isfullscreen);
++	if (c->isfullscreen) {
++		c->isfloating = False;
++	}
++}
++
++void
+ toggletag(const Arg *arg)
+ {
+ 	unsigned int newtags;
