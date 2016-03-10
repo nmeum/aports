@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
 pkgver=6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
@@ -13,7 +13,6 @@ makedepends="libxft-dev libx11-dev libxinerama-dev"
 install=""
 subpackages="$pkgname-doc"
 source="http://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
-	freetypeinc.patch
 	XF86keysym.patch
 	layout-symbol.patch
 	movestack.patch
@@ -22,20 +21,15 @@ source="http://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
 
 _builddir="$srcdir"/$pkgname-$pkgver
 prepare() {
-	local i
-	cd "$_builddir"
-	for i in $source; do
-		case $i in
-		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
-		esac
-	done
-
-	# Copy our configuration file to the build directory
+	default_prepare
 	cp "$srcdir"/config.h "$_builddir"/config.h || return 1
 }
 
 build() {
-	make -C "$_builddir" || return 1
+	make X11INC=/usr/include/X11 \
+		X11LIB=/usr/lib/X11 \
+		FREETYPEINC=/usr/include/freetype2 \
+		-C "$_builddir" || return 1
 }
 
 package() {
@@ -44,21 +38,18 @@ package() {
 }
 
 md5sums="f0b6b1093b7207f89c2a90b848c008ec  dwm-6.1.tar.gz
-a5ff4aa30011dfe8b0ab7d6b35a8b6eb  freetypeinc.patch
 73859894229db398858da6ec4e2099c7  XF86keysym.patch
 f6f5bbd79a265ea05d30bdca5995d7bc  layout-symbol.patch
 5128947c8a0c3cec471c74b9061d2f60  movestack.patch
 8cc43ad4358cedc25d6232255b13f6a2  fullscreen.patch
 b1c523017d990eecc3a6e6be968058d9  config.h"
 sha256sums="c2f6c56167f0acdbe3dc37cca9c1a19260c040f2d4800e3529a21ad7cce275fe  dwm-6.1.tar.gz
-09cad929338b4caf32a7c77fa46dd6d968019e928f010c2f61a172069cccc2be  freetypeinc.patch
 35a5710617324aea720a86bf975a6ee352c5c1a3760b4a5aa5a4b1cce31a1041  XF86keysym.patch
 945a2f3272b75e245cf30febbb9a0c296af12982dc8ad200459b66cf7d18f4c1  layout-symbol.patch
 8bf0657c344aa4b6d13a64f02a210e35089bbd62db605b9e26df428c6acb00e5  movestack.patch
 bc092ec53416609ae88dae57523877b5e5f178899bb26f11ab6587d5600418db  fullscreen.patch
 ca3cfdb7a8efee5b88bfc8578bff85a3f44f552ba5e2eab2ea4f6a9e9de9d9c4  config.h"
 sha512sums="875644bbc246088f2c87e50debbadd4bc179444b396b1b327149087e8bc5303325ebc9103a7e3c864266ee1ac683ea3cd8f0a08285c8e46fc4389d5b83a555f1  dwm-6.1.tar.gz
-6705591b265120536071490d42f31a830431ad1c74a70d36f1dba4d0aa27a96338516d19507b092c2989d3116f2219fb0849e9fb3cb84c8f1db82350f8ca0adf  freetypeinc.patch
 236058497dcedbcd490ca79739ce0ce7b96fc7369394486a9809c478b07b54f56b3e49e8201017ab45d4c406ae80771bbc03a27943f15bd52ad373b4da4b200c  XF86keysym.patch
 736040150d354d7c211c07d802bec6ffe517b73c12a7c7ed89d5ffa7ab910a0a036fcf10dbf005afdb1d74c69b26ce8be49537142dc438f3ce9c1359510cea68  layout-symbol.patch
 1faa8639d8a5a8385108a0543f47cf720933833bad6aaa5d2612eed3c86fd6036a1acd05e7eb8b0b5e18cafbdabe256100fbde43f371455182f5d62b0203a068  movestack.patch
