@@ -1,6 +1,6 @@
 diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
---- dwm-6.1.orig/dwm.c	2015-11-09 12:05:23.088598473 +0100
-+++ dwm-6.1/dwm.c	2015-11-09 12:10:44.217513469 +0100
+--- dwm-6.1.orig/dwm.c	2016-03-10 16:30:38.944094516 +0100
++++ dwm-6.1/dwm.c	2016-03-10 16:31:38.990573405 +0100
 @@ -211,6 +211,7 @@ static void tagmon(const Arg *arg);
  static void tile(Monitor *);
  static void togglebar(const Arg *arg);
@@ -37,3 +37,14 @@ diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
  toggletag(const Arg *arg)
  {
  	unsigned int newtags;
+@@ -2031,6 +2044,10 @@ updatewmhints(Client *c)
+ void
+ view(const Arg *arg)
+ {
++	Client *c;
++	if ((c = selmon->sel) && c->isfullscreen)
++		togglefullscrn(arg);
++
+ 	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
+ 		return;
+ 	selmon->seltags ^= 1; /* toggle sel tagset */
