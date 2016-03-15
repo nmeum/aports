@@ -1,0 +1,40 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=dwm-status
+pkgver=20160315
+pkgrel=0
+pkgdesc="Yet another stupid dwm status tool"
+url="https://github.com/nmeum/dwm-status"
+arch="all"
+license="WTFPL"
+depends=""
+depends_dev=""
+makedepends="tinyalsa-dev libx11-dev"
+install=""
+subpackages=""
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/$pkgname/archive/$pkgver.tar.gz
+	config.h"
+
+_builddir="$srcdir"/$pkgname-$pkgver
+prepare() {
+	# Copy our custom configuration file.
+	cp "$srcdir"/config.h "$_builddir"/config.h || return 1
+}
+
+build() {
+	make X11INC=/usr/include/X11 \
+		X11LIB=/usr/lib/X11 \
+		-C "$_builddir" || return 1
+}
+
+package() {
+	install -Dm755 "$_builddir"/$pkgname \
+		"$pkgdir"/usr/bin/$pkgname || return 1
+}
+
+md5sums="d15f106fa753bbd9193e9c21519dbea4  dwm-status-20160315.tar.gz
+e77601c96c25a835b715faf1b28c2cea  config.h"
+sha256sums="8738d410bc03e13e1809cfa3c69e86c4392a7efabc64345da21415315c6be18b  dwm-status-20160315.tar.gz
+aca44241ffc080b23d549de0bb00c44e0fd6589ea9ed700d59311cd62e99f6e9  config.h"
+sha512sums="3ce713fdcb2d43bc1a64ba122d470323b537eb9563c8e06bf9cb1ef484386706e89284a485847adc1651d870900ef2869c2d8d447428af7732d1ab04fb3b2e71  dwm-status-20160315.tar.gz
+01a43dd99c4bd18f5208fa88d97a953fa8911b04ce8c8af7eb77debd92069ac373453ce72bba1c7c10dd853104165d8b8ca2d654fa8e7d77efbf303cb80c789c  config.h"
