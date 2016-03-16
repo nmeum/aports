@@ -20,7 +20,7 @@ static const char* ctlname = "Master";
 
 /* Only use batcap function if the device has a battery. */
 static char *batcapmay(void) {
-	if (access(".hushlogin", F_OK))
+	if (access(sysbat, F_OK))
 		return NULL;
 	else
 		return batcap();
