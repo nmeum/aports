@@ -15,26 +15,26 @@ subpackages=""
 source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/$pkgname/archive/$pkgver.tar.gz
 	config.h"
 
-_builddir="$srcdir"/$pkgname-$pkgver
+builddir="$srcdir"/$pkgname-$pkgver
 prepare() {
 	# Copy our custom configuration file.
-	cp "$srcdir"/config.h "$_builddir"/config.h || return 1
+	cp "$srcdir"/config.h "$builddir"/config.h || return 1
 }
 
 build() {
 	make X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11 \
-		-C "$_builddir" || return 1
+		-C "$builddir" || return 1
 }
 
 package() {
-	install -Dm755 "$_builddir"/$pkgname \
+	install -Dm755 "$builddir"/$pkgname \
 		"$pkgdir"/usr/bin/$pkgname || return 1
 }
 
-md5sums="a87bc5b5c13a88f3e542847eb2955b61  dwm-status-20160525.tar.gz
+md5sums="0533acdf3e9f8a7396913d62edae9180  dwm-status-20160525.tar.gz
 cd7a64e1f7a826855d6b566fe0c2a7d4  config.h"
-sha256sums="d4b608599433ba59580b87636a3f16be06fabdaa9ca2c29ff2dcb9ccdde19581  dwm-status-20160525.tar.gz
+sha256sums="d4c0a5e3a1c2b420237d6047321871c0e8fc10bdc920a198b0522ea00a6bc863  dwm-status-20160525.tar.gz
 6c710ea23da685f17ee6ca556d7a546ebcdbdc3835286803c121bd9e70ee73ee  config.h"
-sha512sums="96df1c2395ba83283db63754428403cc4f0994b457504ef9dff121fc084676fcb7f7a3cf426abdc82d47a15ff3b479ea88348adb04fb14de8375c6b899d25c6f  dwm-status-20160525.tar.gz
+sha512sums="306e7062fb7a5cd645c6088aeb6afdd0dc29fa85a303997e34d5a6c8410c71c3310de94d04b0a4c866057a3b8d0c100d88902cefc2bb4e6e109d967e92224461  dwm-status-20160525.tar.gz
 050c6e8c976bc3584cada878206dcf3be90696e17373d6010fe3639ddf8dc452632524e101e44432de16b66105c5a417d6e0d7fb0e24ccee592bd6c1f085758f  config.h"
