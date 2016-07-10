@@ -48,7 +48,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* commands */
-static const char *termcmd[] = { "urxvtc", NULL };
+static const char *termcmd[] = { "st", NULL };
 static const char *lockcmd[] = { "physlock", NULL };
 
 /* dmenu configuration */
