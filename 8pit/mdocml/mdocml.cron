@@ -10,5 +10,4 @@ for file in /usr/local/share/man/*; do
 	fi
 done
 
-echo $path
-#exec /usr/sbin/makewhatis -a -T utf8 "${path}"
+exec /usr/sbin/makewhatis -a -T utf8 "${path}"
