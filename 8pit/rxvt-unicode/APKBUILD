@@ -41,20 +41,21 @@ build() {
 		--enable-startup-notification \
 		--enable-text-blink \
 		--enable-xft \
-		--disable-rxvt-scroll \
-		--disable-next-scroll \
-		--disable-xterm-scroll \
 		--disable-fading \
+		--disable-iso14755 \
 		--disable-lastlog \
 		--disable-mousewheel \
+		--disable-next-scroll \
 		--disable-perl \
 		--disable-pixbuf \
+		--disable-rxvt-scroll \
 		--disable-selectionscrolling \
 		--disable-smart-resize \
 		--disable-transparency \
 		--disable-utmp \
 		--disable-wtmp \
 		--disable-xim \
+		--disable-xterm-scroll \
 		|| return 1
 	make || return 1
 }
