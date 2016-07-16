@@ -41,6 +41,9 @@ build() {
 		--enable-startup-notification \
 		--enable-text-blink \
 		--enable-xft \
+		--disable-rxvt-scroll \
+		--disable-next-scroll \
+		--disable-xterm-scroll \
 		--disable-fading \
 		--disable-lastlog \
 		--disable-mousewheel \
