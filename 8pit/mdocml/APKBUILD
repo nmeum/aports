@@ -32,6 +32,7 @@ PREFIX=/usr
 MANDIR=/usr/share/man
 LIBDIR=/usr/lib
 CFLAGS="$CFLAGS"
+HAVE_SQLITE3=1
 EOF
 }
 
