@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=tinyalsa
-pkgver=20160314
-_commit="9bad3fa00f3080906566c6b3acd14513d1ae4afd"
+pkgver=20160724
+_commit="b47a014f1460ffd6479fd8306c679475b03f27f1"
 pkgrel=0
 pkgdesc="Tiny library to interface with ALSA in the Linux kernel"
 url="https://github.com/tinyalsa/tinyalsa"
@@ -39,6 +39,6 @@ utils() {
 		"$subpkgdir"/usr/bin/ || return 1
 }
 
-md5sums="0d6df90e9079c89c6a633a6dae52d591  tinyalsa-tinyalsa.tar.gz"
-sha256sums="cf9809ffb207203b6fbee44a3b6eef25180fe26607197a46810c679feeb7e940  tinyalsa-tinyalsa.tar.gz"
-sha512sums="11223a4e6cc3a85269744a4487ee3d9bca0a6f670ebf51f6586a9f0142052695896f16a6c4968d31aa96449f67d78512536a3387a1f9afce78af4cdd709c3c06  tinyalsa-tinyalsa.tar.gz"
+md5sums="a43e50a74f137c161e6e462c2a1e4298  tinyalsa-tinyalsa.tar.gz"
+sha256sums="db9f0163068d7d1cdb4edf2edeaed756b2f7e1e35d3eddf449c6228e37f74bd5  tinyalsa-tinyalsa.tar.gz"
+sha512sums="5155a8a13287033a9a8d905e12ec45a5193fc94cc4c586b7a609cfb8378c9db5b6871570c9cee0a6194cf582e832edf315f72fbe5080788ad2e1e945ebe608e6  tinyalsa-tinyalsa.tar.gz"
