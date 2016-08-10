@@ -1,0 +1,14 @@
+diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
+--- dwm-6.1.orig/dwm.c	2016-08-10 22:10:05.903022512 +0200
++++ dwm-6.1/dwm.c	2016-08-10 22:10:36.442881169 +0200
+@@ -1155,9 +1155,7 @@ movemouse(const Arg *arg)
+ 	XEvent ev;
+ 	Time lasttime = 0;
+ 
+-	if (!(c = selmon->sel))
+-		return;
+-	if (c->isfullscreen) /* no support moving fullscreen windows by mouse */
++	if (!(c = selmon->sel) || !c->isfloating)
+ 		return;
+ 	restack(selmon);
+ 	ocx = c->x;
