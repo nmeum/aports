@@ -51,7 +51,7 @@ if [ ! -x "${ACHROOT}" ]; then
 	exit 1
 fi
 
-local keepflag=0
+keepflag=0
 while getopts a:r:bk flag; do
 	case "${flag}" in
 		a) ARCHES="$(listify "${OPTARG}")" ;;
@@ -67,7 +67,7 @@ if [ $# -le 0 ]; then
 	exit 1
 fi
 
-local file=
+file=
 for file in "${@}"; do
 	[ -r "${file}/APKBUILD" ] || continue
 	(cd "${file}" && foreach build)
