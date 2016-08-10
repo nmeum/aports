@@ -1,0 +1,44 @@
+From a4e9f10fa8a02355aaa9416254bc4f388eea7e50 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
+Date: Wed, 10 Aug 2016 19:21:52 +0200
+Subject: [PATCH 16/16] syslogd: always set msg timestamp in syslogd
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Sören Tempel <soeren+git@soeren-tempel.net>
+---
+ sysklogd/syslogd.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
+
+diff --git a/sysklogd/syslogd.c b/sysklogd/syslogd.c
+index a119bde..77680eb 100644
+--- a/sysklogd/syslogd.c
++++ b/sysklogd/syslogd.c
+@@ -816,18 +816,14 @@ static void timestamp_and_log(int pri, char *msg, int len)
+ 	char *timestamp;
+ 	time_t now;
+ 
++	time(&now);
++	timestamp = ctime(&now) + 4; /* skip day of week */
++
+ 	/* Jan 18 00:11:22 msg... */
+ 	/* 01234567890123456 */
+-	if (len < 16 || msg[3] != ' ' || msg[6] != ' '
+-	 || msg[9] != ':' || msg[12] != ':' || msg[15] != ' '
+-	) {
+-		time(&now);
+-		timestamp = ctime(&now) + 4; /* skip day of week */
+-	} else {
+-		now = 0;
+-		timestamp = msg;
++	if (len >= 16 && msg[3] == ' '  && msg[6] == ' '
++	 && msg[9] == ':' && msg[12] == ':' && msg[15] == ' ')
+ 		msg += 16;
+-	}
+ 	timestamp[15] = '\0';
+ 
+ 	if (option_mask32 & OPT_kmsg) {
+-- 
+2.9.1
+
