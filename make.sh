@@ -1,5 +1,4 @@
 #!/bin/sh
-# achroot can be found here <https://gist.github.com/nmeum/68d3256d0261aae1ed65>.
 
 ##
 # Default values
