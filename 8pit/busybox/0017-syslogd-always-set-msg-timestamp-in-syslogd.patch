@@ -1,7 +1,7 @@
-From a4e9f10fa8a02355aaa9416254bc4f388eea7e50 Mon Sep 17 00:00:00 2001
+From a4d274d1fc40e5a72eae875c0ea34943578159f5 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
 Date: Wed, 10 Aug 2016 19:21:52 +0200
-Subject: [PATCH 16/16] syslogd: always set msg timestamp in syslogd
+Subject: [PATCH 17/17] syslogd: always set msg timestamp in syslogd
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
