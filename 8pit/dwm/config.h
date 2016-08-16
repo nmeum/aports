@@ -49,7 +49,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *termcmd[] = { "urxvtc", NULL };
-static const char *lockcmd[] = { "physlock", NULL };
+static const char *lockcmd[] = { "slock", NULL };
 
 /* dmenu configuration */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
