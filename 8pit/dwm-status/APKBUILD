@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm-status
-pkgver=20160525
+pkgver=20160817
 pkgrel=0
 pkgdesc="Yet another stupid dwm status tool"
 url="https://github.com/nmeum/dwm-status"
@@ -32,9 +32,9 @@ package() {
 		"$pkgdir"/usr/bin/$pkgname || return 1
 }
 
-md5sums="0533acdf3e9f8a7396913d62edae9180  dwm-status-20160525.tar.gz
+md5sums="95501c9279d9d1c5e5cf28f2328de933  dwm-status-20160817.tar.gz
 cd7a64e1f7a826855d6b566fe0c2a7d4  config.h"
-sha256sums="d4c0a5e3a1c2b420237d6047321871c0e8fc10bdc920a198b0522ea00a6bc863  dwm-status-20160525.tar.gz
+sha256sums="f91336f97413895e52badcce4c741249f043734c396286b6612271d1f2c8fa0f  dwm-status-20160817.tar.gz
 6c710ea23da685f17ee6ca556d7a546ebcdbdc3835286803c121bd9e70ee73ee  config.h"
-sha512sums="306e7062fb7a5cd645c6088aeb6afdd0dc29fa85a303997e34d5a6c8410c71c3310de94d04b0a4c866057a3b8d0c100d88902cefc2bb4e6e109d967e92224461  dwm-status-20160525.tar.gz
+sha512sums="9f955708e6b070947d6693561e38161e07e033cd41c07f4aabd0e506c495e3dd312b00ccf4205e61ddb6985a48a0299d8842bbc584116eac7db1d9e0985be53c  dwm-status-20160817.tar.gz
 050c6e8c976bc3584cada878206dcf3be90696e17373d6010fe3639ddf8dc452632524e101e44432de16b66105c5a417d6e0d7fb0e24ccee592bd6c1f085758f  config.h"
