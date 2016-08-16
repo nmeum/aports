@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=tinyalsa
-pkgver=20160724
-_commit="b47a014f1460ffd6479fd8306c679475b03f27f1"
+pkgver=20160817
+_commit="bb402603a9d5c83c91639624c5c3cb122d4c6132"
 pkgrel=0
 pkgdesc="Tiny library to interface with ALSA in the Linux kernel"
 url="https://github.com/tinyalsa/tinyalsa"
@@ -13,15 +13,16 @@ depends_dev=""
 makedepends="$depends_dev linux-headers"
 install=""
 subpackages="$pkgname-dev $pkgname-utils"
-source="$pkgname-$pkgname.tar.gz::https://github.com/$pkgname/$pkgname/archive/${_commit}.tar.gz"
+source="$pkgname-$pkgname.tar.gz::https://github.com/$pkgname/$pkgname/archive/${_commit}.tar.gz
+	int_to_percent.patch"
 
-_builddir="$srcdir"/$pkgname-$_commit
+builddir="$srcdir"/$pkgname-$_commit
 build() {
-	make -C "$_builddir" || return 1
+	make -C "$builddir" || return 1
 }
 
 package() {
-	cd "$_builddir"
+	cd "$builddir"
 	mkdir -p "$pkgdir"/usr/lib/ "$pkgdir"/usr/include
 
 	cp -r include/tinyalsa/ "$pkgdir"/usr/include || return 1
@@ -33,12 +34,15 @@ utils() {
 	pkgdesc="$pkgdesc (tools)"
 	depends=""
 
-	cd "$_builddir"
+	cd "$builddir"
 	mkdir -p "$subpkgdir"/usr/bin/
 	install -Dm755 tinyplay tinycap tinymix tinypcminfo \
 		"$subpkgdir"/usr/bin/ || return 1
 }
 
-md5sums="a43e50a74f137c161e6e462c2a1e4298  tinyalsa-tinyalsa.tar.gz"
-sha256sums="db9f0163068d7d1cdb4edf2edeaed756b2f7e1e35d3eddf449c6228e37f74bd5  tinyalsa-tinyalsa.tar.gz"
-sha512sums="5155a8a13287033a9a8d905e12ec45a5193fc94cc4c586b7a609cfb8378c9db5b6871570c9cee0a6194cf582e832edf315f72fbe5080788ad2e1e945ebe608e6  tinyalsa-tinyalsa.tar.gz"
+md5sums="743310845e55c5d2eb3555ed9919fb81  tinyalsa-tinyalsa.tar.gz
+95c797ae183fe1f379b3be59007e6eb3  int_to_percent.patch"
+sha256sums="a70057f92ac22c35973019a4310aa3a12e2ba766ae3c1497bf10b90f575e2ba7  tinyalsa-tinyalsa.tar.gz
+d354456e3038a7e3a2f15371ec698fd338f2a27a07200a0718fcf6b418708267  int_to_percent.patch"
+sha512sums="e57b08bfa8961d911d9ac404bcfa2ee3a7ca0064295abc4c451f2c54209b2e3b837c37d393d76cd360b942806b1d93d0bef2fd759ea1e3ce57338e54f92b232e  tinyalsa-tinyalsa.tar.gz
+b5b0538749dc74ff45e017a37c4947d51d20e5dc9124e26cee65f1a972f1e9f13f535ca4c4b9e5d89c4923ecf1b4b93db28d43a4f33d8119a815382079206cb7  int_to_percent.patch"

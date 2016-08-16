@@ -1,0 +1,12 @@
+diff -upr a/mixer.c b/mixer.c
+--- a/mixer.c	2016-08-03 16:15:46.000000000 +0200
++++ b/mixer.c	2016-08-17 01:32:41.232740128 +0200
+@@ -285,7 +285,7 @@ static int int_to_percent(struct snd_ctl
+     if (range == 0)
+         return 0;
+ 
+-    return ((value - ei->value.integer.min) / range) * 100;
++    return (((value - ei->value.integer.min) * 100) / range);
+ }
+ 
+ int mixer_ctl_get_percent(struct mixer_ctl *ctl, unsigned int id)
