@@ -15,6 +15,7 @@ options="suid"
 subpackages="$pkgname-doc"
 source="http://dl.suckless.org/tools/$pkgname-$pkgver.tar.gz
 	0001-clear-passwords-with-explicit_bzero.patch
+	0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
 	config.h"
 
 builddir="$srcdir/$pkgname-$pkgver"
@@ -40,10 +41,13 @@ package() {
 
 md5sums="825aaeccba9b3b3c1f3d249d47c1396a  slock-1.3.tar.gz
 ca1f6e27e0b86101964c3a0d196d6520  0001-clear-passwords-with-explicit_bzero.patch
-b8d762d8dd81bfb72a7d658c3cce0985  config.h"
+37e2d3ff75df122a2a2afb145e0b325f  0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+56726736802c667cecc072a0bcd1bba5  config.h"
 sha256sums="bab4a3aea4046aa0fd0361c3649b79b90ca531bc5dfae3c4a6c0fe436152bd18  slock-1.3.tar.gz
 4ed77e1955536f4d9cbb104a197a129f1abf0686088cff299ee72537eea56905  0001-clear-passwords-with-explicit_bzero.patch
-c9482066775afc37fb1df15a14534985ca2aff973ca38facf808343c468e85a6  config.h"
+c1b6f53836ef76b9f512edbdf34773db41c0d153aba851b05f4df4059bf1e4ed  0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+288101a2936899a64ce834538b0b751349d39d059b83929254e071ca37fe44c2  config.h"
 sha512sums="5024588f6d25f9d72a9d2b8ef9d8a2a94e5d5e53f30f4a15df83b693a3706b1ad6550422f36af29f54429a9c516d14a349e46aeb9896c6e32009ff0da5c02a8f  slock-1.3.tar.gz
 3b7f03c135694de6aa145587ec272ed21047c2a51e448011cb51ad447a39973a7ec9d760f42aca4dc0d22904b78b2668ffeab4c0a9d24cd6b6af88bb95cdaf38  0001-clear-passwords-with-explicit_bzero.patch
-17ca26d12a4cd50b1424f26439a539b78850fd8f9de71b4ad73d8345603b8428360c852d4773cc2a04e0ae98b5b22f9e4e82c3dd792c1218dbacd812bee8e017  config.h"
+9a00d89280b036c7d56a3f570bae147ce949b93d1abda10e772e45f52e96c02f931e426098060c99b4ae68d88e46f38f4eefe9c66c980aa1b8190ad9a31609de  0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+c537129ccfad4ae4cf266e38502f3a7851d159e561ffe6b898d844c0d66760eff379b34e79520baa5358231c89f4344175ca962cd3fd82cf6518f3ab42af4850  config.h"
