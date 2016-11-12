@@ -12,7 +12,7 @@ depends=""
 depends_dev=""
 makedepends="$depends_dev linux-headers"
 install=""
-subpackages="$pkgname-dev $pkgname-doc $pkgname-utils"
+subpackages="$pkgname-libs $pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgname.tar.gz::https://github.com/$pkgname/$pkgname/archive/${_commit}.tar.gz"
 
 builddir="$srcdir"/$pkgname-$_commit
@@ -25,15 +25,12 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-utils() {
-	pkgdesc="$pkgdesc (utils)"
-	depends=""
+libs() {
+	default_libs
 
-	mkdir -p "$subpkgdir"/usr/bin/
-	for util in tinyplay tinycap tinymix tinypcminfo; do
-		mv "$pkgdir"/usr/bin/$util \
-			"$subpkgdir"/usr/bin/ || return 1
-	done
+	mkdir -p "$subpkgdir"/usr/lib/
+	mv "$pkgdir"/usr/lib/libtinyalsa.so \
+		"$subpkgdir"/usr/lib/ || return 1
 }
 
 md5sums="6d63e7281173c15070d610c0def76cb3  tinyalsa-tinyalsa.tar.gz"
