@@ -1,0 +1,17 @@
+Written by Bert Münnich.
+
+diff --git a/dwm.c b/dwm.c
+index b2bc9bd..1802798 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1206,9 +1206,8 @@ movemouse(const Arg *arg)
+ 	} while (ev.type != ButtonRelease);
+ 	XUngrabPointer(dpy, CurrentTime);
+ 	if ((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
+-		sendmon(c, m);
+ 		selmon = m;
+-		focus(NULL);
++		sendmon(c, m);
+ 	}
+ }
+ 
