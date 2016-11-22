@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=slock
-pkgver=1.3
-pkgrel=3
+pkgver=1.4
+pkgrel=1
 pkgdesc="A simple screen locker for X"
 url="http://tools.suckless.org/slock/"
 arch="all"
@@ -14,8 +14,7 @@ install=""
 options="suid"
 subpackages="$pkgname-doc"
 source="http://dl.suckless.org/tools/$pkgname-$pkgver.tar.gz
-	0001-clear-passwords-with-explicit_bzero.patch
-	0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+	0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
 	config.h"
 
 builddir="$srcdir/$pkgname-$pkgver"
@@ -39,15 +38,12 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-md5sums="825aaeccba9b3b3c1f3d249d47c1396a  slock-1.3.tar.gz
-ca1f6e27e0b86101964c3a0d196d6520  0001-clear-passwords-with-explicit_bzero.patch
-37e2d3ff75df122a2a2afb145e0b325f  0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-56726736802c667cecc072a0bcd1bba5  config.h"
-sha256sums="bab4a3aea4046aa0fd0361c3649b79b90ca531bc5dfae3c4a6c0fe436152bd18  slock-1.3.tar.gz
-4ed77e1955536f4d9cbb104a197a129f1abf0686088cff299ee72537eea56905  0001-clear-passwords-with-explicit_bzero.patch
-c1b6f53836ef76b9f512edbdf34773db41c0d153aba851b05f4df4059bf1e4ed  0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-288101a2936899a64ce834538b0b751349d39d059b83929254e071ca37fe44c2  config.h"
-sha512sums="5024588f6d25f9d72a9d2b8ef9d8a2a94e5d5e53f30f4a15df83b693a3706b1ad6550422f36af29f54429a9c516d14a349e46aeb9896c6e32009ff0da5c02a8f  slock-1.3.tar.gz
-3b7f03c135694de6aa145587ec272ed21047c2a51e448011cb51ad447a39973a7ec9d760f42aca4dc0d22904b78b2668ffeab4c0a9d24cd6b6af88bb95cdaf38  0001-clear-passwords-with-explicit_bzero.patch
-9a00d89280b036c7d56a3f570bae147ce949b93d1abda10e772e45f52e96c02f931e426098060c99b4ae68d88e46f38f4eefe9c66c980aa1b8190ad9a31609de  0002-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-c537129ccfad4ae4cf266e38502f3a7851d159e561ffe6b898d844c0d66760eff379b34e79520baa5358231c89f4344175ca962cd3fd82cf6518f3ab42af4850  config.h"
+md5sums="f91dd5ba50ce7bd1842caeca067086a3  slock-1.4.tar.gz
+90bff8786d0e33cba90bfc0db4f558c1  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+f54f0cb4034bc6576cc2583e47959bd5  config.h"
+sha256sums="b53849dbc60109a987d7a49b8da197305c29307fd74c12dc18af0d3044392e6a  slock-1.4.tar.gz
+3ab291df1e7753f81f29b8f39cb652689f2342364dd1a746fe4147da5cf8203c  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+e112497fce01143d394c5a422c7a66a31b6cbe16d1ae66aaf20b474149945f8f  config.h"
+sha512sums="ad285360dd3f16a225159abaf2f82fabf2c675bd74478cf717f68cbe5941a6c620e3c88544ce675ce3ff19af4bb0675c9405685e0f74ee4e84f7d34c61a0532f  slock-1.4.tar.gz
+0c2145e5ef9cd9671404ae2904637aeee68d38c93236a9ef368b431a882d7d04b1f085eb26054dfea86d5a7bba973ff85bd2d5d533ef2307d8ff43560e77e2ce  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+723e155cf64607cbb3a47a5ba48e56f651f358b8c12531ba1cf2596c6e4eed6c0993522a5c118ab68dc1273d6c405899a6c7b1d61ce11e52aa7ec8b9b8205d96  config.h"
