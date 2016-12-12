@@ -1,8 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=tinyalsa
-pkgver=20161112
-_commit="eccd781875925157a01a755d555b7e1e6d80fae1"
+pkgver=1.1.0
 pkgrel=0
 pkgdesc="Tiny library to interface with ALSA in the Linux kernel"
 url="https://github.com/tinyalsa/tinyalsa"
@@ -13,9 +12,9 @@ depends_dev=""
 makedepends="$depends_dev linux-headers"
 install=""
 subpackages="$pkgname-libs $pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgname.tar.gz::https://github.com/$pkgname/$pkgname/archive/${_commit}.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/tinyalsa/$pkgname/archive/${pkgver}.tar.gz"
 
-builddir="$srcdir"/$pkgname-$_commit
+builddir="$srcdir"/$pkgname-$pkgver
 build() {
 	make -C "$builddir" || return 1
 }
@@ -33,6 +32,6 @@ libs() {
 		"$subpkgdir"/usr/lib/ || return 1
 }
 
-md5sums="6d63e7281173c15070d610c0def76cb3  tinyalsa-tinyalsa.tar.gz"
-sha256sums="af7ffd8b42cb04ffd363db98b196427639660389027d92ade46c9c523aa02264  tinyalsa-tinyalsa.tar.gz"
-sha512sums="31b0bd6bc681da6de3d4de41236d9de6205334d79451b42eacd0064babb07074d7f5b6a88214c6b1057447a11194e259ee958715982912f3059efc5ec39d9ff5  tinyalsa-tinyalsa.tar.gz"
+md5sums="fb2b94626e3e112f6531c5ce8a9795e0  tinyalsa-1.1.0.tar.gz"
+sha256sums="93f4ca1e6345974167dc5577e8151a31fa2e6a628727a72d59e18db2289e7a1c  tinyalsa-1.1.0.tar.gz"
+sha512sums="25a11084e0d27d5f44586a87ffb77d189ebec1348d264f8d2bb57d9dfc539a98d3716794e70757cf3c1c98291fc9084f054e4464ff6050fb31f8ff443b4ead37  tinyalsa-1.1.0.tar.gz"
