@@ -1,0 +1,12 @@
+diff -upr tinyalsa-1.1.0.orig/src/mixer.c tinyalsa-1.1.0/src/mixer.c
+--- tinyalsa-1.1.0.orig/src/mixer.c	2016-12-12 18:35:58.217708995 +0100
++++ tinyalsa-1.1.0/src/mixer.c	2016-12-12 18:36:30.147853989 +0100
+@@ -402,7 +402,7 @@ static int int_to_percent(const struct s
+     if (range == 0)
+         return 0;
+ 
+-    return ((value - ei->value.integer.min) / range) * 100;
++    return (((value - ei->value.integer.min) * 100) / range);
+ }
+ 
+ /** Gets a percentage representation of a specified control value.
