@@ -1,0 +1,12 @@
+diff -upr stlink-1.2.0.orig/src/stlink-common.c stlink-1.2.0/src/stlink-common.c
+--- stlink-1.2.0.orig/src/stlink-common.c	2017-01-05 17:13:01.599741121 +0100
++++ stlink-1.2.0/src/stlink-common.c	2017-01-05 17:14:17.852764692 +0100
+@@ -620,6 +620,8 @@ int stlink_load_device_params(stlink_t *
+         }
+     } else {
+         sl->flash_size = flash_size * 1024;
++        if (sl->flash_size == 64 * 1024)
++            sl->flash_size = 128 * 1024;
+     }
+     sl->flash_type = params->flash_type;
+     sl->flash_pgsz = params->flash_pagesize;

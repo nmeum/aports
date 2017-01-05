@@ -1,0 +1,48 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=stlink
+pkgver=1.2.0
+pkgrel=0
+pkgdesc="STM32 discovery line linux programmer"
+url="https://github.com/texane/stlink"
+arch="all"
+license="MIT"
+depends=""
+depends_dev=""
+makedepends="cmake libusb-dev"
+install=""
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/texane/$pkgname/archive/$pkgver.tar.gz
+	bluepill.patch"
+
+builddir="$srcdir"/$pkgname-$pkgver
+build() {
+	cd "$builddir"
+	cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DBUILD_SHARED_LIBS=True \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+		-DCMAKE_C_FLAGS="$CFLAGS" \
+		|| return 1
+	make || return 1
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir" install || return 1
+
+	mkdir -p "$pkgdir"/usr/share/doc/$pkgname
+	install -m644 README ACKNOWLEDGMENTS \
+		AUTHORS ChangeLog NEWS TODO \
+		doc/tutorial/tutorial.pdf \
+		"$pkgdir"/usr/share/doc/$pkgname/ || return 1
+}
+
+md5sums="e460b920036354f3012c95d7085aaafe  stlink-1.2.0.tar.gz
+d0a7d5f2ab295c968f3ae4a68b831814  bluepill.patch"
+sha256sums="acfdd52e350a61c14910f3c14b9ed232a79febcf35b38479b011d5cd2d4af688  stlink-1.2.0.tar.gz
+cf9f153d8ad45fc0305705b78f120d5569ad7a8ff4409a7959010aa67e15438e  bluepill.patch"
+sha512sums="8c27895b9d93d8ac94af944eceaefa19b9b7d4b8cf1c2d0a53cb13dbbbbb0c6112fe68a2f41b326a86c8e9d2edc17ccf69f6e48bd9cc31f9aebefab601bdef5f  stlink-1.2.0.tar.gz
+ae8fc6e7f1454a8c28385f6c1dfc7eaf43cf4c7d6a71064a459f74be6b7721290e119ade235e7a8c5a42f3371d3ea11f2156745a0518e28d9356e58e8e0b5dc7  bluepill.patch"
