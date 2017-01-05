@@ -1,7 +1,7 @@
-From a4d274d1fc40e5a72eae875c0ea34943578159f5 Mon Sep 17 00:00:00 2001
+From 6ebcb408738a2dc740feba179310b6f7b764bb06 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
 Date: Wed, 10 Aug 2016 19:21:52 +0200
-Subject: [PATCH 17/17] syslogd: always set msg timestamp in syslogd
+Subject: [PATCH 13/13] syslogd: always set msg timestamp in syslogd
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -12,7 +12,7 @@ Signed-off-by: Sören Tempel <soeren+git@soeren-tempel.net>
  1 file changed, 5 insertions(+), 9 deletions(-)
 
 diff --git a/sysklogd/syslogd.c b/sysklogd/syslogd.c
-index a119bde..77680eb 100644
+index ae0840bff..68b624593 100644
 --- a/sysklogd/syslogd.c
 +++ b/sysklogd/syslogd.c
 @@ -816,18 +816,14 @@ static void timestamp_and_log(int pri, char *msg, int len)
@@ -40,5 +40,5 @@ index a119bde..77680eb 100644
  
  	if (option_mask32 & OPT_kmsg) {
 -- 
-2.9.1
+2.11.0
 
