@@ -2,7 +2,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=busybox
 pkgver=1.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Size optimized toolbox of many common UNIX utilities"
 url=http://busybox.net
 arch="all"
@@ -28,6 +28,8 @@ source="http://busybox.net/downloads/$pkgname-$pkgver.tar.bz2
 	0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
 	0012-diff-add-support-for-no-dereference.patch
 	0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
+
+	0001-ash-fix-error-code-regression.patch
 
 	acpid.logrotate
 	busyboxconfig
@@ -156,6 +158,7 @@ md5sums="362acc60bd94343aa36d98beb1f0831f  busybox-1.26.0.tar.bz2
 ff01463110cdd441412f4ac36a7016ab  0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
 9e54851f5f447758b1f70a220c4ab4fa  0012-diff-add-support-for-no-dereference.patch
 984d4ef85a2cf60c496e36a4b93fbd54  0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
+4570da064e03480aeb76447af1170992  0001-ash-fix-error-code-regression.patch
 4046b78ee6a25259954797d73b94f4bd  acpid.logrotate
 0e70be1c4acfeb5c61938afe8235d67e  busyboxconfig
 378058009a1d6b1e321617b32b933e28  bbsuid.c
@@ -174,6 +177,7 @@ f94cdbf9e1eebc75bc4c254c7934be38a9001a2bab2d7d40e8c050f69946651e  0006-fbsplash-
 61d73467e357e805f66be9e68d202554d2830b25b1824c0aa357d1af641bcd53  0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
 9dc746eeca6cf3f6637473a67f0e4ef3860d5500efaa17f4bbbfb1276b384cec  0012-diff-add-support-for-no-dereference.patch
 36b0ce9f4d734768ddda3327ec47d36980a02959c56ad10dcb29518d701cd222  0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
+9deb0aaa2d03db0dd9aadc73b4c54557c33c2a380f710638e2dface0e50ca2bf  0001-ash-fix-error-code-regression.patch
 f7cbeb5a5a47395ad30454ce8262abcd3e91c33ef803c2ae31a9258d7142dd48  acpid.logrotate
 4827a554f1f89d78b12bbf1583781619fcfee6c1814eb12a5e136c952aebc07e  busyboxconfig
 52bd2c7c44779f910eedd2fea73ec0de520add400894cc132276587e25c73e39  bbsuid.c
@@ -192,6 +196,7 @@ a056ba34611d2def8466269624a047d99bb65e76b25d75f044f8dea33ced43fe8ad5814923031ca5
 b4c3216a454791c33d95dc939ff4673e3295250ff0f5903b0c99ed84b754a3d6c7a5f22653c42a1de2c2a674c17bfcd0b50a23c40d2f24f2fc832d84b6fe8fec  0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
 0654699a626e97036baddd52b6bcd2deda92cd3609282f1cb8b5c326100a80fb5fa8947c18ea7608d878d1f538b42f295fc3356eb744903dd2fc97f23ccc4f55  0012-diff-add-support-for-no-dereference.patch
 fed615e828e3abe5d61c17318112adc90de538e765601e609083c49208178d81dd06c53d080ad4b2542d47ad1f7e782f00385fbe3c5848976b147a3f1f6d3736  0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
+79d2ec8ad1530aacf8c5ccc5386ede252b06c3d538d1d027f9f4fc29dabcae6832939a15cbe1b78224eae9191684966e5ca5da44c046988b7fd8a55db24dc30e  0001-ash-fix-error-code-regression.patch
 dadb4c953ebc755b88ee95c1489feb0c2d352f6e44abc716166024e6eea11ab9d10c84fad62c081775834d205cb04aa1be3c994676c88f4284495c54b9188e8b  acpid.logrotate
 6cb68354c7a97657de285e75446c8116d05459d969e87879f7eb91aaf0b2d7d348c4f12996ac6c95d3094cbbbcd0024967c9e8057c40eb9e2d1f699ebdfa7c98  busyboxconfig
 c1dd56509277c59751907a27f067f1622191ddfd498acfe390d83136d36a41f2bdfc2fd4daf35af77219a66fb00fea20483f34112afd5df2ccd9f36ab548e66f  bbsuid.c
