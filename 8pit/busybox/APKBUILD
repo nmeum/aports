@@ -1,8 +1,8 @@
 # Contributor: Łukasz Jendrysik <scadu@yandex.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=busybox
-pkgver=1.26.1
-pkgrel=3
+pkgver=1.26.2
+pkgrel=1
 pkgdesc="Size optimized toolbox of many common UNIX utilities"
 url=http://busybox.net
 arch="all"
@@ -29,7 +29,7 @@ source="http://busybox.net/downloads/$pkgname-$pkgver.tar.bz2
 	0012-diff-add-support-for-no-dereference.patch
 	0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
 
-	0001-ash-fix-error-code-regression.patch
+	location-for-cpio.patch
 
 	acpid.logrotate
 	busyboxconfig
@@ -144,45 +144,7 @@ static() {
 		"$subpkgdir"/bin/busybox.static
 }
 
-md5sums="044684cb9e4e3253fc31c84f66a5bd9a  busybox-1.26.1.tar.bz2
-309e0efd6a0a05f048cfd3e137128771  0001-ash-exec-busybox.static.patch
-47c1cbd3cdb6659fa7105104fe1b8f86  0002-app-location-for-vi-and-lspci.patch
-559b88bf20a47b26ef01e6e6c317ccf1  0003-udhcpc-set-default-discover-retries-to-5.patch
-3825531595bb40f545e8bfcbab50d107  0004-ping-make-ping-work-without-root-privileges.patch
-6bb0fecdb6baada8ffe6828c2f86a985  0005-fbsplash-support-console-switching.patch
-0e591c5f126d34949aa28cbe795f655b  0006-fbsplash-support-image-and-bar-alignment-and-positio.patch
-849072a903e7a048d7c23312069ae4d9  0007-depmod-support-generating-kmod-binary-index-files.patch
-882e7c5a3bdf1d72587fefa0a1879d28  0008-login-move-check_securetty-to-libbb.patch
-179024c267636e6e112f30fd98b10cae  0009-libbb-allow_blank-argument-for-ask_and_check_passwor.patch
-17dbe6b3071d71656e10621892ca9540  0010-su-FEATURE_SU_NULLOK_SECURE.patch
-ff01463110cdd441412f4ac36a7016ab  0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
-9e54851f5f447758b1f70a220c4ab4fa  0012-diff-add-support-for-no-dereference.patch
-984d4ef85a2cf60c496e36a4b93fbd54  0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
-4570da064e03480aeb76447af1170992  0001-ash-fix-error-code-regression.patch
-4046b78ee6a25259954797d73b94f4bd  acpid.logrotate
-9023545fc51f518be5db6b2cb189bd93  busyboxconfig
-378058009a1d6b1e321617b32b933e28  bbsuid.c
-d64b58a30892c558bdbab7f0d0997577  nologin.c"
-sha256sums="0fbbe487fa35cc3258749cf79c259578c1a221013cc4fb60d6a3542590f781f2  busybox-1.26.1.tar.bz2
-3e64b23f688e794c8d76f102365e3e45510123644d2750ee7a0d8854ae89684e  0001-ash-exec-busybox.static.patch
-51c6effb64ae51d855bcb341ae8229d10f388ae9067d1604f8b94053fc939051  0002-app-location-for-vi-and-lspci.patch
-82a29ed25da3ff030f2dedd04fb548cc2a4560563f98509ef55cfe9c63d36f2c  0003-udhcpc-set-default-discover-retries-to-5.patch
-dd4635fe56906d713eb0bf03348a058e5038eea2f7f64678235aebedd9f7791d  0004-ping-make-ping-work-without-root-privileges.patch
-f15874495de7f9df9b185b37df7465fa3aabc72dfc4702758fee2cc7d506eab8  0005-fbsplash-support-console-switching.patch
-f94cdbf9e1eebc75bc4c254c7934be38a9001a2bab2d7d40e8c050f69946651e  0006-fbsplash-support-image-and-bar-alignment-and-positio.patch
-93e0efe8a5d7d2887515183f37b3a4795e34e6b99d6622989d9ee4df44257a04  0007-depmod-support-generating-kmod-binary-index-files.patch
-2ec336c398dcf3f168c32492958c1b64c4953cd9cd192a2d4810e7f0b08b76b1  0008-login-move-check_securetty-to-libbb.patch
-97bed6f0f033bbe4af0b317199544653376a9e1204edb07bd075d5d0fe80d01f  0009-libbb-allow_blank-argument-for-ask_and_check_passwor.patch
-272b201b394b4770d37fb842623bddcecaa176ef2588839e735bbe5cd589c880  0010-su-FEATURE_SU_NULLOK_SECURE.patch
-61d73467e357e805f66be9e68d202554d2830b25b1824c0aa357d1af641bcd53  0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
-9dc746eeca6cf3f6637473a67f0e4ef3860d5500efaa17f4bbbfb1276b384cec  0012-diff-add-support-for-no-dereference.patch
-36b0ce9f4d734768ddda3327ec47d36980a02959c56ad10dcb29518d701cd222  0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
-9deb0aaa2d03db0dd9aadc73b4c54557c33c2a380f710638e2dface0e50ca2bf  0001-ash-fix-error-code-regression.patch
-f7cbeb5a5a47395ad30454ce8262abcd3e91c33ef803c2ae31a9258d7142dd48  acpid.logrotate
-079fa902ca00c5fd8e6e02418a73b4e7b4f51796ecc31cae32dda8b22e3d1c92  busyboxconfig
-52bd2c7c44779f910eedd2fea73ec0de520add400894cc132276587e25c73e39  bbsuid.c
-9bbf0bec82e6d6907474958f3be048c54657fbf49207810b7e4d4d6146f0069d  nologin.c"
-sha512sums="2b71563185e8d9601fe57c6975473336d5950c034ed62ca51b79cc32248612770724c2f8fd2028d15892d126829ef177223496688cd6816b6c7c0203772f9886  busybox-1.26.1.tar.bz2
+sha512sums="9926d211d0b4f34b513d934d7b111ebbf933c2dc31206bdd80426a62d47d5b1475b70bec5aaa14a26b94a202ab1465d994062a002750a312dcb8167096eb3719  busybox-1.26.2.tar.bz2
 8df024776debd48cdf3c146cdfa39b52adcd5cc3455b8b602652873e927d95d1a746eade41491ed4a8bec48883428b1994cbd3e67ebc2e03fd3f4863cd318d62  0001-ash-exec-busybox.static.patch
 e691b8dd5a237dad38c38ac27692a8267a83bbd9df6d7df1401903a1d4c81e41ba51a0384a91595f330c2452f39c0aadff22e3eada47288554770f26bed6a8ad  0002-app-location-for-vi-and-lspci.patch
 f979e60342ed5029f56304e2e47ca9010774590aa2b2739ec7c587d8cf761871492ba4f14d95761f37303322d244d1e22f12f06a383fa1cae794bae1a9e99199  0003-udhcpc-set-default-discover-retries-to-5.patch
@@ -196,7 +158,7 @@ a056ba34611d2def8466269624a047d99bb65e76b25d75f044f8dea33ced43fe8ad5814923031ca5
 b4c3216a454791c33d95dc939ff4673e3295250ff0f5903b0c99ed84b754a3d6c7a5f22653c42a1de2c2a674c17bfcd0b50a23c40d2f24f2fc832d84b6fe8fec  0011-ntpd-postpone-hostname-resolution-if-fails-on-startu.patch
 0654699a626e97036baddd52b6bcd2deda92cd3609282f1cb8b5c326100a80fb5fa8947c18ea7608d878d1f538b42f295fc3356eb744903dd2fc97f23ccc4f55  0012-diff-add-support-for-no-dereference.patch
 fed615e828e3abe5d61c17318112adc90de538e765601e609083c49208178d81dd06c53d080ad4b2542d47ad1f7e782f00385fbe3c5848976b147a3f1f6d3736  0013-syslogd-always-set-msg-timestamp-in-syslogd.patch
-79d2ec8ad1530aacf8c5ccc5386ede252b06c3d538d1d027f9f4fc29dabcae6832939a15cbe1b78224eae9191684966e5ca5da44c046988b7fd8a55db24dc30e  0001-ash-fix-error-code-regression.patch
+f26e090f5de0096ba5c4d46989ebe0ab5fa64c8bf54cd37ddec302fddfde23eac914858d86cc52bf3b5780a8e81ea2612ef6e713df2828e52c606f86a6816f39  location-for-cpio.patch
 dadb4c953ebc755b88ee95c1489feb0c2d352f6e44abc716166024e6eea11ab9d10c84fad62c081775834d205cb04aa1be3c994676c88f4284495c54b9188e8b  acpid.logrotate
 addbcfff499a1e63044da6e410f260ebe3020ad5c456385c7912144566e833ecf5b16ba878e47af5b17b6f36b3164328a6c5d604490149f4935afaf6c27583b1  busyboxconfig
 c1dd56509277c59751907a27f067f1622191ddfd498acfe390d83136d36a41f2bdfc2fd4daf35af77219a66fb00fea20483f34112afd5df2ccd9f36ab548e66f  bbsuid.c
