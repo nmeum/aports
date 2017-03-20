@@ -1,13 +1,2 @@
 #!/bin/sh
-
-path="/usr/share/man"
-file=
-
-for file in /usr/local/share/man/*; do
-	if [ -e "${file}" -a "${file##*/}" != "mandoc.db" ]; then
-		path="${path} /usr/local/share/man"
-		break
-	fi
-done
-
-exec /usr/sbin/makewhatis -a -T utf8 "${path}"
+exec /usr/sbin/makewhatis -T utf8
