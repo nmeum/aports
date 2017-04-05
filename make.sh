@@ -8,7 +8,6 @@ BASEDIR="/mnt"
 ARCHES="$(uname -m)"
 RELEASES="edge"
 ABUILD_OPTS="-r"
-ACHROOT="$(command -v achroot 2>&1)"
 
 ##
 # Functions
@@ -31,13 +30,14 @@ foreach() {
 
 build() {
 	local name="${1}" release="${2}" arch="${3}"
-	sudo -E -s "${ACHROOT}" -d "${BASEDIR}/${name}" -k \
-		-a "${arch}" -r "${release}" -- ${ABUILD_OPTS}
+	sudo alpine-chroot-create -c "${BASEDIR}/${name}" \
+		-a "${arch}" -r "${release}"
+	sudo -E -s alpine-chroot-abuild "${BASEDIR}/${name}" ${ABUILD_OPTS}
 }
 
 destroy() {
 	local name="${1}" release="${2}" arch="${3}"
-	sudo -E -s "${ACHROOT}" -d "${BASEDIR}/${name}" -b
+	sudo -E -s alpine-chroot-destroy "${BASEDIR}/${name}"
 }
 
 ##
@@ -45,12 +45,8 @@ destroy() {
 ##
 
 export APORTSDIR="$(pwd)"
-if [ ! -x "${ACHROOT}" ]; then
-	echo "Missing achroot, please install it" 1>&2
-	exit 1
-fi
-
 keepflag=0
+
 while getopts a:r:bk flag; do
 	case "${flag}" in
 		a) ARCHES="$(listify "${OPTARG}")" ;;
