@@ -1,0 +1,30 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer:
+pkgname=alpine-chroot
+pkgver=20170504
+pkgrel=0
+pkgdesc="Various utilities for creating and using Alpine Linux chroots"
+url="https://github.com/nmeum/alpine-chroot"
+arch="noarch"
+license="GPL3+"
+depends=""
+options="!check"
+makedepends=""
+install=""
+subpackages=""
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/$pkgname/archive/$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	return 0
+}
+
+package() {
+	cd "$builddir"
+	mkdir -p "$pkgdir"/usr/sbin
+	install -m755 abuildc alpine-chroot-abuild \
+		alpine-chroot-create alpine-chroot-destroy \
+		"$pkgdir"/usr/sbin
+}
+
+sha512sums="e9ff4cf93c553f1493030f42d80768e2c1a4dbe2c8499b2470d9082b9f4ab56465b004a2f84cfa4b0fee0035cc71f4c731d6f8a3ff877f6c37ed7c510f27dcbb  alpine-chroot-20170504.tar.gz"
