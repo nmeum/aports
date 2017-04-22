@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer:
 pkgname=alpine-chroot
-pkgver=20170504
+pkgver=20170423
 pkgrel=0
 pkgdesc="Various utilities for creating and using Alpine Linux chroots"
 url="https://github.com/nmeum/alpine-chroot"
@@ -27,4 +27,4 @@ package() {
 		"$pkgdir"/usr/sbin
 }
 
-sha512sums="e9ff4cf93c553f1493030f42d80768e2c1a4dbe2c8499b2470d9082b9f4ab56465b004a2f84cfa4b0fee0035cc71f4c731d6f8a3ff877f6c37ed7c510f27dcbb  alpine-chroot-20170504.tar.gz"
+sha512sums="90f65969bbc30d3b924ef6c4219bcd01cccd7eb09542196ca7baad5a5f02487577c4f738bd573d79f716bdd66ccd27f2e50417ced84a477a1875eeaab63821bf  alpine-chroot-20170423.tar.gz"
