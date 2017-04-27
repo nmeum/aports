@@ -58,6 +58,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 /* volume control */
 static const char *raisevol[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
 static const char *lowervol[] = { "amixer", "-q", "set", "Master", "5%-", NULL };
+static const char *mutevol[]  = { "amixer", "-q", "set", "Master", "toggle", NULL };
 
 /* backlight control */
 static const char *raiseblight[] = { "xbacklight", "-inc", "5", NULL };
@@ -101,8 +102,9 @@ static Key keys[] = {
 
 	/* volume level control hotkeys */
 
-	{ 0, XF86XK_AudioRaiseVolume,  spawn, {.v = raisevol } },
-	{ 0, XF86XK_AudioLowerVolume,  spawn, {.v = lowervol } },
+	{ 0, XF86XK_AudioRaiseVolume, spawn, {.v = raisevol } },
+	{ 0, XF86XK_AudioLowerVolume, spawn, {.v = lowervol } },
+	{ 0, XF86XK_AudioMute, spawn, {.v = mutevol } },
 
 	/* backlight brightness control hotkeys */
 
