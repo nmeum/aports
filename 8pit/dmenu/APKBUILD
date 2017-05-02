@@ -1,8 +1,8 @@
 # Contributor: Eivind Uggedal <eivind@uggedal.com>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dmenu
-pkgver=4.6
-pkgrel=2
+pkgver=4.7
+pkgrel=1
 pkgdesc="Dynamic menu for X"
 url="http://tools.suckless.org/dmenu/"
 arch="all"
@@ -11,26 +11,26 @@ depends=""
 depends_dev=""
 makedepends="libx11-dev libxinerama-dev libxft-dev"
 install=""
+options="!check"
 subpackages="$pkgname-doc"
 source="http://dl.suckless.org/tools/$pkgname-$pkgver.tar.gz
 	config.h"
-
 builddir="$srcdir"/$pkgname-$pkgver
-prepare() {
-	cd "$builddir"
-	default_prepare || return 1
 
-	cp "$srcdir"/config.h config.h || return 1
+prepare() {
+	default_prepare
+
+	cp "$srcdir"/config.h "$builddir"/config.h
 	sed -i -e '/CFLAGS/{s/-Os//;s/=/+=/}' \
 		-e '/LDFLAGS/{s/-s//;s/=/+=/}' \
-		config.mk || return 1
+		"$builddir"/config.mk
 }
 
 build() {
 	make X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11 \
 		FREETYPEINC=/usr/include/freetype2 \
-		-C "$builddir" || return 1
+		-C "$builddir"
 }
 
 package() {
@@ -38,9 +38,5 @@ package() {
 		-C "$builddir" install
 }
 
-md5sums="6fedf081133bc0725cb040b3b8ac3fac  dmenu-4.6.tar.gz
-508909766c46348a563898be6a668bf3  config.h"
-sha256sums="4a7a24008a621c3cd656155ad91ab8136db8f0d3b9ec56dafeec518cabda96b3  dmenu-4.6.tar.gz
-a4094aadc2fcd0c96b5bb284609578306223bce75c26e7f07d5db354ff66e466  config.h"
-sha512sums="e54fd10c0b1274eb90173aea442f0bfc496f4dda861a36d94f939e1fd835594f9aa12f3d0f90043d64e519d919b9a5273ab65012230ac022f727ee6bb64862e3  dmenu-4.6.tar.gz
-a8748be8ebddabccffddef2e292a67b1807f793a8e5372cf228ecdcaeca548065753e1999dce07234655d2410136d3fb8abaff4864505d66a5efb346c32fe82f  config.h"
+sha512sums="67a184f3ddb018e7b372e049052662955403e3367639b9c2284939d6f105ae74c995fe38f126d8ff75886831c8add8b50e338a1bfb0d8620b7fb1457cf88a00c  dmenu-4.7.tar.gz
+0f145edcf4ced14d0f14e5f7683bf83b6f97648b57d4dae0f695b3ff63edeb062f8e47a352ddc4a484a134cce4a9324326155b5e614336da34ad1a08c93cda5e  config.h"
