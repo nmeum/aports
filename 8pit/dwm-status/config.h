@@ -28,7 +28,7 @@ static size_t batcapmay(char *dest, size_t n) {
 
 	ret = batcap(dest, n);
 	if (ret)
-		ret += seperator(dest, n);
+		ret += seperator(&dest[ret], ret);
 
 	return ret;
 }
