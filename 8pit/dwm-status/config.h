@@ -21,16 +21,21 @@ static const char* volumname = "Master Playback Volume";
 
 /* Only use batcap function if the device has a battery. */
 static size_t batcapmay(char *dest, size_t n) {
+	size_t ret;
+
 	if (access(sysbat, F_OK))
 		return 0;
-	else
-		return batcap(dest, n);
+
+	ret = batcap(dest, n);
+	if (ret)
+		ret += seperator(dest, n);
+
+	return ret;
 }
 
 /* Array of functions to use in the status bar text. */
 static size_t (* const sfuncs[])(char*, size_t) = {
 	batcapmay,
-	seperator,
 	alsavol,
 	seperator,
 	loadavg,
