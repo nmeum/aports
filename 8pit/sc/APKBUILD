@@ -28,7 +28,7 @@ build() {
 package() {
 	cd "$builddir"
 	make prefix="$pkgdir"/usr \
-		MANDIR="$pkgdir/usr/share/man" \
+		MANDIR="$pkgdir/usr/share/man/man1" \
 		install
 
 	install -Dm644 tutorial.sc \
