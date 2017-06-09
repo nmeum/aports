@@ -3,7 +3,7 @@
 # Maintainer: Orion <systmkor@gmail.com>
 pkgname=terminus-font
 pkgver=4.40
-pkgrel=1
+pkgrel=2
 pkgdesc="Monospace bitmap font (for X11 and console)"
 url="http://terminus-font.sourceforge.net/"
 arch="noarch"
