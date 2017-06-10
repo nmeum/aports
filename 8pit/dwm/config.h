@@ -110,6 +110,10 @@ static Key keys[] = {
 
 	{ 0, XF86XK_MonBrightnessUp,   spawn, {.v = raiseblight } },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = lowerblight } },
+
+	/* screen locking hotkey */
+
+	{ 0, XF86XK_ScreenSaver, spawn, {.v = lockcmd } },
 };
 
 /* button definitions */
