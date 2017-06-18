@@ -1,0 +1,31 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=mkinitfs
+pkgver=3.1.0
+_ver=${pkgver%_git*}
+pkgrel=1
+pkgdesc="Tool to generate initramfs images for Alpine"
+url="http://git.alpinelinux.org/cgit/mkinitfs"
+makedepends_build=""
+makedepends_host="kmod-dev util-linux-dev cryptsetup-dev linux-headers"
+makedepends="$makedepends_build $makedepends_host"
+depends="busybox apk-tools>=2.0 lddtree>=1.25"
+install="$pkgname.pre-upgrade $pkgname.post-install $pkgname.post-upgrade"
+triggers="$pkgname.trigger=/usr/share/kernel/*"
+source="http://dev.alpinelinux.org/archive/$pkgname/$pkgname-$_ver.tar.xz
+	cryptdiscards.patch"
+arch="all"
+license="GPL2"
+
+builddir="$srcdir"/$pkgname-$_ver
+build() {
+	cd "$builddir"
+	make VERSION=$pkgver-r$pkgrel || return 1
+}
+
+package() {
+	cd "$builddir"
+	make install DESTDIR="$pkgdir" || return 1
+}
+
+sha512sums="ec80702c6b41cb7898679377bef949cc1079b006c2dcc760c801f60a411eb1d3b3fd34ae2088b0bd3779202953466bce6efd62253d93dda32a8bca9bcd8942fc  mkinitfs-3.1.0.tar.xz
+ee0e0a5a36bc8917b6e048b3328303b1731ce41bd2bd3e28c616d31b33e242f1200e2c3154b1d03a1e926f8abd71c68589cb740231a28dc4e88d59c6c747a9f0  cryptdiscards.patch"
