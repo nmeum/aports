@@ -3,8 +3,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=vim
-pkgver=8.0.0627
-pkgrel=1
+pkgver=8.0.0646
+pkgrel=0
 pkgdesc="advanced text editor"
 url="http://www.vim.org"
 arch="all"
@@ -62,5 +62,5 @@ vimdiff() {
 	mv "$pkgdir"/usr/bin/vimdiff "$subpkgdir"/usr/bin
 }
 
-sha512sums="60237171e49efde20965bdd09deced5f598cf4a8e169c93d6be85337b80c515a16798512a89b8eb8df3daf7fb1b698a74150e02da38fc925684bb21fc44436cc  vim-8.0.0627.tar.gz
+sha512sums="cd30490ba092a70bbde0c5e28e745ef4ab125cad3c3787ec0173c1378dbd87f47c48ecf9268871bb4df0773dab53b5b6bfbad83eef0fa5520c03d9c19b95eee4  vim-8.0.0646.tar.gz
 d9586b777881973cb5e48e18750336a522ed72c3127b2d6b6991e2b943468ca5b694476e7fa39ab469178c1375fc8f52627484e0fe377aea5811a513e35a7b02  vimrc"
