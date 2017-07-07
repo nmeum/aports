@@ -9,7 +9,7 @@ license="BSD"
 depends=""
 makedepends="zlib-dev"
 install="$pkgname.post-deinstall"
-subpackages="$pkgname-doc $pkgname-dev man $pkgname-apropos $pkgname-soelim"
+subpackages="$pkgname-doc $pkgname-dev man::noarch $pkgname-apropos $pkgname-soelim"
 source="http://mdocml.bsd.lv/snapshots/$pkgname-$pkgver.tar.gz
 	shared-libmandoc.patch
 	pager.patch
@@ -47,7 +47,6 @@ package() {
 }
 
 man() {
-	arch="noarch"
 	pkgdesc="dummy package for upgrade compatibility.  this can safely be removed"
 	depends="mdocml"
 	mkdir -p "$subpkgdir"
