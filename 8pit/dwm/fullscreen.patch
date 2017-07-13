@@ -1,6 +1,6 @@
 diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
---- dwm-6.1.orig/dwm.c	2017-05-12 16:16:17.643834635 +0200
-+++ dwm-6.1/dwm.c	2017-05-12 16:16:56.140412550 +0200
+--- dwm-6.1.orig/dwm.c	2017-07-13 17:29:12.939894405 +0200
++++ dwm-6.1/dwm.c	2017-07-13 17:29:40.407166323 +0200
 @@ -211,6 +211,7 @@ static void tagmon(const Arg *arg);
  static void tile(Monitor *);
  static void togglebar(const Arg *arg);
@@ -9,16 +9,7 @@ diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
  static void toggletag(const Arg *arg);
  static void toggleview(const Arg *arg);
  static void unfocus(Client *c, int setfocus);
-@@ -804,6 +805,8 @@ focus(Client *c)
- 			selmon = c->mon;
- 		if (c->isurgent)
- 			clearurgent(c);
-+		if (c->isfullscreen)
-+			setfullscreen(c, False);
- 		detachstack(c);
- 		attachstack(c);
- 		grabbuttons(c, 1);
-@@ -847,7 +850,7 @@ focusstack(const Arg *arg)
+@@ -847,7 +848,7 @@ focusstack(const Arg *arg)
  {
  	Client *c = NULL, *i;
  
@@ -27,7 +18,7 @@ diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
  		return;
  	if (arg->i > 0) {
  		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
-@@ -1032,10 +1035,13 @@ killclient(const Arg *arg)
+@@ -1032,10 +1033,13 @@ killclient(const Arg *arg)
  void
  manage(Window w, XWindowAttributes *wa)
  {
@@ -42,7 +33,7 @@ diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
  	c = ecalloc(1, sizeof(Client));
  	c->win = w;
  	updatetitle(c);
-@@ -1713,6 +1719,18 @@ togglefloating(const Arg *arg)
+@@ -1713,6 +1717,18 @@ togglefloating(const Arg *arg)
  }
  
  void
@@ -61,7 +52,21 @@ diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
  toggletag(const Arg *arg)
  {
  	unsigned int newtags;
-@@ -2031,6 +2049,11 @@ updatewmhints(Client *c)
+@@ -1755,9 +1771,13 @@ unfocus(Client *c, int setfocus)
+ void
+ unmanage(Client *c, int destroyed)
+ {
++	Client *sc;
+ 	Monitor *m = c->mon;
+ 	XWindowChanges wc;
+ 
++	if ((sc = selmon->sel) && sc->isfullscreen)
++		setfullscreen(sc, False);
++
+ 	/* The server grab construct avoids race conditions. */
+ 	detach(c);
+ 	detachstack(c);
+@@ -2031,6 +2051,11 @@ updatewmhints(Client *c)
  void
  view(const Arg *arg)
  {
@@ -73,7 +78,7 @@ diff -upr dwm-6.1.orig/dwm.c dwm-6.1/dwm.c
  	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
  		return;
  	selmon->seltags ^= 1; /* toggle sel tagset */
-@@ -2111,6 +2134,9 @@ zoom(const Arg *arg)
+@@ -2111,6 +2136,9 @@ zoom(const Arg *arg)
  {
  	Client *c = selmon->sel;
  
