@@ -1,48 +1,57 @@
 # Maintainer:  Natanael Copa <ncopa@alpinelinux.org>
 pkgname=mdocml
-pkgver=1.14.1
-pkgrel=1
+_pkgname=mandoc
+pkgver=1.14.2
+pkgrel=2
 pkgdesc="mdoc/man compiler"
 url="http://mdocml.bsd.lv/"
 arch="all"
 license="BSD"
 depends=""
 makedepends="zlib-dev"
+checkdepends="perl"
 install="$pkgname.post-deinstall"
 subpackages="$pkgname-doc $pkgname-dev man::noarch $pkgname-apropos $pkgname-soelim"
-source="http://mdocml.bsd.lv/snapshots/$pkgname-$pkgver.tar.gz
+source="http://mdocml.bsd.lv/snapshots/$_pkgname-$pkgver.tar.gz
 	shared-libmandoc.patch
 	pager.patch
-	man.conf
+	man_term-fix.patch
 	$pkgname.cron
 	"
 
-builddir="$srcdir"/$pkgname-$pkgver
+builddir="$srcdir"/$_pkgname-$pkgver
 prepare() {
-	default_prepare || return 1
+	default_prepare
+
 	cd "$builddir"
 	cat >configure.local<<EOF
 PREFIX=/usr
 MANDIR=/usr/share/man
 LIBDIR=/usr/lib
 CFLAGS="$CFLAGS"
+UTF8_LOCALE="en_US.UTF-8"
+MANPATH_DEFAULT="/usr/share/man:/usr/local/man"
 EOF
 }
 
 build() {
 	cd "$builddir"
-	./configure || return 1
-	make || return 1
+	./configure
+	make
+}
+
+check() {
+	cd "$builddir"
+	LD_LIBRARY_PATH="$builddir" make regress
 }
 
 package() {
 	cd "$builddir"
-	make -j1 DESTDIR="$pkgdir" base-install lib-install || return 1
-	install -Dm644 "$srcdir"/man.conf "$pkgdir"/etc/man.conf || return 1
+	make -j1 DESTDIR="$pkgdir" base-install lib-install
 	for X in usr/bin/apropos usr/bin/whatis usr/bin/man usr/sbin/makewhatis
 		do
-			rm -f "$pkgdir/$X" || return 1
-			ln -s /usr/bin/mandoc "$pkgdir/$X" || return 1
+			rm -f "$pkgdir/$X"
+			ln -s /usr/bin/mandoc "$pkgdir/$X"
 		done
 }
 
@@ -57,11 +66,11 @@ apropos() {
 	mkdir -p "$subpkgdir"/usr/sbin "$subpkgdir"/usr/bin
 	mv "$pkgdir"/usr/bin/apropos \
 		"$pkgdir"/usr/bin/whatis \
-		"$subpkgdir"/usr/bin/ || return 1
+		"$subpkgdir"/usr/bin/
 	mv "$pkgdir"/usr/sbin/makewhatis \
-		"$subpkgdir"/usr/sbin/ || return 1
+		"$subpkgdir"/usr/sbin/
 	install -Dm755 "$srcdir"/$pkgname.cron \
-		"$subpkgdir"/etc/periodic/daily/makewhatis || return 1
+		"$subpkgdir"/etc/periodic/daily/makewhatis
 }
 
 soelim() {
@@ -69,11 +78,11 @@ soelim() {
 	depends=""
 	mkdir -p "$subpkgdir"/usr/bin
 	mv "$pkgdir"/usr/bin/soelim \
-		"$subpkgdir"/usr/bin/ || return 1
+		"$subpkgdir"/usr/bin/
 }
 
-sha512sums="90f00297d162faa404fe4e530f95422c210b8d23a0be5a115c2c8c17255d366e224444901842affb06ed8aaf8febd3e5c79966ff713fa7daf00e8c48b7a857c6  mdocml-1.14.1.tar.gz
-ca0f68f6d3d67800eaae7649dacddd04b9159c636bc922840cdb30b741026e708a9527571af656b22642c83b2dc0f9cd9f0b83b43db7a64b0e15fb0654e935a6  shared-libmandoc.patch
+sha512sums="1691e4552b0417a30a3a546cff651665f8b4b3fbe2357c734546ca29c56eef9c971a6bd88daa170f4697fb50d14048138f4bc6f5ef55aa24a7ac03903d04c868  mandoc-1.14.2.tar.gz
+d127e635dfb54f9a88a28a8312f23495ec1e9356202e03ccfad1f7528f26f1cbfa7fc2c7b20c262523941d661fa7ba570a64a63c23f3e7fffc954d00bd5769c7  shared-libmandoc.patch
 04947a275df99298591c2a46fb81b74c7c3fcb9f3cf8fb718cf1e32eeae5409e90a3bca89e542f8aa1b30792e837fd3d716303a636d1a3ec165fbb9529546a64  pager.patch
-0723c32ab70e5b1c77768ca78d7437b26bed19b90b27876b10cc463359c41332befc0105fc1e23ceae48de5a892f1aa7ac60ef7eb0b6b8f1616726c4300632fe  man.conf
+2d69ba396d05b2d1f0b91a3e31175f3a5bc306e334a341cd801b7b83a5cabf245a3f8228b5d7faded19e0c7d65bdfb31630613a9b780db49989599da0dbb3bfc  man_term-fix.patch
 1af9627ee519ecf7d4962db52c83b28f3eb4e9fc6bf38e674bd5e17b21076c3c74c9eed2a1161812f8ac0c75471986b73fcf0acfc7065bc2c15280e1d696a00b  mdocml.cron"
