@@ -2,6 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
 pkgver=6.1
+_commit="b6a6780c7a2844518b4d9ec0317a670cb0be16bc"
 pkgrel=3
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
@@ -12,16 +13,10 @@ depends_dev=""
 makedepends="libxft-dev libx11-dev libxinerama-dev"
 install=""
 subpackages="$pkgname-doc"
-source="http://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
-	fix-movemouse.patch
-	movefloating.patch
-	XF86keysym.patch
-	movestack.patch
-	fullscreen.patch
-	incnmaster.patch
+source="$pkgname-$pkgver-8pit.tar.gz::https://github.com/nmeum/dwm/archive/${_commit}.tar.gz
 	config.h"
+builddir="$srcdir"/$pkgname-$_commit
 
-builddir="$srcdir"/$pkgname-$pkgver
 prepare() {
 	cd "$builddir"
 	default_prepare || return 1
@@ -44,11 +39,5 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-sha512sums="875644bbc246088f2c87e50debbadd4bc179444b396b1b327149087e8bc5303325ebc9103a7e3c864266ee1ac683ea3cd8f0a08285c8e46fc4389d5b83a555f1  dwm-6.1.tar.gz
-a33d9dc4628538c44b5605830c1b2ac3a9b633ab2692ccdb425d60f2760353b9c03c13f07e0611bf3511b8e8a1b562c284931195198966e4665242da44217d39  fix-movemouse.patch
-4f23f5f6a2132265870e04c6bf86efa03de689f50c43b24845c130c83d13f5c02a7677f732bc756b190b730e6df2dfda6363f7b0b0239ecc22a77abc1d01c737  movefloating.patch
-236058497dcedbcd490ca79739ce0ce7b96fc7369394486a9809c478b07b54f56b3e49e8201017ab45d4c406ae80771bbc03a27943f15bd52ad373b4da4b200c  XF86keysym.patch
-1faa8639d8a5a8385108a0543f47cf720933833bad6aaa5d2612eed3c86fd6036a1acd05e7eb8b0b5e18cafbdabe256100fbde43f371455182f5d62b0203a068  movestack.patch
-70efce2ae36967e475aea97a494cb14f2b0653bbf685bb93402997a93b433ed353a94890235d31b38833a0881316a2a6604b7108d435d90d9cfa84fc71661c45  fullscreen.patch
-0d22726afec77bcdda0ffb01bde671e0e518f232e1692a3ca1560637f500a3e3b97d4f41386d21eada4f89da2595423a9bf4912033a12945652c524c2640624e  incnmaster.patch
-ebd2ec1f06193a47936d0db3f801ac7feb5964557281aa734b210d9ca200542545239989bd0425d8b49a73644ac32f98d0bb190be00755de33bc3563a9fe9a02  config.h"
+sha512sums="e300c011abbbf44fb21bada29f4960b404a945e66b18b1beaa0829530d64e6bbc985e36f2121b3d7b23e1d8ec36dba6aa73d4b459c99aadea6bcd99b6d56ee8e  dwm-6.1-8pit.tar.gz
+d09658824871e1fcc2f4fff7a32e80276630c0153817c99fc1c62af9c01ffdc3e6fb3bfd44111fdb92a9e18c52e3322b71ee19d70f29e96277c0c62fd4598cce  config.h"

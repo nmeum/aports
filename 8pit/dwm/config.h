@@ -1,20 +1,16 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char *fonts[] = {
-	"terminus:size=12"
-};
-static const char dmenufont[]       = "terminus:size=12";
-static const char normbordercolor[] = "#282828";
-static const char normbgcolor[]     = "#282828";
-static const char normfgcolor[]     = "#585858";
-static const char selbordercolor[]  = "#7cafc2";
-static const char selbgcolor[]      = "#7cafc2";
-static const char selfgcolor[]      = "#181818";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const Bool showbar           = 1;        /* False means no bar */
-static const Bool topbar            = 1;        /* False means bottom bar */
+static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *fonts[]          = { "terminus:size=12" };
+static const char *colors[][3]      = {
+	/*               fg         bg         border   */
+	[SchemeNorm] = { "#585858", "#282828", "#282828" },
+	[SchemeSel]  = { "#181818", "#7cafc2", "#7cafc2" },
+};
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
@@ -30,9 +26,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = 0;    /* True means respect size hints in tiled resizals */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -53,7 +49,7 @@ static const char *lockcmd[] = { "slock", NULL };
 
 /* dmenu configuration */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
 
 /* volume control */
 static const char *raisevol[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
