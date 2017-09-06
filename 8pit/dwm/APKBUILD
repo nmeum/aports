@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
 pkgver=6.1
-_commit="b6a6780c7a2844518b4d9ec0317a670cb0be16bc"
+_commit="948c03691a35fc0dc9f110eceaba8c9a75183788"
 pkgrel=3
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
@@ -39,5 +39,5 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-sha512sums="e300c011abbbf44fb21bada29f4960b404a945e66b18b1beaa0829530d64e6bbc985e36f2121b3d7b23e1d8ec36dba6aa73d4b459c99aadea6bcd99b6d56ee8e  dwm-6.1-8pit.tar.gz
+sha512sums="21aa5000b57311d9e1e64fda5a2d0b868c9bf71ca6a55fb5b793d90224739118c9d7349616ff792b0d10c6fb61dae346b348fb98029f76031991142bd0a7af1e  dwm-6.1-8pit.tar.gz
 d09658824871e1fcc2f4fff7a32e80276630c0153817c99fc1c62af9c01ffdc3e6fb3bfd44111fdb92a9e18c52e3322b71ee19d70f29e96277c0c62fd4598cce  config.h"
