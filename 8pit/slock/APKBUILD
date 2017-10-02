@@ -38,12 +38,6 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-md5sums="f91dd5ba50ce7bd1842caeca067086a3  slock-1.4.tar.gz
-90bff8786d0e33cba90bfc0db4f558c1  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-f54f0cb4034bc6576cc2583e47959bd5  config.h"
-sha256sums="b53849dbc60109a987d7a49b8da197305c29307fd74c12dc18af0d3044392e6a  slock-1.4.tar.gz
-3ab291df1e7753f81f29b8f39cb652689f2342364dd1a746fe4147da5cf8203c  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-e112497fce01143d394c5a422c7a66a31b6cbe16d1ae66aaf20b474149945f8f  config.h"
 sha512sums="ad285360dd3f16a225159abaf2f82fabf2c675bd74478cf717f68cbe5941a6c620e3c88544ce675ce3ff19af4bb0675c9405685e0f74ee4e84f7d34c61a0532f  slock-1.4.tar.gz
 0c2145e5ef9cd9671404ae2904637aeee68d38c93236a9ef368b431a882d7d04b1f085eb26054dfea86d5a7bba973ff85bd2d5d533ef2307d8ff43560e77e2ce  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-723e155cf64607cbb3a47a5ba48e56f651f358b8c12531ba1cf2596c6e4eed6c0993522a5c118ab68dc1273d6c405899a6c7b1d61ce11e52aa7ec8b9b8205d96  config.h"
+ad2009dcb3767d72813b5e1f2748b4a27ac8780e46acfd83fbae90e37520ac81414a6328c4195ff2a4f949b0f8fac23a6291f5ff10726caffd4420d02606d27e  config.h"
