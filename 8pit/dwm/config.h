@@ -25,10 +25,14 @@ static const Rule rules[] = {
 	{ "Vimperator",  NULL,       NULL,       0,            0,           -1 },
 };
 
+/* setmfact sets the mfact as an absolute value if it is > 1.0
+ * MFACT(0) => relative value, MFACT(1) => absolute value */
+#define MFACT(A) (.55 + A)
+
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const float mfact     = MFACT(0); /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;        /* number of clients in master area */
+static const int resizehints = 0;        /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -61,40 +65,41 @@ static const char *raiseblight[] = { "xbacklight", "-inc", "5", NULL };
 static const char *lowerblight[] = { "xbacklight", "-dec", "5", NULL };
 
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_e,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Pause,  spawn,          {.v = lockcmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_r,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_t,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_r,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_t,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_n,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_Left,   setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_Right,  setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_u,      togglebar,      {0} },
-	{ MODKEY,                       XK_f,      togglefullscrn, {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_minus,  view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_minus,  tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	TAGKEYS(                        XK_0,                      9)
+	/* modifier                     key           function        argument */
+	{ MODKEY,                       XK_e,         spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_Pause,     spawn,          {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_r,         focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_t,         focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_r,         movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_t,         movestack,      {.i = -1 } },
+	{ MODKEY,                       XK_n,         incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,         incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_BackSpace, setmfact,       {.f = MFACT(1) }},
+	{ MODKEY,                       XK_Left,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_Right,     setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Return,    zoom,           {0} },
+	{ MODKEY,                       XK_Tab,       view,           {0} },
+	{ MODKEY|ShiftMask,             XK_q,         killclient,     {0} },
+	{ MODKEY,                       XK_u,         togglebar,      {0} },
+	{ MODKEY,                       XK_f,         togglefullscrn, {0} },
+	{ MODKEY|ShiftMask,             XK_space,     togglefloating, {0} },
+	{ MODKEY,                       XK_minus,     view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_minus,     tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_comma,     focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_period,    focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,     tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,    tagmon,         {.i = +1 } },
+	TAGKEYS(                        XK_1,                         0)
+	TAGKEYS(                        XK_2,                         1)
+	TAGKEYS(                        XK_3,                         2)
+	TAGKEYS(                        XK_4,                         3)
+	TAGKEYS(                        XK_5,                         4)
+	TAGKEYS(                        XK_6,                         5)
+	TAGKEYS(                        XK_7,                         6)
+	TAGKEYS(                        XK_8,                         7)
+	TAGKEYS(                        XK_9,                         8)
+	TAGKEYS(                        XK_0,                         9)
 
 	/* volume level control hotkeys */
 
