@@ -2,8 +2,8 @@
 # Contributor: Carlo Landmeter <clandmeter@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=unbound
-pkgver=1.6.7
-pkgrel=3
+pkgver=1.6.8
+pkgrel=1
 pkgdesc="Unbound is a validating, recursive, and caching DNS resolver"
 url="http://unbound.net/"
 arch="all"
@@ -93,7 +93,7 @@ migrate() {
 		"$subpkgdir"/usr/bin/migrate-dnscache-to-unbound
 }
 
-sha512sums="6e3d1a057081252183343d0d1b8ace742ab15e8f5244e61287340f49289d7449bed93fbfdaa3194c0e99ca23948f4b33038f75af5c5b26c938004d06fc3031e0  unbound-1.6.7.tar.gz
+sha512sums="653d88d5dbc8cf25f7261e4a9869b6591843c7ff27b5d63f979a94505daafbbb61e05d46bedd2d01230355d5f08dd9fe14ed04c5c7340f3f27581b61ad6edfa3  unbound-1.6.8.tar.gz
 8726f9450a7aa753e751971c293fed945e08bc5c7928ab03ac35724015c11773c95e07eb9077ff4eceae6e383dfc6ea37e9c55d20afa0d6183e20d99d4380091  conf.patch
 b26a13c1c88da9611a65705dc59f7233c5e0f6aced0d7d66c18536a969a2de627ca5d4bb55eedd81f2f040fa11bde48eaaeca2850f376e72e7a531678a259131  migrate-dnscache-to-unbound
 d8392a6d238b46fd207d57eb2d23d0806d070c203ae196a6c2a6a4f7de4c95beecee86640649ff7dcc1cec3d3edcd313e8d91bff4188bdc1133b12fe6eff554e  unbound.initd
