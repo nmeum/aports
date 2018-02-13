@@ -1,11 +1,18 @@
 aports
 ======
 
-Custom aports for alpine linux.
+Custom aports for Alpine Linux.
+
+Dependencies
+------------
+
+* rsync
+* lua-aports
+* abuild-rootbld
 
 Usage
 -----
 
 Packages can be compiled using the `make.sh` script:
 
-	$ ./make.sh 8pit/*
+	$ RDEST="…" ./make.sh
