@@ -5,7 +5,7 @@ banner() {
 	printf "\n##\n# %s\n##\n\n" "${1}"
 }
 
-RDEST="${DEST:-magnesium:/var/www/htdocs/files.8pit.net/alpine/edge/8pit}"
+RDEST="${RDEST:-magnesium:/var/www/htdocs/files.8pit.net/alpine/edge/8pit}"
 TDEST="pkg/8pit"
 
 mkdir -p "${TDEST}"
