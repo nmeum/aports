@@ -1,0 +1,29 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=neo-layout
+pkgver=22102017
+_commit=326393d53b22fe16cf93c6ca6a05b079b72ae46b
+pkgrel=0
+pkgdesc="An ergonomic keyboard layout"
+url="http://neo-layout.org/"
+arch="noarch"
+license="GPL-3.0-only"
+depends=""
+makedepends=""
+install=""
+subpackages=""
+options="!check"
+source="$pkgname-$pkgver.tar.gz::https://github.com/neo-layout/neo-layout/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
+
+build() {
+	return 0
+}
+
+package() {
+	install -Dm644 "$builddir"/linux/console/neo.map \
+		"$pkgdir"/usr/share/keymaps/legacy/i386/qwertz/neo.map
+	gzip -9 "$pkgdir"/usr/share/keymaps/legacy/i386/qwertz/neo.map
+}
+
+sha512sums="f2750a9d97a17d58c6ddad4519e9320d7df9244d48619ef6ce81f3d6b9b58165da38dbef26dabad4d395909b47b24dca022562e43c2caaeb1e473410a978bbeb  neo-layout-22102017.tar.gz"
