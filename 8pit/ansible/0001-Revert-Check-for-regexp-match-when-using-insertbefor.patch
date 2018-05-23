@@ -1,0 +1,331 @@
+From 1741719536cc233236bb3db5b1587204b27181c0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
+Date: Thu, 24 May 2018 00:41:21 +0200
+Subject: [PATCH 1/2] Revert "Check for regexp match when using insertbefore or
+ insertafter (#36474)"
+
+This reverts commit 723daf3e3a6ab750ba9d1b38b94f618609692bb5.
+---
+ lib/ansible/modules/files/lineinfile.py            |  69 ++++-----
+ .../integration/targets/lineinfile/files/test.conf |   5 -
+ test/integration/targets/lineinfile/tasks/main.yml | 164 ---------------------
+ test/integration/targets/lineinfile/vars/main.yml  |  17 ---
+ 4 files changed, 32 insertions(+), 223 deletions(-)
+ delete mode 100644 test/integration/targets/lineinfile/files/test.conf
+
+diff --git a/lib/ansible/modules/files/lineinfile.py b/lib/ansible/modules/files/lineinfile.py
+index 0efd0c6..8c363aa 100644
+--- a/lib/ansible/modules/files/lineinfile.py
++++ b/lib/ansible/modules/files/lineinfile.py
+@@ -42,10 +42,10 @@ options:
+   regexp:
+     description:
+       - The regular expression to look for in every line of the file. For
+-        C(state=present), the pattern to replace if found. Only the last line
++        C(state=present), the pattern to replace if found; only the last line
+         found will be replaced. For C(state=absent), the pattern of the line(s)
+-        to remove. Uses Python regular expressions.
+-        See U(http://docs.python.org/2/library/re.html).
++        to remove.  Uses Python regular expressions; see
++        U(http://docs.python.org/2/library/re.html).
+     version_added: '1.7'
+   state:
+     description:
+@@ -283,7 +283,7 @@ def present(module, dest, regexp, line, insertafter, insertbefore, create,
+                 if firstmatch:
+                     break
+             if insertbefore:
+-                # index[1] for the previous line
++                # + 1 for the previous line
+                 index[1] = lineno
+                 if firstmatch:
+                     break
+@@ -302,49 +302,44 @@ def present(module, dest, regexp, line, insertafter, insertbefore, create,
+         if not b_new_line.endswith(b_linesep):
+             b_new_line += b_linesep
+ 
+-        # If a regexp is specified and a match is found anywhere in the file, do
+-        # not insert the line before or after.
+-        if regexp is None and m:
+-
+-            # Insert lines
+-            if insertafter and insertafter != 'EOF':
+-
+-                # Ensure there is a line separator after the found string
+-                # at the end of the file.
+-                if b_lines and not b_lines[-1][-1:] in (b('\n'), b('\r')):
+-                    b_lines[-1] = b_lines[-1] + b_linesep
+-
+-                # If the line to insert after is at the end of the file
+-                # use the appropriate index value.
+-                if len(b_lines) == index[1]:
+-                    if b_lines[index[1] - 1].rstrip(b('\r\n')) != b_line:
+-                        b_lines.append(b_line + b_linesep)
+-                        msg = 'line added'
+-                        changed = True
+-                elif b_lines[index[1]].rstrip(b('\r\n')) != b_line:
+-                    b_lines.insert(index[1], b_line + b_linesep)
+-                    msg = 'line added'
+-                    changed = True
++        # Add lines when the regexp match already exists somewhere else in the file
++        if insertafter and insertafter != 'EOF':
+ 
+-            elif insertbefore:
+-                # If the line to insert before is at the beginning of the file
+-                # use the appropriate index value.
+-                if index[1] == 0:
+-                    if b_lines[index[1]].rstrip(b('\r\n')) != b_line:
+-                        b_lines.insert(index[1], b_line + b_linesep)
+-                        msg = 'line replaced'
+-                        changed = True
++            # Ensure there is a line separator after the found string
++            # at the end of the file.
++            if b_lines and not b_lines[-1][-1:] in (b('\n'), b('\r')):
++                b_lines[-1] = b_lines[-1] + b_linesep
+ 
+-                elif b_lines[index[1] - 1].rstrip(b('\r\n')) != b_line:
++            # If the line to insert after is at the end of the file
++            # use the appropriate index value.
++            if len(b_lines) == index[1]:
++                if b_lines[index[1] - 1].rstrip(b('\r\n')) != b_line:
++                    b_lines.append(b_line + b_linesep)
++                    msg = 'line added'
++                    changed = True
++            elif b_lines[index[1]].rstrip(b('\r\n')) != b_line:
++                b_lines.insert(index[1], b_line + b_linesep)
++                msg = 'line added'
++                changed = True
++
++        elif insertbefore:
++            # If the line to insert before is at the beginning of the file
++            # use the appropriate index value.
++            if index[1] == 0:
++                if b_lines[index[1]].rstrip(b('\r\n')) != b_line:
+                     b_lines.insert(index[1], b_line + b_linesep)
+                     msg = 'line replaced'
+                     changed = True
+ 
++            elif b_lines[index[1] - 1].rstrip(b('\r\n')) != b_line:
++                b_lines.insert(index[1], b_line + b_linesep)
++                msg = 'line replaced'
++                changed = True
++
+         elif b_lines[index[0]] != b_new_line:
+             b_lines[index[0]] = b_new_line
+             msg = 'line replaced'
+             changed = True
+-
+     elif backrefs:
+         # Do absolutely nothing, since it's not safe generating the line
+         # without the regexp matching to populate the backrefs.
+diff --git a/test/integration/targets/lineinfile/files/test.conf b/test/integration/targets/lineinfile/files/test.conf
+deleted file mode 100644
+index 15404cd..0000000
+--- a/test/integration/targets/lineinfile/files/test.conf
++++ /dev/null
+@@ -1,5 +0,0 @@
+-[section_one]
+-
+-[section_two]
+-
+-[section_three]
+diff --git a/test/integration/targets/lineinfile/tasks/main.yml b/test/integration/targets/lineinfile/tasks/main.yml
+index c497907..48404f4 100644
+--- a/test/integration/targets/lineinfile/tasks/main.yml
++++ b/test/integration/targets/lineinfile/tasks/main.yml
+@@ -544,167 +544,3 @@
+   assert:
+     that:
+       - result.stat.checksum == 'a8452bb3643be8d18ba3fc212632b1633bd9f885'
+-
+-###################################################################
+-# Issue 36156
+-# Test insertbefore and insertafter with regexp
+-
+-- name: Deploy the test.conf file
+-  copy:
+-    src: test.conf
+-    dest: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the test.conf file was deployed
+-  assert:
+-    that:
+-      - result is changed
+-      - result.checksum == '6037f13e419b132eb3fd20a89e60c6c87a6add38'
+-      - result.state == 'file'
+-
+-# Test instertafter
+-- name: Insert lines after with regexp
+-  lineinfile:
+-    path: "{{ output_dir }}/test.conf"
+-    regexp: "{{ item.regexp }}"
+-    line: "{{ item.line }}"
+-    insertafter: "{{ item.after }}"
+-  with_items: "{{ test_befaf_regexp }}"
+-  register: _multitest_5
+-
+-- name: Do the same thing again and check for changes
+-  lineinfile:
+-    path: "{{ output_dir }}/test.conf"
+-    regexp: "{{ item.regexp }}"
+-    line: "{{ item.line }}"
+-    insertafter: "{{ item.after }}"
+-  with_items: "{{ test_befaf_regexp }}"
+-  register: _multitest_6
+-
+-- name: Assert that the file was changed the first time but not the second time
+-  assert:
+-    that:
+-      - item.0 is changed
+-      - item.1 is not changed
+-  with_together:
+-    - "{{ _multitest_5.results }}"
+-    - "{{ _multitest_6.results }}"
+-
+-- name: Stat the file
+-  stat:
+-    path: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the file contents match what is expected
+-  assert:
+-    that:
+-      - result.stat.checksum == '06e2c456e5028dd7bcd0b117b5927a1139458c82'
+-
+-- name: Do the same thing a third time without regexp and check for changes
+-  lineinfile:
+-    path: "{{ output_dir }}/test.conf"
+-    line: "{{ item.line }}"
+-    insertafter: "{{ item.after }}"
+-  with_items: "{{ test_befaf_regexp }}"
+-  register: _multitest_7
+-
+-- name: Stat the file
+-  stat:
+-    path: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the file was changed when no regexp was provided
+-  assert:
+-    that:
+-      - item is changed
+-  with_items: "{{ _multitest_7.results }}"
+-
+-- name: Stat the file
+-  stat:
+-    path: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the file contents match what is expected
+-  assert:
+-    that:
+-      - result.stat.checksum == '5bf50f3d74afd20de4010ca5c04bc7037b062d30'
+-
+-# Test insertbefore
+-- name: Deploy the test.conf file
+-  copy:
+-    src: test.conf
+-    dest: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the test.conf file was deployed
+-  assert:
+-    that:
+-      - result is changed
+-      - result.checksum == '6037f13e419b132eb3fd20a89e60c6c87a6add38'
+-      - result.state == 'file'
+-
+-- name: Insert lines before with regexp
+-  lineinfile:
+-    path: "{{ output_dir }}/test.conf"
+-    regexp: "{{ item.regexp }}"
+-    line: "{{ item.line }}"
+-    insertbefore: "{{ item.before }}"
+-  with_items: "{{ test_befaf_regexp }}"
+-  register: _multitest_8
+-
+-- name: Do the same thing again and check for changes
+-  lineinfile:
+-    path: "{{ output_dir }}/test.conf"
+-    regexp: "{{ item.regexp }}"
+-    line: "{{ item.line }}"
+-    insertbefore: "{{ item.before }}"
+-  with_items: "{{ test_befaf_regexp }}"
+-  register: _multitest_9
+-
+-- name: Assert that the file was changed the first time but not the second time
+-  assert:
+-    that:
+-      - item.0 is changed
+-      - item.1 is not changed
+-  with_together:
+-    - "{{ _multitest_8.results }}"
+-    - "{{ _multitest_9.results }}"
+-
+-- name: Stat the file
+-  stat:
+-    path: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the file contents match what is expected
+-  assert:
+-    that:
+-      - result.stat.checksum == 'c3be9438a07c44d4c256cebfcdbca15a15b1db91'
+-
+-- name: Do the same thing a third time without regexp and check for changes
+-  lineinfile:
+-    path: "{{ output_dir }}/test.conf"
+-    line: "{{ item.line }}"
+-    insertbefore: "{{ item.before }}"
+-  with_items: "{{ test_befaf_regexp }}"
+-  register: _multitest_10
+-
+-- name: Stat the file
+-  stat:
+-    path: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the file was changed when no regexp was provided
+-  assert:
+-    that:
+-      - item is changed
+-  with_items: "{{ _multitest_10.results }}"
+-
+-- name: Stat the file
+-  stat:
+-    path: "{{ output_dir }}/test.conf"
+-  register: result
+-
+-- name: Assert that the file contents match what is expected
+-  assert:
+-    that:
+-      - result.stat.checksum == 'eca8d8ea089d4ea57a3b87d4091599ca8b60dfd2'
+diff --git a/test/integration/targets/lineinfile/vars/main.yml b/test/integration/targets/lineinfile/vars/main.yml
+index 6e99d4f..bee5e93 100644
+--- a/test/integration/targets/lineinfile/vars/main.yml
++++ b/test/integration/targets/lineinfile/vars/main.yml
+@@ -10,20 +10,3 @@ test_regexp:
+ 
+   - regex: '4'
+     replace: 'bar'
+-
+-
+-test_befaf_regexp:
+-  - before: section_three
+-    after: section_one
+-    regexp: option_one=
+-    line: option_one=1
+-
+-  - before: section_three
+-    after: section_one
+-    regexp: option_two=
+-    line: option_two=2
+-
+-  - before: section_three
+-    after: section_one
+-    regexp: option_three=
+-    line: option_three=3
+-- 
+2.1.4
+
