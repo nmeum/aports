@@ -3,7 +3,7 @@
 # Contributor: Takuya Noguchi <takninnovationresearch@gmail.com>
 # Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
 pkgname=ansible
-pkgver=2.5.3
+pkgver=2.5.4
 pkgrel=1
 pkgdesc="A configuration-management, deployment, task-execution, and multinode orchestration framework"
 url="https://ansible.com"
@@ -37,6 +37,6 @@ package() {
 	install -m644 README.rst "$pkgdir"/usr/share/doc/$pkgname
 }
 
-sha512sums="74aa767118773aa557cd43f2a9e17322d7a6b45ea643a9175fe4f613fd4566453dc6f1859768fce179db3331b3beba103e89dfe4eae66ed82b1a83cd7d261269  ansible-2.5.3.tar.gz
+sha512sums="4e39547c5df38e407b06e5f20f7caa50e599fa6283693afdbc2c808565593e908b2067b71fb287c4ad0aab8f283c8bb29bea438d534f827a37ed416c7325ea82  ansible-2.5.4.tar.gz
 153203d7e9cd77868743792ce659be0e3fac88221c9a5e0474be07182fa5083f817ebfbf2e31cf30a4ec34c4f682e71b6113c5769525dc28ab6f088ec75133fa  0001-Revert-Check-for-regexp-match-when-using-insertbefor.patch
 aa75b5ab7d5dd534a54e7b05cabc01e4840d12758251c65544feba94888fd31536558ebb0d719c4582d97bd6faef9bbcc37f6f60155f29ae6d03fa5a68270772  0002-Revert-Fix-lineinfile-to-insert-line-when-pattern-ex.patch"
