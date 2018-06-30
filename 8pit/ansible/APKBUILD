@@ -3,7 +3,7 @@
 # Contributor: Takuya Noguchi <takninnovationresearch@gmail.com>
 # Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
 pkgname=ansible
-pkgver=2.5.5
+pkgver=2.6.0
 pkgrel=1
 pkgdesc="A configuration-management, deployment, task-execution, and multinode orchestration framework"
 url="https://ansible.com"
@@ -13,9 +13,7 @@ _py=py2
 depends="python2 $_py-yaml $_py-paramiko $_py-jinja2 $_py-markupsafe $_py-crypto"
 makedepends="python2-dev py-setuptools"
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://releases.ansible.com/ansible/$pkgname-$pkgver.tar.gz
-	0001-Revert-Check-for-regexp-match-when-using-insertbefor.patch
-	0002-Revert-Fix-lineinfile-to-insert-line-when-pattern-ex.patch"
+source="$pkgname-$pkgver.tar.gz::https://releases.ansible.com/ansible/$pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
@@ -37,6 +35,4 @@ package() {
 	install -m644 README.rst "$pkgdir"/usr/share/doc/$pkgname
 }
 
-sha512sums="a3d50539d2a109dc0bbcdb440e0800b917f63141dce935e6426cb6bdc51e3a93e02f05c23714c24ab00b19842a86677b8d2f2455d20ca15410fa8d3c8ba379ca  ansible-2.5.5.tar.gz
-153203d7e9cd77868743792ce659be0e3fac88221c9a5e0474be07182fa5083f817ebfbf2e31cf30a4ec34c4f682e71b6113c5769525dc28ab6f088ec75133fa  0001-Revert-Check-for-regexp-match-when-using-insertbefor.patch
-aa75b5ab7d5dd534a54e7b05cabc01e4840d12758251c65544feba94888fd31536558ebb0d719c4582d97bd6faef9bbcc37f6f60155f29ae6d03fa5a68270772  0002-Revert-Fix-lineinfile-to-insert-line-when-pattern-ex.patch"
+sha512sums="0c7353eeb4a65b21439489ef8a101bb0455d24d88904011460548bfba218688b4a1fdc1d61d60d611c2bcce7f1c301c0d6bcb9f3e9db12eaf9c9ef2f96994af9  ansible-2.6.0.tar.gz"
