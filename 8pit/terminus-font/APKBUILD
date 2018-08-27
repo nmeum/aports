@@ -1,29 +1,32 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Contributor: Orion <systmkor@gmail.com>
-# Maintainer: Orion <systmkor@gmail.com>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=terminus-font
 pkgver=4.46
 pkgrel=1
 pkgdesc="Monospace bitmap font (for X11 and console)"
 url="http://terminus-font.sourceforge.net/"
 arch="noarch"
-license="GPL2 custom:OFL"
+license="custom"
 depends=""
 depends_dev=""
 makedepends="bdftopcf fontconfig mkfontscale mkfontdir python3"
+options="!check"
 install=""
 subpackages="$pkgname-doc"
 source="http://downloads.sourceforge.net/project/$pkgname/$pkgname-$pkgver/$pkgname-$pkgver.tar.gz"
 
-_builddir="$srcdir"/$pkgname-$pkgver
+builddir="$srcdir"/$pkgname-$pkgver
 prepare() {
-	cd "$_builddir"
-	patch -p0 -i alt/td1.diff || return 1
-	patch -p0 -i alt/ll2.diff || return 1
+	default_prepare
+	cd "$builddir"
+
+	patch -p0 -i alt/td1.diff
+	patch -p0 -i alt/ll2.diff
 }
 
 build() {
-	cd "$_builddir"
+	cd "$builddir"
 	make \
 		prefix=/usr \
 		x11dir=/usr/share/fonts/misc \
@@ -31,7 +34,7 @@ build() {
 }
 
 package() {
-	cd "$_builddir"
+	cd "$builddir"
 	make \
 		prefix=/usr \
 		x11dir=/usr/share/fonts/misc \
@@ -42,7 +45,7 @@ package() {
 	install -d "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm655 README README-BG \
 		"$pkgdir"/usr/share/doc/$pkgname/ || return 1
-	
+
 	install -Dm644 75-yes-terminus.conf \
 		"$pkgdir"/etc/fonts/conf.avail/75-yes-terminus.conf
 	install -Dm644 OFL.TXT \
