@@ -3,21 +3,21 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=unbound
 pkgver=1.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Unbound is a validating, recursive, and caching DNS resolver"
 url="http://unbound.net/"
 arch="all"
 license="BSD-3-Clause"
 depends="dnssec-root"
-depends_dev="expat-dev libevent-dev"
-makedepends="$depends_dev libressl-dev python2-dev swig linux-headers"
+depends_dev="expat-dev"
+makedepends="$depends_dev libevent-dev openssl-dev python2-dev swig linux-headers"
 install="$pkgname.pre-install"
 options="!check"
 pkgusers="unbound"
 pkggroups="unbound"
 subpackages="$pkgname-dev $pkgname-doc $pkgname-libs $pkgname-dbg py-unbound:py
 	$pkgname-migrate::noarch"
-source="http://unbound.net/downloads/$pkgname-$pkgver.tar.gz
+source="https://unbound.net/downloads/$pkgname-$pkgver.tar.gz
 	conf.patch
 	migrate-dnscache-to-unbound
 	$pkgname.initd
@@ -93,7 +93,7 @@ migrate() {
 }
 
 sha512sums="1872a980e06258d28d2bc7f69a4c56fc07e03e4c9856161e89abc28527fff5812a47ea9927fd362bca690e3a87b95046ac96c8beeccaeb8596458f140c33b217  unbound-1.8.1.tar.gz
-8726f9450a7aa753e751971c293fed945e08bc5c7928ab03ac35724015c11773c95e07eb9077ff4eceae6e383dfc6ea37e9c55d20afa0d6183e20d99d4380091  conf.patch
+bd51769e3e2d6035df1abbf220038a56a69795a092b5f31005e1910c6c88e334d7e71fe16d874885ef74c597f3a1d7af50f9ad9736ba7ebb10ae50178828661c  conf.patch
 b26a13c1c88da9611a65705dc59f7233c5e0f6aced0d7d66c18536a969a2de627ca5d4bb55eedd81f2f040fa11bde48eaaeca2850f376e72e7a531678a259131  migrate-dnscache-to-unbound
 d8392a6d238b46fd207d57eb2d23d0806d070c203ae196a6c2a6a4f7de4c95beecee86640649ff7dcc1cec3d3edcd313e8d91bff4188bdc1133b12fe6eff554e  unbound.initd
 40c660f275a78f93677761f52bdf7ef151941e8469dd17767a947dbe575880e0d113c320d15c7ea7e12ef636d8ec9453eeae804619678293fa35e3d4c7e75a71  unbound.confd"
