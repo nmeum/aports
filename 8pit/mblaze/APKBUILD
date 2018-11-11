@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=mblaze
 pkgver=0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Unix utilities to deal with Maildir"
 url="https://github.com/chneukirchen/mblaze"
 arch="all"
@@ -39,7 +39,7 @@ package() {
 }
 
 crypto() {
-	depends="libressl gnupg"
+	depends="openssl gnupg"
 	pkgdesc="Scripts for using S/MIME and PGP"
 
 	cd "$builddir/contrib"
