@@ -19,24 +19,24 @@ builddir="$srcdir"/$pkgname-$_commit
 
 prepare() {
 	cd "$builddir"
-	default_prepare || return 1
+	default_prepare
 
-	cp "$srcdir"/config.h config.h || return 1
+	cp "$srcdir"/config.h config.h
 	sed -i -e '/CFLAGS/{s/-Os//;s/=/+=/}' \
 		-e '/LDFLAGS/{s/=/+=/}' \
-		config.mk || return 1
+		config.mk
 }
 
 build() {
 	make X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11 \
 		FREETYPEINC=/usr/include/freetype2 \
-		-C "$builddir" || return 1
+		-C "$builddir"
 }
 
 package() {
 	make PREFIX=/usr DESTDIR="$pkgdir" \
-		-C "$builddir" install || return 1
+		-C "$builddir" install
 }
 
 sha512sums="b8aecf8adf4917aec4da49070af93df043f7e2cd2c5ee4669abb9b9c83a41496b63606a73fd84e7a0adeb54b35127d6561d7a3e821ff5ec9e46f626eb8843b7e  dwm-6.2-8pit.tar.gz
