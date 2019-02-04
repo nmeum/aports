@@ -1,9 +1,9 @@
 # Contributor: Gaber Ayoubi <gaber.ayoubi@gmail.com>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
-pkgver=6.1
-_commit="0ebc6810833d191cbe9079a6bb97fa062bbd7243"
-pkgrel=3
+pkgver=6.2
+_commit="18c53daee2ed56399019ed71b602fa5b9d0950ef"
+pkgrel=1
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
@@ -23,7 +23,7 @@ prepare() {
 
 	cp "$srcdir"/config.h config.h || return 1
 	sed -i -e '/CFLAGS/{s/-Os//;s/=/+=/}' \
-		-e '/LDFLAGS/{s/-s//;s/=/+=/}' \
+		-e '/LDFLAGS/{s/=/+=/}' \
 		config.mk || return 1
 }
 
@@ -39,5 +39,5 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-sha512sums="77bb1137a196f2ec5ee2eee4f438a93db9c32c4038213ee0e97c03b917d88b91bb55387cd68934502078ddfd99791456875f002824487a2fe60db1e3721a99d5  dwm-6.1-8pit.tar.gz
+sha512sums="b8aecf8adf4917aec4da49070af93df043f7e2cd2c5ee4669abb9b9c83a41496b63606a73fd84e7a0adeb54b35127d6561d7a3e821ff5ec9e46f626eb8843b7e  dwm-6.2-8pit.tar.gz
 7f6748c53c51e27dba68f63c52400bcaf8358eb903576ab57b86fa20c4fc2c1d6da31ace175b43f465692d86df00137dda6aec6ce4a56851fb911fe61f1925f7  config.h"
