@@ -1,0 +1,45 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer:
+pkgname=vimb
+_commit=19888eb19ce54ee6089597c83040677aa1b7ffc1
+pkgver=3.3.0
+pkgrel=1
+pkgdesc="Webkit based web browser that behaves like the vimperator"
+url="https://fanglingsu.github.io/vimb/"
+arch="all"
+license="GPL-3.0-only"
+depends=""
+depends_dev=""
+makedepends="webkit2gtk-dev"
+install=""
+subpackages="$pkgname-doc $pkgname-dbg"
+source="$pkgname-$pkgver.tar.gz::https://github.com/fanglingsu/$pkgname/archive/$pkgver.tar.gz
+	$pkgname-wyebadblock-$_commit.tar.gz::https://github.com/jun7/wyebadblock/archive/$_commit.tar.gz
+	musl-fixes.patch"
+builddir="$srcdir/$pkgname-$pkgver"
+
+prepare() {
+	cd "$srcdir/wyebadblock-$_commit"
+	patch -p1 -i "$srcdir/musl-fixes.patch"
+}
+
+build() {
+	cd "$builddir"
+	make PREFIX=/usr
+
+	cd "$srcdir/wyebadblock-$_commit"
+	make
+}
+
+package() {
+	cd "$builddir"
+	make PREFIX=/usr DESTDIR="$pkgdir" install
+
+	cd "$srcdir/wyebadblock-$_commit"
+	install -Dm755 wyebab "$pkgdir"/usr/bin/wyebab
+	install -Dm755 adblock.so "$pkgdir"/usr/lib/$pkgname/
+}
+
+sha512sums="9bdf89455504ed6fff11d8b33a0c8faa9b84bdb432f1e6ebb4ec6611c29b796ae8dd6ed3536b4e421291d239de603e8a902b2665263b9db91bfcb11204d848a0  vimb-3.3.0.tar.gz
+3cefc6d7b9e60222b048e216f7ef3cfe3b511c7c745f42908c4067490ed3d3bd419d7454838d2c7a7c69a32dfc4ee715655785c3f1aa8bbdd44ed1b58201c15b  vimb-wyebadblock-19888eb19ce54ee6089597c83040677aa1b7ffc1.tar.gz
+ad6e5aa561712f8f0e26af5732624fdc61316ab337cff01093c8a15289592a0ba5dee518b7b6b64061f8a116a111d2ce7661f76f59d6048ebd2d6ca6e798b9a5  musl-fixes.patch"
