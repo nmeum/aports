@@ -1,28 +1,27 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=tinyalsa
-pkgver=1.1.0
-pkgrel=1
+pkgver=1.1.1
+pkgrel=0
 pkgdesc="Tiny library to interface with ALSA in the Linux kernel"
 url="https://github.com/tinyalsa/tinyalsa"
 arch="all"
-license="BSD"
-depends=""
-depends_dev=""
+license="BSD-3-Clause"
 makedepends="$depends_dev linux-headers"
-install=""
-subpackages="$pkgname-libs $pkgname-dev $pkgname-doc"
+subpackages="$pkgname-libs $pkgname-static $pkgname-dev $pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/tinyalsa/$pkgname/archive/${pkgver}.tar.gz
-	fix-percent.patch"
-
+	0001-interval.h-add-missing-header.patch
+	0002-Fix-integer-division-issue-in-int_to_percent-functio.patch
+	0003-pcm-readi-Fixed-segfault-in-failure-recovery.patch
+	0004-pcm-writei-fix-Wmaybe-uninitialized-warning.patch"
 builddir="$srcdir"/$pkgname-$pkgver
+
 build() {
-	make -C "$builddir" || return 1
+	make
 }
 
 package() {
-	make PREFIX=/usr DESTDIR="$pkgdir" \
-		-C "$builddir" install || return 1
+	make PREFIX=/usr DESTDIR="$pkgdir" install
 }
 
 libs() {
@@ -30,12 +29,11 @@ libs() {
 
 	mkdir -p "$subpkgdir"/usr/lib/
 	mv "$pkgdir"/usr/lib/libtinyalsa.so \
-		"$subpkgdir"/usr/lib/ || return 1
+		"$subpkgdir"/usr/lib/
 }
 
-md5sums="fb2b94626e3e112f6531c5ce8a9795e0  tinyalsa-1.1.0.tar.gz
-b1f898f6d628a52ec99e5a09d020f67b  fix-percent.patch"
-sha256sums="93f4ca1e6345974167dc5577e8151a31fa2e6a628727a72d59e18db2289e7a1c  tinyalsa-1.1.0.tar.gz
-7dafa0d7e5452d68b7bf969814c8ba68764d1965185b553998c6ba9bf394304b  fix-percent.patch"
-sha512sums="25a11084e0d27d5f44586a87ffb77d189ebec1348d264f8d2bb57d9dfc539a98d3716794e70757cf3c1c98291fc9084f054e4464ff6050fb31f8ff443b4ead37  tinyalsa-1.1.0.tar.gz
-d0ac55a70f874a820e3a800c52188085fbfd1d7bb3e6204d865fe608f56d7c8aab3d958827db868d13b630b94a5ab1b0de1edfc4ac86ee19835cc0cd6b18da0f  fix-percent.patch"
+sha512sums="869c70103cc74eed9e7e14b38a349d662c64d3c371a61882ea9c78d915e40277ce6776aa4018c7e1a4140e7d2434ef46c5ac9611c5ae39d976090e8a6cf5c7ad  tinyalsa-1.1.1.tar.gz
+fa0ccabbd902c5acaa575906cd29d7ed908131f51c7758f493091e60913452e2b60c61143cd15552637833021346cae5d72468a837f53b2ee342583363399937  0001-interval.h-add-missing-header.patch
+93442854115ee2d78e89cd6c3f297655f39c03073bcac4dcd1d1db36c573036348b6cb273256e032d7348ac24889fd8a16cc6eac08c278b039001e13b6232c33  0002-Fix-integer-division-issue-in-int_to_percent-functio.patch
+8eca326ba2dc59ee1f788af98b0d5041b5865f87fdb64fc2a9b4ee943a6abe1cd13129fd618ec1062743f8dfac257b0e268c6eb68febae85a94e643c4acbc671  0003-pcm-readi-Fixed-segfault-in-failure-recovery.patch
+2fc072749f1b9f2adad01caa577d7052d83d4316b792c0cd04961c0802a95e0952b9a5759e5aba3cae5488d109bbd6cbaa5d922e87f2256a23db365141d12207  0004-pcm-writei-fix-Wmaybe-uninitialized-warning.patch"

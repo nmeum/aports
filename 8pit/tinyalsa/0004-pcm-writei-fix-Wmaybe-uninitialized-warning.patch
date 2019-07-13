@@ -1,0 +1,22 @@
+From 398dc34c9bb179db362eaa5189e423fda5badcaa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
+Date: Sat, 13 Jul 2019 17:49:08 +0200
+Subject: [PATCH] pcm-writei: fix -Wmaybe-uninitialized warning
+
+---
+ examples/pcm-writei.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/examples/pcm-writei.c b/examples/pcm-writei.c
+index 66280eb..18e10dd 100644
+--- a/examples/pcm-writei.c
++++ b/examples/pcm-writei.c
+@@ -82,7 +82,7 @@ static int write_frames(const void * frames, size_t byte_count){
+ 
+ int main(void)
+ {
+-    void *frames;
++    void *frames = NULL;
+     size_t size;
+ 
+     size = read_file(&frames);

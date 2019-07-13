@@ -1,0 +1,31 @@
+From 717d06891fe5973dc14c6ba4490920081e453c58 Mon Sep 17 00:00:00 2001
+From: Baruch Siach <baruch@tkos.co.il>
+Date: Fri, 2 Jun 2017 12:19:03 +0300
+Subject: [PATCH] interval.h: add missing header
+
+The ssize_t type requires the unistd.h header. This fixes build with musl
+libc:
+
+In file included from ../include/tinyalsa/limits.h:32:0,
+                 from limits.c:1:
+../include/tinyalsa/interval.h:38:2: error: unknown type name 'ssize_t'
+  ssize_t max;
+  ^
+
+Signed-off-by: Baruch Siach <baruch@tkos.co.il>
+---
+ include/tinyalsa/interval.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/tinyalsa/interval.h b/include/tinyalsa/interval.h
+index 3f6f3dc..068571d 100644
+--- a/include/tinyalsa/interval.h
++++ b/include/tinyalsa/interval.h
+@@ -30,6 +30,7 @@
+ #define TINYALSA_INTERVAL_H
+ 
+ #include <stdlib.h>
++#include <unistd.h>
+ 
+ /** A closed range signed interval. */
+ 
