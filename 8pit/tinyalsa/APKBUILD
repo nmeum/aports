@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=tinyalsa
 pkgver=1.1.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Tiny library to interface with ALSA in the Linux kernel"
 url="https://github.com/tinyalsa/tinyalsa"
 arch="all"
@@ -22,14 +22,6 @@ build() {
 
 package() {
 	make PREFIX=/usr DESTDIR="$pkgdir" install
-}
-
-libs() {
-	default_libs
-
-	mkdir -p "$subpkgdir"/usr/lib/
-	mv "$pkgdir"/usr/lib/libtinyalsa.so \
-		"$subpkgdir"/usr/lib/
 }
 
 sha512sums="869c70103cc74eed9e7e14b38a349d662c64d3c371a61882ea9c78d915e40277ce6776aa4018c7e1a4140e7d2434ef46c5ac9611c5ae39d976090e8a6cf5c7ad  tinyalsa-1.1.1.tar.gz
