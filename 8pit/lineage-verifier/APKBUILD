@@ -1,0 +1,32 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname="lineage-verifier"
+_commit="0c65c4f13c489e18b9cf6be9c11f54794217ae5a"
+pkgver=20190408
+pkgrel=0
+pkgdesc="Tool for verifying lineage build authenticity"
+url="https://github.com/LineageOS/update_verifier"
+arch="noarch"
+license="Apache-2.0"
+depends="py3-oscrypto python3"
+subpackages=""
+options="!check" # upstream doesn't have a testsuite
+source="lineage-verifier-$pkgver.tar.gz::https://github.com/LineageOS/update_verifier/archive/$_commit.tar.gzu
+	0001-Make-public-key-an-optional-argument-with-a-default-.patch"
+builddir="$srcdir/update_verifier-$_commit"
+
+build() {
+	dos2unix update_verifier.py
+	echo "#!/usr/bin/env python3" > $pkgname.in
+	cat $pkgname.in update_verifier.py > $pkgname
+}
+
+package() {
+	install -Dm644 lineageos_pubkey \
+		"$pkgdir"/usr/share/$pkgname/pubkey
+	install -Dm755 $pkgname \
+		"$pkgdir"/usr/bin/$pkgname
+}
+
+sha512sums="db4ef3e916ebfdd62324e654ad75a2e9538820c76148ca7bd7404d37f7ce42edc64d4aed9126f32be4a65f995049b2fbd4c28d9590e8065533127d57ca5bc1f8  lineage-verifier-20190408.tar.gz
+88675f34e4ad4df95a2e35fc6dafafb485fec4f66c476bb47f16362df96b176c32d115277ba991134a327794dcd595ed42f8872963a96dad50e949188d806954  0001-Make-public-key-an-optional-argument-with-a-default-.patch"

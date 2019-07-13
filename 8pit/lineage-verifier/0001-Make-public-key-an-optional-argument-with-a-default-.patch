@@ -1,0 +1,23 @@
+From 3a285509665dbd0df77517f3e042dee0c2226c97 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
+Date: Sat, 13 Jul 2019 15:39:36 +0200
+Subject: [PATCH] Make public key an optional argument with a default value
+
+---
+ update_verifier.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/update_verifier.py b/update_verifier.py
+index 38f073f..24f0c6e 100644
+--- a/update_verifier.py
++++ b/update_verifier.py
+@@ -109,8 +109,8 @@ class SignedFile(object):
+ def main():
+     parser = argparse.ArgumentParser(description='Verifies whole file signed '
+                                                  'Android update files')
+-    parser.add_argument('public_key')
+     parser.add_argument('zipfile')
++    parser.add_argument('public_key', nargs='?', default='/usr/share/lineage-verifier/pubkey')
+     args = parser.parse_args()
+ 
+     signed_file = SignedFile(args.zipfile)
