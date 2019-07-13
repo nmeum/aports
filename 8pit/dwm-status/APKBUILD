@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm-status
 pkgver=20170511
-pkgrel=1
+pkgrel=2
 pkgdesc="Yet another stupid dwm status tool"
 url="https://github.com/nmeum/dwm-status"
 arch="all"
@@ -36,4 +36,4 @@ package() {
 
 sha512sums="5cf429f31788accbbfc4829ec279a941e8f4411cdd772aa7e112958151117ec2f3611536bb8b9f37a327e40287de4f567fa53833916f28f7f38c5913e52ec616  dwm-status-20170511.tar.gz
 3eb47ce580bc712dca8ced684511855ff526fca93bd25aef5c9899535cdf2f780217e1c516fd26a986b153ecdde40cb1872d6c0ce7dc7f2b3e034b500e81a7b3  0001-Allow-configuration-of-full-current-charge-file-name.patch
-be80d2e31361f0a112a0267b5bee78c7e863aaa5270bbe0dcc54dbbdb3ba753888da5cf249b1347a397a351c21ec5368fd6732929c688ba463b0d2e8ae525385  config.h"
+10d70ae957f5c67b64e4da5b89b698fb42411fb938e62056c58852fcceb7b99990cba8e2a65f0a3e7797a17eda9c6f5caf6093b602d0d3e804d3680e21cd91a9  config.h"
