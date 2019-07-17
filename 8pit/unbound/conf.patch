@@ -29,4 +29,3 @@ diff -upr a/doc/example.conf.in b/doc/example.conf.in
  
  	# Trusted key for validation. DS or DNSKEY. specify the RR on a
  	# single line, surrounded by "". TTL is ignored. class is IN default.
-Only in b/doc: example.conf.in.orig
