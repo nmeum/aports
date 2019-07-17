@@ -9,9 +9,8 @@ url="https://github.com/LineageOS/update_verifier"
 arch="noarch"
 license="Apache-2.0"
 depends="py3-oscrypto python3"
-subpackages=""
 options="!check" # upstream doesn't have a testsuite
-source="lineage-verifier-$pkgver.tar.gz::https://github.com/LineageOS/update_verifier/archive/$_commit.tar.gzu
+source="$pkgname-$pkgver.tar.gz::https://github.com/LineageOS/update_verifier/archive/$_commit.tar.gz
 	0001-Make-public-key-an-optional-argument-with-a-default-.patch"
 builddir="$srcdir/update_verifier-$_commit"
 
