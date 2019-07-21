@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm-status
-pkgver=20170511
-pkgrel=3
+pkgver=20190721
+pkgrel=0
 pkgdesc="Yet another stupid dwm status tool"
 url="https://github.com/nmeum/dwm-status"
 arch="all"
@@ -14,26 +14,23 @@ install=""
 options="!check"
 subpackages=""
 source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/$pkgname/archive/$pkgver.tar.gz
-	0001-Allow-configuration-of-full-current-charge-file-name.patch
 	config.h"
 
-builddir="$srcdir"/$pkgname-$pkgver
 prepare() {
 	default_prepare
-	cp "$srcdir"/config.h "$builddir"/config.h || return 1
+	cp "$srcdir"/config.h "$builddir"/config.h
 }
 
 build() {
 	make X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11 \
-		-C "$builddir" || return 1
+		-C "$builddir"
 }
 
 package() {
 	install -Dm755 "$builddir"/$pkgname \
-		"$pkgdir"/usr/bin/$pkgname || return 1
+		"$pkgdir"/usr/bin/$pkgname
 }
 
-sha512sums="5cf429f31788accbbfc4829ec279a941e8f4411cdd772aa7e112958151117ec2f3611536bb8b9f37a327e40287de4f567fa53833916f28f7f38c5913e52ec616  dwm-status-20170511.tar.gz
-3eb47ce580bc712dca8ced684511855ff526fca93bd25aef5c9899535cdf2f780217e1c516fd26a986b153ecdde40cb1872d6c0ce7dc7f2b3e034b500e81a7b3  0001-Allow-configuration-of-full-current-charge-file-name.patch
-10d70ae957f5c67b64e4da5b89b698fb42411fb938e62056c58852fcceb7b99990cba8e2a65f0a3e7797a17eda9c6f5caf6093b602d0d3e804d3680e21cd91a9  config.h"
+sha512sums="3171dfd1595b9d3ee167b1c123e7fc0ca5d293518d9389de906b1525f803e454436f4e466b4cba300f4e0ae0d44fc64294d5c1431189877d257ff4c2b4e350ee  dwm-status-20190721.tar.gz
+0509128873b7349abe344f646a9876c784d6e923343521379664ec559ee40709993cb97cd24838b78f5f481eadb99c5d93e523c2d1cdd6d389ca4c75c5a6018c  config.h"

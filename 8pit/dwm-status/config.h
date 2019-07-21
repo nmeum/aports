@@ -3,7 +3,7 @@
 /* Delay (in seconds) used between updates of the status text. */
 static const int delay = 5;
 
-/* Seperator to use between different status function outputs. */
+/* Separator to use between different status function outputs. */
 static const char *statsep = " | ";
 
 /* Format to use in the curtime function for the current time. */
@@ -34,7 +34,7 @@ static size_t batcapmay(char *dest, size_t n) {
 
 	ret = batcap(dest, n);
 	if (ret)
-		ret += seperator(&dest[ret], n - ret);
+		ret += separator(&dest[ret], n - ret);
 
 	return ret;
 }
@@ -43,8 +43,8 @@ static size_t batcapmay(char *dest, size_t n) {
 static size_t (* const sfuncs[])(char*, size_t) = {
 	batcapmay,
 	alsavol,
-	seperator,
+	separator,
 	loadavg,
-	seperator,
+	separator,
 	curtime,
 };
