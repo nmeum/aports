@@ -14,7 +14,7 @@ banner "Retrieving packages from remote repository."
 rsync -av --delete-excluded "${RDEST}/" "${TDEST}/"
 
 banner "Invoking buildrepo."
-APORTSDIR="$(pwd)" buildrepo -a "$(pwd)" -d "$(pwd)/${TDEST%/*}" -R -p 8pit
+buildrepo -a "$(pwd)" -d "$(pwd)/${TDEST%/*}" -R -p 8pit
 
 banner "Pushing packages to remote repository."
 rsync -av --delete-excluded "${TDEST}/" "${RDEST}/"
