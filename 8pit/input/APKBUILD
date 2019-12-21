@@ -1,0 +1,28 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=input
+pkgver=1.0.0
+pkgrel=0
+pkgdesc="Prompt for input with readline-like key bindings"
+url="https://github.com/nmeum/input"
+arch="all"
+license="GPL-3.0-or-later"
+checkdepends="tmux"
+makedepends="readline-dev"
+subpackages="$pkgname-doc"
+source="https://github.com/nmeum/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	make
+}
+
+check() {
+	make check
+}
+
+package() {
+	make DESTDIR="$pkgdir" PREFIX=/usr install
+}
+
+sha512sums="a8ffae7770f0e9092d53140aed8a371d23c57dc96d4ad874f8b81d8cadd4ccb10ee2c623d17c9497271fc7a908f7da710ab14c35e3a59e619dba9e4b83620267  input-1.0.0.tar.gz"
