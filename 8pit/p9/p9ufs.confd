@@ -1,0 +1,11 @@
+# Path to the file system to expose.
+#P9UFS_ROOT=/srv
+
+# Address to listen to.
+#P9UFS_ADDR=localhost:564
+
+# User to run p9ufs as.
+#P9UFS_USER=root
+
+# Additional command line flags.
+#P9UFS_OPTS=

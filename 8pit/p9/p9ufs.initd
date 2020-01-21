@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+
+name="$SVCNAME"
+command="/usr/bin/$SVCNAME"
+command_user="$P9UFS_USER"
+command_args="$P9UFS_OPTS -root '$P9UFS_ROOT' '$P9UFS_ADDR'"
+command_background="yes"
+pidfile="/var/run/$SVCNAME.pid"
+
+depend() {
+	use net
+}
