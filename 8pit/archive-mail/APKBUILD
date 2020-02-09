@@ -1,0 +1,32 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=archive-mail
+pkgver=0_git20200209
+_commit=b9550336970101248ed8394131df7c6d65a973e2
+pkgrel=0
+pkgdesc="Maintains a maildir archive synced with a current maildir"
+url="https://github.com/nmeum/archive-mail"
+arch="all"
+license="GPL-3.0-or-later"
+makedepends="go"
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/archive-mail/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
+
+build() {
+	go build -o $pkgname -trimpath
+}
+
+check() {
+	./tests/run_tests.sh
+}
+
+package() {
+	install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
+}
+
+cleanup_srcdir() {
+	go clean -modcache
+	default_cleanup_srcdir
+}
+
+sha512sums="f37130637b42e772adeec7f1c94fcd3daa7813387723206eaffd5c73f99f8bdaf5fa3a4144b8175074a7b43455577ca911b1544f5e5d7b667a26273598cd74c9  archive-mail-0_git20200209.tar.gz"
