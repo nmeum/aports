@@ -4,7 +4,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=rxvt-unicode
 pkgver=9.22
-pkgrel=8
+pkgrel=9
 pkgdesc="rxvt fork with improved unicode support"
 url="http://software.schmorp.de/pkg/rxvt-unicode.html"
 arch="all"
@@ -26,7 +26,6 @@ build() {
 		--build=$CBUILD \
 		--host=$CHOST \
 		--prefix=/usr \
-		--with-terminfo=/usr/share/terminfo \
 		--enable-256-color \
 		--enable-font-styles \
 		--enable-frills \
