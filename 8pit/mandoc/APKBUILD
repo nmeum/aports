@@ -1,18 +1,19 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
-pkgname=mdocml
-_pkgname=mandoc
+pkgname=mandoc
 pkgver=1.14.5
-pkgrel=4
-pkgdesc="mdoc/man compiler"
-url="http://mdocml.bsd.lv/"
+pkgrel=5
+pkgdesc="mandoc (formerly mdocml) UNIX manpage compiler toolset"
+url="https://mandoc.bsd.lv/"
 arch="all"
 license="ISC and BSD-2-Clause and BSD-3-Clause"
 makedepends="zlib-dev"
 checkdepends="perl"
 install="$pkgname.post-deinstall"
+replaces="mdocml"
+provides="mdocml=$pkgver-r$pkgrel"
 subpackages="$pkgname-doc $pkgname-dev $pkgname-apropos $pkgname-soelim"
-source="http://mdocml.bsd.lv/snapshots/$_pkgname-$pkgver.tar.gz
+source="https://mandoc.bsd.lv/snapshots/mandoc-$pkgver.tar.gz
 	shared-libmandoc.patch
 	outdated-warn-disable.patch
 	fix-tbl-null-pointer.patch
@@ -20,7 +21,6 @@ source="http://mdocml.bsd.lv/snapshots/$_pkgname-$pkgver.tar.gz
 	$pkgname.cron
 	"
 
-builddir="$srcdir/$_pkgname-$pkgver"
 prepare() {
 	default_prepare
 
@@ -56,6 +56,8 @@ apropos() {
 		"$subpkgdir"/usr/bin/
 	mv "$pkgdir"/usr/sbin/makewhatis \
 		"$subpkgdir"/usr/sbin/
+	install -Dm755 "$srcdir"/$pkgname.cron \
+		"$subpkgdir"/etc/periodic/daily/makewhatis
 }
 
 soelim() {
@@ -71,4 +73,4 @@ b1bd2c197584948cc8bab2310e759b8942b9f9479254ffb5a8223cfa6ba03c9e1a4d402c5440b8d9
 ced05e8b57fb9705c6d8d8570cd6b06ad187511a4c243ac2dbc34064aa164ca49e0c877160134161dcb98ebd5e61a5c23d5741f03ef95903ff56193dd07f36a1  outdated-warn-disable.patch
 bb46bc3a0f07881e5362b32d478632fb209f9740017c467f2258e9b7ddbece6175bba598287d8c24626c9ee7217eb92ae60e0a30aeafdfc4b0154f4d312cbcca  fix-tbl-null-pointer.patch
 a44d86fb012acbc05eb233122e7ca3170e5e01c7c49115c2fe83f49891d442ba94601a039018cfa01cc1ef3cd02d5aff4d1e01abd4230b8bc2091e649ad991db  mandoc_configure.patch
-1af9627ee519ecf7d4962db52c83b28f3eb4e9fc6bf38e674bd5e17b21076c3c74c9eed2a1161812f8ac0c75471986b73fcf0acfc7065bc2c15280e1d696a00b  mdocml.cron"
+1af9627ee519ecf7d4962db52c83b28f3eb4e9fc6bf38e674bd5e17b21076c3c74c9eed2a1161812f8ac0c75471986b73fcf0acfc7065bc2c15280e1d696a00b  mandoc.cron"
