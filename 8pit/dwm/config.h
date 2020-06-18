@@ -22,7 +22,6 @@ static const Rule rules[] = {
 	 */
 	/* class         instance    title       tags mask     isfloating   monitor */
 	{ "Firefox",     NULL,       NULL,       0,            0,           -1 },
-	{ "Vimperator",  NULL,       NULL,       0,            0,           -1 },
 };
 
 /* setmfact sets the mfact as an absolute value if it is > 1.0
