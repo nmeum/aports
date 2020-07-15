@@ -3,7 +3,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=unbound
 pkgver=1.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Unbound is a validating, recursive, and caching DNS resolver"
 url="http://unbound.net/"
 arch="all"
@@ -73,8 +73,8 @@ package() {
 
 	cd "$pkgdir"
 
-	install -m755 -D "$srcdir"/unbound.initd ./etc/init.d/unbound
-	install -m755 -D "$srcdir"/unbound.confd ./etc/conf.d/unbound
+	install -Dm755 "$srcdir"/unbound.initd ./etc/init.d/unbound
+	install -Dm644 "$srcdir"/unbound.confd ./etc/conf.d/unbound
 }
 
 libs() {
