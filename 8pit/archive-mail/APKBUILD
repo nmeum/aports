@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=archive-mail
-pkgver=0_git20200403
+pkgver=0_git20200605
 _commit=fb0904a4c339e11f838d08d0d178cb85fd6f9f7a
 pkgrel=0
 pkgdesc="Maintains a maildir archive synced with a current maildir"
@@ -29,4 +29,4 @@ cleanup_srcdir() {
 	default_cleanup_srcdir
 }
 
-sha512sums="f6f2899547143b3af66a1fe1533f4eddf168cad9e2e7b69ba4e4cf5a078b2fc20675f375414d68c1b0945471b342f4af1d3e77bd342081b1a9bb26724e22c8be  archive-mail-0_git20200403.tar.gz"
+sha512sums="f6f2899547143b3af66a1fe1533f4eddf168cad9e2e7b69ba4e4cf5a078b2fc20675f375414d68c1b0945471b342f4af1d3e77bd342081b1a9bb26724e22c8be  archive-mail-0_git20200605.tar.gz"
