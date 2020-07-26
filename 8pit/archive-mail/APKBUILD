@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=archive-mail
-pkgver=0_git20200605
-_commit=fb0904a4c339e11f838d08d0d178cb85fd6f9f7a
+pkgver=0_git20200725
+_commit=efe4b15a28a28d786cddcd5a65ed8bdabf4bde44
 pkgrel=0
 pkgdesc="Maintains a maildir archive synced with a current maildir"
 url="https://github.com/nmeum/archive-mail"
@@ -29,4 +29,4 @@ cleanup_srcdir() {
 	default_cleanup_srcdir
 }
 
-sha512sums="f6f2899547143b3af66a1fe1533f4eddf168cad9e2e7b69ba4e4cf5a078b2fc20675f375414d68c1b0945471b342f4af1d3e77bd342081b1a9bb26724e22c8be  archive-mail-0_git20200605.tar.gz"
+sha512sums="f3846e379a524ac68cff148936bb118c183e180d63145d40037e98a4dc04545919c11cab4612bc61448b4fd5542f73680581a4019903321a8389bf5185672466  archive-mail-0_git20200725.tar.gz"
