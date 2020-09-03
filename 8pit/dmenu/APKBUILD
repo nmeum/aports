@@ -1,42 +1,36 @@
-# Contributor: Eivind Uggedal <eivind@uggedal.com>
+# Contributor: Eivind Uggedal <eu@eju.no>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dmenu
-pkgver=4.9
+pkgver=5.0
 pkgrel=1
 pkgdesc="Dynamic menu for X"
-url="http://tools.suckless.org/dmenu/"
+url="https://tools.suckless.org/dmenu/"
 arch="all"
 license="MIT"
-depends=""
-depends_dev=""
 makedepends="libx11-dev libxinerama-dev libxft-dev"
-install=""
 options="!check"
 subpackages="$pkgname-doc"
-source="http://dl.suckless.org/tools/$pkgname-$pkgver.tar.gz
+source="https://dl.suckless.org/tools/dmenu-$pkgver.tar.gz
 	config.h"
-builddir="$srcdir"/$pkgname-$pkgver
 
 prepare() {
 	default_prepare
 
-	cp "$srcdir"/config.h "$builddir"/config.h
+	cp "$srcdir"/config.h config.h
 	sed -i -e '/CFLAGS/{s/-Os//;s/=/+=/}' \
 		-e '/LDFLAGS/{s/=/+=/}' \
-		"$builddir"/config.mk
+		config.mk
 }
 
 build() {
 	make X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11 \
-		FREETYPEINC=/usr/include/freetype2 \
-		-C "$builddir"
+		FREETYPEINC=/usr/include/freetype2
 }
 
 package() {
-	make DESTDIR=$pkgdir PREFIX=/usr \
-		-C "$builddir" install
+	make DESTDIR=$pkgdir PREFIX=/usr install
 }
 
-sha512sums="c2779209fe012de8ca1cdd72923da6d594f4a8368c85c3c0e0afd4ae489a95fe0e6f05a947d115b6b389aa7170ab14c2c645a2031353b0a08f38327ab461fe65  dmenu-4.9.tar.gz
+sha512sums="2b6a7cdf5aefc5e7ca7a4944883c3c16ee6f5005d2a96b61482d4899ad395f9cb8926907681d88b9df3e1188cf421dad4cc17e343b752f6cb8b161d33384b3f3  dmenu-5.0.tar.gz
 0f145edcf4ced14d0f14e5f7683bf83b6f97648b57d4dae0f695b3ff63edeb062f8e47a352ddc4a484a134cce4a9324326155b5e614336da34ad1a08c93cda5e  config.h"
