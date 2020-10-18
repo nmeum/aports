@@ -3,7 +3,7 @@
 pkgname=git-shuffle
 pkgver=0_git20201012
 _commit=912146c8264d188cbf5a7c5938431832b80e83c8
-pkgrel=0
+pkgrel=1
 pkgdesc="Randomize Git commit timestamps to enhance privacy"
 url="https://github.com/nmeum/git-shuffle"
 arch="all"
