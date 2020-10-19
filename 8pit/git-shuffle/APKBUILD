@@ -1,9 +1,9 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=git-shuffle
-pkgver=0_git20201012
-_commit=912146c8264d188cbf5a7c5938431832b80e83c8
-pkgrel=1
+pkgver=0_git20201017
+_commit=e6b1fde5ff1851ae44992ba6681d22ec70098815
+pkgrel=0
 pkgdesc="Randomize Git commit timestamps to enhance privacy"
 url="https://github.com/nmeum/git-shuffle"
 arch="all"
@@ -22,4 +22,4 @@ package() {
 	make PREFIX=/usr DESTDIR="$pkgdir" install
 }
 
-sha512sums="58ccf51f830d1b7b2387aba640532e5db1ac1645bb0b0379352d55bbc47ee07a552b35cb1bd66db5ea6f9c6977cbed1a00709c11e4b4569a9c028f12d28f8c2f  git-shuffle-0_git20201012.tar.gz"
+sha512sums="88b8b8a3e5dc34eee3b3ec491ba5ab586233e381a147f585e6380ff1984a13698f3f7408bbd766c74f2144e7707f1e2741abfcd19ce22137ce31d7ae41281864  git-shuffle-0_git20201017.tar.gz"
