@@ -1,0 +1,42 @@
+# HG changeset patch
+# User Sören Tempel <soeren+hg@soeren-tempel.net>
+# Date 1608985828 -3600
+#      Sat Dec 26 13:30:28 2020 +0100
+# Node ID 30a5839182285fa252fc7d9268c5df5b5cc07eb6
+# Parent  8fd69c7dfe881e87efaf1c14c33653ad61488ec8
+gui-x11: Don't use X11 standard interpretation for modifiers
+
+Using XLookupString to determine the KeySym causes the KeySym to be
+interpreted according to the “standard interpretation of the Shift,
+Lock, group, and numlock modifiers as defined in the X Protocol
+specification.” (see XLookupKeysym(3)). For example, pressing shift and
+'a' causes 'A' to be returned as a KeySym.
+
+When considering modifier keys this behaviour is undesirable. For
+instance, X11 xkb definitions which use the both_capslock rule (e.g.
+`setxkbmap de neo`) emit Shift_L with XLookupString when Shift_L/Shift_R
+is pressed but emit Caps_Lock on release as Shift_L acts as a modifier
+in this case (check with xev(1)). This causes Plan 9 to think that the
+Shift key is constantly pressed (as a key release event for Shift is
+never emitted by drawterm) thereby causing the context menu in rio to
+not work correctly. As a side note, capitalization is not effected by
+this as letters are capitalized by drawterm, not Plan 9.
+
+If my understanding of X11 is correct, using XLookupString on modifier
+keys is a bad idea in this particular code, instead XLookupKeysym should
+be used for modifiers.
+
+diff -r 8fd69c7dfe88 -r 30a583918228 gui-x11/x11.c
+--- a/gui-x11/x11.c	Wed Dec 23 15:58:36 2020 +0100
++++ b/gui-x11/x11.c	Sat Dec 26 13:30:28 2020 +0100
+@@ -791,6 +791,10 @@
+ 
+ 	if(k == XK_Multi_key || k == NoSymbol)
+ 		return;
++	/* dont use standard interpretation for modifiers */
++	if(IsModifierKey(k))
++		k = XLookupKeysym((XKeyEvent*)e, 0);
++
+ 	if(k&0xFF00){
+ 		switch(k){
+ 		case XK_BackSpace:
