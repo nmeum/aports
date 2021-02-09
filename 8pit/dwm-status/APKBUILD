@@ -2,17 +2,13 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm-status
 pkgver=20190721
-pkgrel=1
+pkgrel=2
 pkgdesc="Yet another stupid dwm status tool"
 url="https://github.com/nmeum/dwm-status"
 arch="all"
 license="WTFPL"
-depends=""
-depends_dev=""
 makedepends="tinyalsa-dev libx11-dev"
-install=""
-options="!check"
-subpackages=""
+options="!check" # no test suite
 source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/$pkgname/archive/$pkgver.tar.gz
 	config.h"
 
@@ -23,8 +19,7 @@ prepare() {
 
 build() {
 	make X11INC=/usr/include/X11 \
-		X11LIB=/usr/lib/X11 \
-		-C "$builddir"
+		X11LIB=/usr/lib/X11
 }
 
 package() {
