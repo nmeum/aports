@@ -1,0 +1,32 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=loksh
+pkgver=6.8.1
+pkgrel=1
+pkgdesc="A Linux port of OpenBSD's ksh"
+url="https://github.com/dimkr/$pkgname"
+arch="all"
+license="ISC"
+replaces="oksh"
+makedepends="ncurses-dev meson"
+install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
+options="!check" # upstream doesn't have a test suite
+subpackages="$pkgname-doc"
+source="loksh-$pkgver.tar.xz::https://github.com/dimkr/loksh/releases/download/$pkgver/src.tar.xz
+	bracketed-paste-mode.patch"
+builddir="$srcdir"/$pkgname
+
+build() {
+	abuild-meson \
+		--prefix=/ \
+		--bindir=/bin \
+		. output
+	meson compile ${JOBS:+-j ${JOBS}} -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+}
+
+sha512sums="e771e9bb91bf7ca11a41b5af71d6d62eec8205d111513461d20b7aeb029e9457868598508fbe7395c860f12a9dc8eff47f8ed913e5701ae5974777f7caffb861  loksh-6.8.1.tar.xz
+f8eccf8916daafe990d0990f0642d9f627b67e1dd7f8a265c2ab9561a81d37446400c638e42f29befd58f7a082bd7bf020dcb7c6408b8b9b3b7479799caa2699  bracketed-paste-mode.patch"
