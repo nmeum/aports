@@ -3,7 +3,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=terminus-font
 pkgver=4.49.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Monospace bitmap font (for X11 and console)"
 url="http://terminus-font.sourceforge.net/"
 arch="noarch"
@@ -22,18 +22,17 @@ prepare() {
 }
 
 build() {
-	make \
-		prefix=/usr \
-		x11dir=/usr/share/fonts/misc \
-		psfdir=/usr/share/consolefonts
+	./configure \
+		--prefix=/usr \
+		--x11dir=/usr/share/fonts/misc \
+		--otbdir=/usr/share/fonts/misc \
+		--psfdir=/usr/share/consolefonts
+
+	make all otb
 }
 
 package() {
-	make \
-		prefix=/usr \
-		x11dir=/usr/share/fonts/misc \
-		psfdir=/usr/share/consolefonts \
-		DESTDIR="$pkgdir" install
+	make DESTDIR="$pkgdir" install install-otb
 
 	install -d "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm655 README README-BG \
