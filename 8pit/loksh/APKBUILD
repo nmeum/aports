@@ -13,7 +13,8 @@ install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
 options="!check" # upstream doesn't have a test suite
 subpackages="$pkgname-doc"
 source="loksh-$pkgver.tar.xz::https://github.com/dimkr/loksh/releases/download/$pkgver/src.tar.xz
-	bracketed-paste-mode.patch"
+	bracketed-paste-mode.patch
+	utf8-4-byte-seq.patch"
 builddir="$srcdir"/$pkgname
 
 build() {
@@ -29,4 +30,5 @@ package() {
 }
 
 sha512sums="e771e9bb91bf7ca11a41b5af71d6d62eec8205d111513461d20b7aeb029e9457868598508fbe7395c860f12a9dc8eff47f8ed913e5701ae5974777f7caffb861  loksh-6.8.1.tar.xz
-f8eccf8916daafe990d0990f0642d9f627b67e1dd7f8a265c2ab9561a81d37446400c638e42f29befd58f7a082bd7bf020dcb7c6408b8b9b3b7479799caa2699  bracketed-paste-mode.patch"
+f8eccf8916daafe990d0990f0642d9f627b67e1dd7f8a265c2ab9561a81d37446400c638e42f29befd58f7a082bd7bf020dcb7c6408b8b9b3b7479799caa2699  bracketed-paste-mode.patch
+ba4a22bda4fee3e28025892f5556d469550583d28a62af8b981e1e10ccfe1cfe0d715e5c1bd2d963f3ecaa7d2de924f4609a4507c9808bc4ee7cfb68c457e69c  utf8-4-byte-seq.patch"
