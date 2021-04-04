@@ -52,7 +52,7 @@ static const char *lockcmd[] = { "slock", NULL };
 
 /* dmenu configuration */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
+static const char *dmenucmd[] = { "bemenu-run", "-p", "exec", "-m", dmenumon, NULL };
 
 /* volume control */
 static const char *raisevol[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
