@@ -1,0 +1,15 @@
+https://marc.info/?l=openbsd-tech&m=161756521532436&w=2
+
+diff --git a/emacs.c b/emacs.c
+index 9613626..ca7638d 100644
+--- a/emacs.c
++++ b/emacs.c
+@@ -1869,7 +1869,7 @@ x_e_getu8(char *buf, int off)
+ 		return -1;
+ 	buf[off++] = c;
+ 
+-	if (c == 0xf4)
++	if ((c & 0xf8) == 0xf0)
+ 		len = 4;
+ 	else if ((c & 0xf0) == 0xe0)
+ 		len = 3;
