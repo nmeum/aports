@@ -8,7 +8,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "terminus:size=12" };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { "#d8d8d8", "#282828", "#282828" },
+	[SchemeNorm] = { "#b8b8b8", "#282828", "#282828" },
 	[SchemeSel]  = { "#181818", "#7cafc2", "#7cafc2" },
 };
 
