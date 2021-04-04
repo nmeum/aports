@@ -14,6 +14,7 @@ makedepends="libxft-dev libx11-dev libxinerama-dev"
 install=""
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver-8pit.tar.gz::https://github.com/nmeum/dwm/archive/${_commit}.tar.gz
+	bmenu-monitor-index.patch
 	config.h"
 builddir="$srcdir"/$pkgname-$_commit
 
@@ -40,4 +41,5 @@ package() {
 }
 
 sha512sums="779697584214eaf32b36405b7e61ecbcd8f615a285e01368a9ec4eefcad357642087b0dcbc053b1b4723ae5cc1fdcfa3a99cded159670a707f1ca636f9584648  dwm-6.2-8pit.tar.gz
-43215158b005073324de00e63d0dbf2e9e02c04d62ecd43f9199b047b261aca1984aeecfe577e3e6d8a314cc95cda0c025b687f5954c11492da1b9f9d0c9daf2  config.h"
+1d6f794fc303c606e6877473d930529d4cee47818f496b1c569e3a4fdaab5fdad693404b98c123a128c318757229a7fa8baa1f8e3f9ecca592d10d14213db427  bmenu-monitor-index.patch
+677f9b24b5ac0c77d42b363a92b5a36fd6f3d2e937c858aab92299850427f49155766cf6818e4e2132db2ab9b49e819c72608d4a6134273ed7a5e75f391afac1  config.h"
