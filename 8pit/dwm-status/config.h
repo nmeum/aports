@@ -7,7 +7,7 @@ static const int delay = 5;
 static const char *statsep = " | ";
 
 /* Format to use in the curtime function for the current time. */
-static const char *timefmt = "%d.%m.%Y -- %H:%M:%S";
+static const char *timefmt = "%a %d %b -- %H:%M:%S";
 
 /* Path to power supply battery file in /sys. */
 static const char *sysbat = "/sys/class/power_supply/BAT0";
