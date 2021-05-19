@@ -1,0 +1,131 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=cups
+pkgver=2.3.3
+pkgrel=3
+pkgdesc="The CUPS Printing System"
+url="https://www.cups.org/"
+arch="all"
+license="GPL-2.0-only"
+subpackages="$pkgname-dbg $pkgname-dev $pkgname-doc $pkgname-libs ipptool $pkgname-client
+	$pkgname-lang $pkgname-openrc $pkgname-dbg"
+depends_dev="libgcrypt-dev gnutls-dev zlib-dev"
+makedepends="$depends_dev libpaper-dev libjpeg-turbo-dev
+	linux-headers libusb-dev"
+depends="cups-client poppler-utils openssl"
+install="cups.pre-install"
+pkggroups="lp lpadmin"
+pkgusers="lp"
+source="$pkgname-$pkgver.tar.gz::https://github.com/OpenPrinting/cups/archive/v$pkgver.tar.gz
+	$pkgname.logrotate
+	cupsd.initd
+	cups-no-export-ssllibs.patch
+	default-config-no-gssapi.patch
+	"
+
+# secfixes:
+#   2.3.3-r0:
+#     - CVE-2020-3898
+#     - CVE-2019-8842
+#   2.2.12-r0:
+#     - CVE-2019-8696
+#     - CVE-2019-8675
+#   2.2.10-r0:
+#     - CVE-2018-4700
+
+build() {
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--libdir=/usr/lib \
+		--sysconfdir=/etc \
+		--localstatedir=/var \
+		--with-menudir=/usr/share/applications \
+		--with-icondir=/usr/share/icons \
+		--with-logdir=/var/log/cups \
+		--with-docdir=/usr/share/cups \
+		--with-rundir=/run/cups \
+		--with-cupsd-file-perm=0755 \
+		--with-cups-user=lp \
+		--with-cups-group=lp \
+		--with-system-groups=lpadmin \
+		--with-domainsocket=/run/cups/cups.sock \
+		--enable-libusb \
+		--without-rcdir \
+		--without-php \
+		--disable-pam \
+		--enable-raw-printing \
+		--enable-libpaper \
+		--enable-ssl=yes \
+		--enable-gnutls \
+		--disable-launchd \
+		--with-optim="$CFLAGS"
+	make
+}
+
+package() {
+	make BUILDROOT="$pkgdir" install
+
+	cd "$pkgdir"
+
+	# These no longer works since CUPS >= 1.6 (http://www.cups.org/str.php?L4120).
+	rm -rf usr/share/cups/banners/* \
+		usr/share/cups/data/testprint
+
+	install -D -m 644 "$srcdir"/cups.logrotate etc/logrotate.d/cups
+	install -D -m 755 "$srcdir"/cupsd.initd etc/init.d/cupsd
+
+	if [ -e usr/share/applications/cups.desktop ] ; then
+		sed -i 's|^Exec=htmlview http://localhost:631/|Exec=xdg-open http://localhost:631/|g' \
+			usr/share/applications/cups.desktop
+	fi
+	find usr/share/cups/model -name "*.ppd" | xargs gzip -n9f
+}
+
+libs() {
+	pkgdesc="CUPS libraries"
+	depends=""
+	replaces="libcups"
+
+	cd "$pkgdir"
+	_mv usr/lib/*.so*
+	install -d "$pkgdir"/etc/cups
+}
+
+ipptool() {
+	pkgdesc="Perform internet printing protocol requests"
+	depends=""
+
+	cd "$pkgdir"
+	_mv usr/bin/ipptool \
+		usr/share/cups/ipptool
+}
+
+client() {
+	pkgdesc="CUPS command-line client programs"
+	depends=""
+
+	cd "$pkgdir"
+	_mv usr/bin \
+		usr/sbin/cupsaccept \
+		usr/sbin/cupsctl \
+		usr/sbin/cupsdisable \
+		usr/sbin/cupsenable \
+		usr/sbin/lpadmin \
+		usr/sbin/lpc \
+		usr/sbin/lpinfo \
+		usr/sbin/lpmove
+}
+
+_mv() {
+	local i; for i in "$@"; do
+		mkdir -p "$subpkgdir"/${i%/*}
+		mv "$pkgdir"/$i "$subpkgdir"/${i%/*}/
+	done
+}
+
+sha512sums="5a43ef98f83c1783221155c01de940f3679023251709931ef28572c7b00620b36252afe894e86f2f08a527008dc2c95dc8af4129f0ab28a28663be8d3ccc3418  cups-2.3.3.tar.gz
+cf64211da59e79285f99d437c02fdd7db462855fb2920ec9563ba47bd8a9e5cbd10555094940ceedeb41ac805c4f0ddb9147481470112a11a76220d0298aef79  cups.logrotate
+2c2683f755a220166b3a1653fdd1a6daa9718c8f0bbdff2e2d5e61d1133306260d63a83d3ff41619b5cf84c4913fae5822b79553e2822858f38fa3613f4c7082  cupsd.initd
+7a8cd9ac33b0dd4627c72df4275db8ccd7cf8e201bce3833719b42f532f526bb347b842e3ea1ef0d61855b5c6e1088b5d20b68942f2c2c0acf504d8d9728efd3  cups-no-export-ssllibs.patch
+ac1ec4453d6a4b641d40089c77d3b776963d90efb092851c8d93deceb6068b111dee71171967ffb7ad0f5adb424398a43f51feb7d5d9734287cfb9e419efaa93  default-config-no-gssapi.patch"
