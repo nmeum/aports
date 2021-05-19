@@ -19,7 +19,6 @@ pidfile="/run/cups/$RC_SVCNAME.pid"
 depend() {
 	use net
 	before nfs
-	need dbus
 	after logger
 }
 
