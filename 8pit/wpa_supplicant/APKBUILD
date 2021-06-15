@@ -2,10 +2,11 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=wpa_supplicant
 pkgver=2.9
-pkgrel=13
+pkgrel=15
 pkgdesc="utility providing key negotiation for WPA wireless networks"
 url="https://w1.fi/wpa_supplicant/"
 arch="all"
+options="!check" # has no tests
 license="BSD-3-Clause"
 subpackages="$pkgname-doc $pkgname-openrc"
 makedepends="linux-headers openssl-dev libnl3-dev"
@@ -20,11 +21,14 @@ source="https://w1.fi/releases/wpa_supplicant-$pkgver.tar.gz
 	CVE-2019-16275.patch
 	CVE-2021-0326.patch
 	CVE-2021-27803.patch
+	CVE-2021-30004.patch::https://w1.fi/cgit/hostap/patch/?id=a0541334a6394f8237a4393b7372693cd7e96f15
 
 	config
 	wpa_cli.sh"
 
 # secfixes:
+#   2.9-r13:
+#     - CVE-2021-30004
 #   2.9-r12:
 #     - CVE-2021-27803
 #   2.9-r10:
@@ -62,11 +66,7 @@ prepare() {
 build() {
 	cd "$builddir"/wpa_supplicant
 	make LIBDIR=/lib BINDIR=/sbin
-}
-
-check() {
-	cd "$builddir"/wpa_supplicant
-	make eapol_test
+	make LIBDIR=/lib BINDIR=/sbin eapol_test
 }
 
 package() {
@@ -95,7 +95,8 @@ package() {
 		"$pkgdir"/etc/conf.d/wpa_cli
 }
 
-sha512sums="37a33f22cab9d27084fbef29856eaea0f692ff339c5b38bd32402dccf293cb849afd4a870cd3b5ca78179f0102f4011ce2f3444a53dc41dc75a5863b0a2226c8  wpa_supplicant-2.9.tar.gz
+sha512sums="
+37a33f22cab9d27084fbef29856eaea0f692ff339c5b38bd32402dccf293cb849afd4a870cd3b5ca78179f0102f4011ce2f3444a53dc41dc75a5863b0a2226c8  wpa_supplicant-2.9.tar.gz
 2be5eca8be4c1c7bc70f718d4bc122488ffe08360496b5af91014366f2d1ef34e2ad9724b8b8c476209b47ededdfb807e2aa6a04a200ed827d4c8cfbee9e04a7  wpa_supplicant.initd
 cc36abff13ffc198fef4ad867d8cfaefc5977a598a42b3119aad653645fd389851b55bb64390fe0a0c5d70f069596171bccaa0ade6b46d4b39c1e9f7a8ac2ded  wpa_supplicant.confd
 c3db077fa78dd296d90d07626cb4e684f87618a77ffd51c1ae04b47be7bc0db1e9a3e0f7442acef21c081f6bb782f150cbbd3d0bf245d6ab43f19da3899b53b9  wpa_cli.confd
@@ -104,5 +105,7 @@ f4b9c86530a2b10cd50e6014c9bee1d143714ab9f86bf29119dcd2c86dec5239c356518a36147d64
 63710cfb0992f2c346a9807d8c97cbeaed032fa376a0e93a2e56f7742ce515e9c4dfadbdb1af03ba272281f639aab832f0178f67634c222a5d99e1d462aa9e38  CVE-2019-16275.patch
 e212dd6a2c56c086c14a2c96f479f7a8e6521b6a24c648eb03363db078398e64a38e343ff6faa327d5a0244a7969ecd34c5844d676c697eeb8eb842101fa9cf9  CVE-2021-0326.patch
 af8b4a526a6833de4921fcbbd1b03da7e027276c909d512bd59a95e9767ffe8580135f9aee8947c4317681c4fe130f7ec50cba947f8375313f832a66c66b2cd5  CVE-2021-27803.patch
-63ed4f809891afbb7698a8369122a9ff15a2666042c514fe033419b5cd18322218050456850b3ec58b34407f4739553a3f26a38be41edf65f7d1f636afcca0f1  config
-212c4265afce2e72b95a32cd785612d6c3e821b47101ead154136d184ac4add01434ada6c87edbb9a98496552e76e1a4d79c6b5840e3a5cfe5e6d602fceae576  wpa_cli.sh"
+88608529763a6fd9e8cb1e9c9a35630dc2e311a260e023e2a69002d0db700d5f58fc7723a00433b4ea895b92c371cf1db221f38742490b4ed9b4b049892b65e1  CVE-2021-30004.patch
+4303aa1c4c86a68dcc4d6ab408504b8478b067cad7ad481ba818c41243b0cb78212b6d86b3e8a73ebf8aced32f4e953e84ba5c312f18bbbc46870f8d44914b3b  config
+212c4265afce2e72b95a32cd785612d6c3e821b47101ead154136d184ac4add01434ada6c87edbb9a98496552e76e1a4d79c6b5840e3a5cfe5e6d602fceae576  wpa_cli.sh
+"
