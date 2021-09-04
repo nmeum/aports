@@ -1,13 +1,13 @@
 https://marc.info/?l=openbsd-tech&m=161737611015124&w=2
 
-diff --git a/edit.c b/edit.c
-index 3089d19..4b6d450 100644
---- a/edit.c
-+++ b/edit.c
-@@ -150,12 +150,23 @@ x_puts(const char *s)
+diff -upr a/edit.c b/edit.c
+--- a/edit.c	2021-05-01 11:37:53.000000000 +0200
++++ b/edit.c	2021-09-04 15:22:54.365095598 +0200
+@@ -150,12 +150,28 @@ x_puts(const char *s)
  		shf_putc(*s++, shl_out);
  }
  
++#ifdef EMACS
 +static void
 +x_paste_mode(bool onoff)
 +{
@@ -17,6 +17,7 @@ index 3089d19..4b6d450 100644
 +	printf((onoff) ? BRPASTE_INT : BRPASTE_DEINT);
 +	fflush(stdout);
 +}
++#endif
 +
  bool
  x_mode(bool onoff)
@@ -24,14 +25,16 @@ index 3089d19..4b6d450 100644
  	static bool	x_cur_mode;
  	bool		prev;
  
++#ifdef EMACS
 +	x_paste_mode(onoff);
++#endif
++
  	if (x_cur_mode == onoff)
  		return x_cur_mode;
  	prev = x_cur_mode;
-diff --git a/edit.h b/edit.h
-index 0b604cd..8cc774f 100644
---- a/edit.h
-+++ b/edit.h
+diff -upr a/edit.h b/edit.h
+--- a/edit.h	2021-05-01 11:37:53.000000000 +0200
++++ b/edit.h	2021-09-04 15:22:27.475021303 +0200
 @@ -34,6 +34,12 @@ extern X_chars edchars;
  #define XCF_FULLPATH	BIT(2)	/* command completion: store full path */
  #define XCF_COMMAND_FILE (XCF_COMMAND|XCF_FILE)
@@ -45,10 +48,9 @@ index 0b604cd..8cc774f 100644
  /* edit.c */
  int	x_getc(void);
  void	x_flush(void);
-diff --git a/emacs.c b/emacs.c
-index 694c402..9613626 100644
---- a/emacs.c
-+++ b/emacs.c
+diff -upr a/emacs.c b/emacs.c
+--- a/emacs.c	2021-05-01 11:37:53.000000000 +0200
++++ b/emacs.c	2021-09-04 15:22:27.478354645 +0200
 @@ -118,6 +118,7 @@ static	char	*xmp;		/* mark pointer */
  static	char	*killstack[KILLSIZE];
  static	int	killsp, killtp;
@@ -131,10 +133,22 @@ index 694c402..9613626 100644
  
  /* NAME:
   *      x_prev_histword - recover word from prev command
-diff --git a/misc.c b/misc.c
-index 9e6e9db..ae5a429 100644
---- a/misc.c
-+++ b/misc.c
+diff -upr a/ksh.1 b/ksh.1
+--- a/ksh.1	2021-05-01 11:37:53.000000000 +0200
++++ b/ksh.1	2021-09-04 15:23:21.358503517 +0200
+@@ -3595,6 +3595,9 @@ during file name generation.
+ Print commands and parameter assignments when they are executed, preceded by
+ the value of
+ .Ev PS4 .
++.It Ic bracket-paste
++Enables bracketed paste mode, requires the associated escape sequences to be
++supported by the utilized terminal emulator.
+ .It Ic bgnice
+ Background jobs are run with lower priority.
+ .It Ic braceexpand
+diff -upr a/misc.c b/misc.c
+--- a/misc.c	2021-05-01 11:37:53.000000000 +0200
++++ b/misc.c	2021-09-04 15:22:27.478354645 +0200
 @@ -123,6 +123,9 @@ const struct option sh_options[] = {
  	 */
  	{ "allexport",	'a',		OF_ANY },
@@ -145,10 +159,9 @@ index 9e6e9db..ae5a429 100644
  	{ "bgnice",	  0,		OF_ANY },
  	{ NULL,	'c',	    OF_CMDLINE },
  	{ "csh-history",  0,		OF_ANY }, /* non-standard */
-diff --git a/sh.h b/sh.h
-index 93beef3..652a1f6 100644
---- a/sh.h
-+++ b/sh.h
+diff -upr a/sh.h b/sh.h
+--- a/sh.h	2021-05-01 11:37:53.000000000 +0200
++++ b/sh.h	2021-09-04 15:22:27.481687988 +0200
 @@ -134,6 +134,9 @@ extern const struct option sh_options[];
  enum sh_flag {
  	FEXPORT = 0,	/* -a: export all */
