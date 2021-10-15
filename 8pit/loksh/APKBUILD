@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=loksh
-pkgver=6.9
+pkgver=7.0
 pkgrel=1
 pkgdesc="A Linux port of OpenBSD's ksh"
 url="https://github.com/dimkr/$pkgname"
@@ -12,8 +12,7 @@ install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
 options="!check" # upstream doesn't have a test suite
 subpackages="$pkgname-doc"
 source="loksh-$pkgver.tar.xz::https://github.com/dimkr/loksh/releases/download/$pkgver/loksh-$pkgver.tar.xz
-	bracketed-paste-mode.patch
-	utf8-4-byte-seq.patch"
+	bracketed-paste-mode.patch"
 
 build() {
 	abuild-meson \
@@ -28,7 +27,6 @@ package() {
 }
 
 sha512sums="
-c4f74de049313adc9b0aae378435b9d3b259a6fd050f68b92b33551e3219840101c391f4cac3744deb8d121d9f6738ba66e76e029322303843bcc1b677bd3e9a  loksh-6.9.tar.xz
+d6eb0e0a639afb79b0d7df85477ded0d48d3ad27dbbd2068c24b81705000501c4542034586222a490a49443da36e7d1c64b5d714c94f942f507a14b89a0c389e  loksh-7.0.tar.xz
 c276ad6c6815da3242f955dbe9702d90bdf8c186ce9e57c0945505b3939658c267c14649cdd2fcbabbd4ff9b1cada6dbadf985c94caf263ea2975db8366cbcca  bracketed-paste-mode.patch
-ba4a22bda4fee3e28025892f5556d469550583d28a62af8b981e1e10ccfe1cfe0d715e5c1bd2d963f3ecaa7d2de924f4609a4507c9808bc4ee7cfb68c457e69c  utf8-4-byte-seq.patch
 "
