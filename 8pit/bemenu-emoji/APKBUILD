@@ -2,8 +2,8 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=bemenu-emoji
 pkgver=20210304
-_unicodever=13.1
-pkgrel=0
+_unicodever=14.0
+pkgrel=1
 pkgdesc="A simple bemenu-based emoji picker"
 url="https://github.com/nmeum/aports/blob/master/8pit/bemenu-emoji/bemenu-emoji.sh"
 arch="noarch"
@@ -21,5 +21,7 @@ package() {
 		"$pkgdir"/usr/share/bemenu-emoji/emoji-test.txt
 }
 
-sha512sums="a5f8189eb8a35af16427fdfbd00b16111cfced1f0c5677cdf749bfd8937796be82664b0410731c3b38cbbbf940521ceb753836204e4394475d3db4296a49f82d  emoji-test.txt
-40cfeb8b33cf8af1b21fda45d3e565e751a22c3ca3c29d3675a4a3d6051efb0aa467e55c3cb0be7d7b8ff0bf367a200363de96c320825d886e1103d811692beb  bemenu-emoji.sh"
+sha512sums="
+693fe5c225e28a694d7aa436d3c6546c3376854878bb92d15f1c88b2d6ce3e9f67ddf66bd08e6aa99930d2965a28f8ed4dd3a895fdf5311abb0a323de27e1a12  emoji-test.txt
+40cfeb8b33cf8af1b21fda45d3e565e751a22c3ca3c29d3675a4a3d6051efb0aa467e55c3cb0be7d7b8ff0bf367a200363de96c320825d886e1103d811692beb  bemenu-emoji.sh
+"
