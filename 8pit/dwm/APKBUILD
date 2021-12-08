@@ -5,7 +5,7 @@ pkgver=6.2
 _commit="d06ec231c7e1ca332efa1e7532b812fd6854643d"
 pkgrel=1
 pkgdesc="dwm - dynamic window manager"
-url="http://dwm.suckless.org"
+url="https://dwm.suckless.org"
 arch="all"
 license="MIT/X"
 makedepends="libxft-dev libx11-dev libxinerama-dev"
@@ -16,11 +16,10 @@ builddir="$srcdir"/$pkgname-$_commit
 
 prepare() {
 	default_prepare
-
-	cp "$srcdir"/config.h config.h
+	cp "$srcdir"/config.h "$builddir"/config.h
 	sed -i -e '/CFLAGS/{s/-Os//;s/=/+=/}' \
 		-e '/LDFLAGS/{s/=/+=/}' \
-		config.mk
+		"$builddir"/config.mk
 }
 
 build() {
