@@ -2,23 +2,19 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
 pkgver=6.2
-_commit="6c9fbd819c3f845ba71360cbc5bbf5d04a33edc1"
+_commit="d06ec231c7e1ca332efa1e7532b812fd6854643d"
 pkgrel=1
 pkgdesc="dwm - dynamic window manager"
 url="http://dwm.suckless.org"
 arch="all"
 license="MIT/X"
-depends=""
-depends_dev=""
 makedepends="libxft-dev libx11-dev libxinerama-dev"
-install=""
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver-8pit.tar.gz::https://github.com/nmeum/dwm/archive/${_commit}.tar.gz
 	config.h"
 builddir="$srcdir"/$pkgname-$_commit
 
 prepare() {
-	cd "$builddir"
 	default_prepare
 
 	cp "$srcdir"/config.h config.h
@@ -30,16 +26,14 @@ prepare() {
 build() {
 	make X11INC=/usr/include/X11 \
 		X11LIB=/usr/lib/X11 \
-		FREETYPEINC=/usr/include/freetype2 \
-		-C "$builddir"
+		FREETYPEINC=/usr/include/freetype2
 }
 
 package() {
-	make PREFIX=/usr DESTDIR="$pkgdir" \
-		-C "$builddir" install
+	make PREFIX=/usr DESTDIR="$pkgdir" install
 }
 
 sha512sums="
-645c353321a344737fbcbe7879385cc434bef956938c74f63dd3047fd5f95b40d43f30e935c990cc98220c211a3df3839a0648e7ca592c691b57a57243e52577  dwm-6.2-8pit.tar.gz
-677f9b24b5ac0c77d42b363a92b5a36fd6f3d2e937c858aab92299850427f49155766cf6818e4e2132db2ab9b49e819c72608d4a6134273ed7a5e75f391afac1  config.h
+6380c20477464de350bd5d137999749a68b49e6f7deb7b7b8d28118015caa22b4c1b3004a8e515c5f0b6f9593c4131d8c2fc1caace3e8caf3671c96e7d6100d0  dwm-6.2-8pit.tar.gz
+a9b6dc53941f68c439e39d0389eda2c4bc919ffcc1bc51d5e933430f78764a2d9f92288d46c1da179027975585caf099a2f49085b431687160b946ac1f746adc  config.h
 "
