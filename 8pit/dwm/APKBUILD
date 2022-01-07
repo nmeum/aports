@@ -1,8 +1,8 @@
 # Contributor: Gaber Ayoubi <gaber.ayoubi@gmail.com>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
-pkgver=6.2
-_commit="d06ec231c7e1ca332efa1e7532b812fd6854643d"
+pkgver=6.3
+_commit="7d80f73bcf88ededc1c8a9bb5a6829796bd54698"
 pkgrel=1
 pkgdesc="dwm - dynamic window manager"
 url="https://dwm.suckless.org"
@@ -33,6 +33,6 @@ package() {
 }
 
 sha512sums="
-6380c20477464de350bd5d137999749a68b49e6f7deb7b7b8d28118015caa22b4c1b3004a8e515c5f0b6f9593c4131d8c2fc1caace3e8caf3671c96e7d6100d0  dwm-6.2-8pit.tar.gz
-a9b6dc53941f68c439e39d0389eda2c4bc919ffcc1bc51d5e933430f78764a2d9f92288d46c1da179027975585caf099a2f49085b431687160b946ac1f746adc  config.h
+d888edad23ecd87b2a4eb6e7c2c3f820294d5fab7b5c9e71aaee11078f783b17f1f6e3541e5d77d5ae72d3c5bd7f165e411f36b473646188e27c17b92e37fd9d  dwm-6.3-8pit.tar.gz
+0fa1e56005adc140d9e81f8c0017de9e96e25a35190e98875091d3dac21b95989d92df2e479ea8b3eea956f9a53edb7dc0d30c0f90e52af192e921d661c5d1a0  config.h
 "
