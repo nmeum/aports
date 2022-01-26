@@ -1,0 +1,32 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=edward
+pkgver=0.2.0
+pkgrel=0
+pkgdesc="Implementation of the ed text editor in Scheme"
+url="https://git.8pit.net/edward.git"
+arch="all"
+license="GPL-3.0-or-later"
+depends="chicken"
+checkdepends="ed"
+options="net"
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/edward/archive/$pkgver.tar.gz"
+
+build() {
+	export CHICKEN_INSTALL_REPOSITORY="$builddir"
+	export CHICKEN_REPOSITORY_PATH="$(env -i chicken-install -repository):$builddir"
+
+	chicken-install -n -feature release
+}
+
+check() {
+	./run-tests.sh -feature release
+}
+
+package() {
+	install -Dm755 bin/edward "$pkgdir"/usr/bin/edward
+}
+
+sha512sums="
+9d823fbeacc3cce418c2c461030ac6edfe296fd9a4ca5d79241888927514d5090fdbfef909ac93b84d79d15874c66b3ac0ef3e3af98d71a0f4f2c9eb846cfffa  edward-0.2.0.tar.gz
+"
