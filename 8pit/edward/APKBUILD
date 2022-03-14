@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=edward
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=0
 pkgdesc="Implementation of the ed text editor in Scheme"
 url="https://git.8pit.net/edward.git"
@@ -28,5 +28,5 @@ package() {
 }
 
 sha512sums="
-9d823fbeacc3cce418c2c461030ac6edfe296fd9a4ca5d79241888927514d5090fdbfef909ac93b84d79d15874c66b3ac0ef3e3af98d71a0f4f2c9eb846cfffa  edward-0.2.0.tar.gz
+6b0e8ae040b31e948535e811286172157206294309a28cbb922a992f97d29bfd2f74e907c883086aca1e2d393cfa6d2879e0acf6551e2f1ed87e3efe7ccf8fcb  edward-0.2.1.tar.gz
 "
