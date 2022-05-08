@@ -3,14 +3,16 @@
 pkgname=dwm
 pkgver=6.3
 _commit="7d80f73bcf88ededc1c8a9bb5a6829796bd54698"
-pkgrel=1
+pkgrel=2
 pkgdesc="dwm - dynamic window manager"
 url="https://dwm.suckless.org"
 arch="all"
 license="MIT/X"
 makedepends="libxft-dev libx11-dev libxinerama-dev"
 subpackages="$pkgname-doc"
+options="!check" # no test suite
 source="$pkgname-$pkgver-8pit.tar.gz::https://github.com/nmeum/dwm/archive/${_commit}.tar.gz
+	dwm.desktop
 	config.h"
 builddir="$srcdir"/$pkgname-$_commit
 
@@ -30,9 +32,12 @@ build() {
 
 package() {
 	make PREFIX=/usr DESTDIR="$pkgdir" install
+	install -Dm644 "$srcdir"/dwm.desktop \
+		-t "$pkgdir"/usr/share/xsessions/
 }
 
 sha512sums="
 d888edad23ecd87b2a4eb6e7c2c3f820294d5fab7b5c9e71aaee11078f783b17f1f6e3541e5d77d5ae72d3c5bd7f165e411f36b473646188e27c17b92e37fd9d  dwm-6.3-8pit.tar.gz
+e8d200e40242531b33fc521501318f0c01fec2cd6029abbcf28cdd775909079bdc51e589d599e66729f36357d4b355db0e03160708d0756cf9e7f3f8b60b1d80  dwm.desktop
 0fa1e56005adc140d9e81f8c0017de9e96e25a35190e98875091d3dac21b95989d92df2e479ea8b3eea956f9a53edb7dc0d30c0f90e52af192e921d661c5d1a0  config.h
 "
