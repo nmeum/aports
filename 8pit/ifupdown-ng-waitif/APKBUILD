@@ -1,0 +1,27 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=ifupdown-ng-waitif
+pkgver=0.1.0
+pkgrel=0
+pkgdesc="Executor for ifupdown-ng which blocks until the interface is running"
+url="https://github.com/nmeum/ifupdown-ng-waitif"
+arch="all"
+license="GPL-3.0-or-later"
+makedepends="libmnl-dev"
+subpackages="$pkgname-doc"
+options="!check" # no test suite
+source="https://github.com/nmeum/ifupdown-ng-waitif/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+
+build() {
+	make RUNDIR=/var/run
+}
+
+package() {
+	make DESTDIR="$pkgdir" \
+		PREFIX=/usr \
+		install
+}
+
+sha512sums="
+4947865c390113db1d6990520cec32285dc2000affb16ebec7556b2a105b9bd5197636474e8840a46a35224a8cc24dfe68e8230bd8bc473179c04f48109c0993  ifupdown-ng-waitif-0.1.0.tar.gz
+"
