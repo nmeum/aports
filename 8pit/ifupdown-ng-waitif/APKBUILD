@@ -1,7 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=ifupdown-ng-waitif
-pkgver=0.1.1
+pkgver=0.1.1_git20220628
+_commit=4f709f1b4d7b21b850a367edb933d02c345efa4d
 pkgrel=0
 pkgdesc="Executor for ifupdown-ng which blocks until the interface is running"
 url="https://github.com/nmeum/ifupdown-ng-waitif"
@@ -10,7 +11,8 @@ license="GPL-3.0-or-later"
 makedepends="libmnl-dev"
 subpackages="$pkgname-doc"
 options="!check" # no test suite
-source="https://github.com/nmeum/ifupdown-ng-waitif/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/ifupdown-ng-waitif/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
 
 build() {
 	make RUNDIR=/var/run
@@ -23,5 +25,5 @@ package() {
 }
 
 sha512sums="
-1bbfacdb4b623828de181794a05d73ceaf480c266ab978642f62197cf96c1c7fd8639f63b5e5d6fb1dbf583f4f4a14c36eab5381d6b5571e6031c82487471a96  ifupdown-ng-waitif-0.1.1.tar.gz
+ae5b33d811b57e549e6a41d172d6e47afbcb82bfc83c3bab2436754abaed71ff9a64f8bfc768126bde4bdeb119c6a2d065291f835c45d2928538774c5b388738  ifupdown-ng-waitif-0.1.1_git20220628.tar.gz
 "
