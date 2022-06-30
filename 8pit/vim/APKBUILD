@@ -3,7 +3,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=vim
-pkgver=8.2.5055
+pkgver=9.0.0009
 pkgrel=1
 pkgdesc="Improved vi-style text editor"
 url="https://www.vim.org/"
@@ -12,12 +12,23 @@ license="Vim"
 options="!check"  # some tests are failing
 depends="xxd"
 makedepends="ncurses-dev libxt-dev libx11-dev"
+makedepends="
+	libx11-dev
+	libxt-dev
+	ncurses-dev
+	"
+
 subpackages="$pkgname-doc ${pkgname}diff::noarch $pkgname-tutor xxd"
 source="$pkgname-$pkgver.tar.gz::https://github.com/vim/vim/archive/v$pkgver.tar.gz
 	vimrc
 	"
 
 # secfixes:
+#   8.2.5170-r0:
+#     - CVE-2022-2124
+#     - CVE-2022-2125
+#     - CVE-2022-2126
+#     - CVE-2022-2129
 #   8.2.5055-r0:
 #     - CVE-2022-1851
 #     - CVE-2022-1886
@@ -108,6 +119,7 @@ build() {
 		--with-features=normal \
 		--with-x=yes \
 		--disable-nls \
+		--enable-acl \
 		--enable-multibyte \
 		--enable-gui=no \
 		--with-compiledby="Alpine Linux"
@@ -139,11 +151,12 @@ tutor() {
 	pkgdesc="vim tutor and tutor files"
 	depends="vim"
 	options="!tracedeps"
+	local _v=$(echo ${pkgver%.*} | tr -d '.')
 
 	install -d "$subpkgdir"/usr/bin
-	install -d "$subpkgdir"/usr/share/vim/vim82/tutor
+	install -d "$subpkgdir"/usr/share/vim/vim$_v/tutor
 	mv "$pkgdir"/usr/bin/vimtutor "$subpkgdir"/usr/bin
-	mv "$pkgdir"/usr/share/vim/vim82/tutor "$subpkgdir"/usr/share/vim/vim82/
+	mv "$pkgdir"/usr/share/vim/vim$_v/tutor "$subpkgdir"/usr/share/vim/vim$_v/
 }
 
 xxd() {
@@ -156,6 +169,6 @@ xxd() {
 }
 
 sha512sums="
-786dcce5344aa99a6828e7be3e74ca81da071612be924025919f307d3cd82f7603dc6f4d204763184391be82ca1b48bcd2132ab8c559e5351fe4fb65d9b00db0  vim-8.2.5055.tar.gz
+d6f725b29853a54282c12d161b145fc45064cdfba5721a57e7947df5aa846a8f9260c823fc8b8d2a879fc3c38b832b9ab7a2a4e3b3f941d78cdad97750eb3cae  vim-9.0.0009.tar.gz
 9ed58e38fe9d72f934eb507b27c18590c33c648eb7ca2639a9afdcaa1c2c4e0873a4e4252d2b6cc28127d1ded227a1e8ac338c93958526f98a3b66dbdf6afcc8  vimrc
 "
