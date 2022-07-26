@@ -3,22 +3,25 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=mandoc
 pkgver=1.14.6
-pkgrel=2
+pkgrel=5
 pkgdesc="mandoc (formerly mdocml) UNIX manpage compiler toolset"
 url="https://mandoc.bsd.lv/"
 arch="all"
 license="ISC and BSD-2-Clause and BSD-3-Clause"
 makedepends="zlib-dev"
 checkdepends="perl"
-install="$pkgname.post-deinstall"
+install="$pkgname-apropos.post-deinstall"
 replaces="mdocml"
 provides="mdocml=$pkgver-r$pkgrel"
 subpackages="$pkgname-doc $pkgname-dev $pkgname-apropos $pkgname-soelim"
-source="https://mandoc.bsd.lv/snapshots/mandoc-${pkgver}.tar.gz
+source="https://mandoc.bsd.lv/snapshots/mandoc-$pkgver.tar.gz
 	shared-libmandoc.patch
 	outdated-warn-disable.patch
 	$pkgname.cron
 	"
+
+# higher than community/man-db for cmd:man
+provider_priority=100
 
 prepare() {
 	default_prepare
@@ -29,7 +32,7 @@ prepare() {
 	LIBDIR=/usr/lib
 	CFLAGS="$CFLAGS"
 	UTF8_LOCALE="en_US.UTF-8"
-	MANPATH_DEFAULT="/usr/share/man:/usr/local/man"
+	MANPATH_DEFAULT="/usr/share/man:/usr/local/man:/usr/local/share/man"
 	MANPATH_BASE="/usr/share/man"
 	LN="ln -sf"
 	HAVE_LESS_T=0
