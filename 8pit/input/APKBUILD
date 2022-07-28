@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=input
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=0
 pkgdesc="Prompt for input with readline-like key bindings"
 url="https://github.com/nmeum/input"
@@ -25,4 +25,6 @@ package() {
 	make DESTDIR="$pkgdir" PREFIX=/usr install
 }
 
-sha512sums="a8ffae7770f0e9092d53140aed8a371d23c57dc96d4ad874f8b81d8cadd4ccb10ee2c623d17c9497271fc7a908f7da710ab14c35e3a59e619dba9e4b83620267  input-1.0.0.tar.gz"
+sha512sums="
+271167ef6692c2c0b45f5400c11f558413fca07a601897b8702f0d6e327dd45cb99db56740a88bfcd7686aa01b7466cdd182f7a1edb519ff78107b0a45d59d13  input-1.1.0.tar.gz
+"
