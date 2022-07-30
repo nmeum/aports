@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=edward
-pkgver=0.4.0
-pkgrel=1
+pkgver=0.4.1
+pkgrel=0
 pkgdesc="Implementation of the ed text editor in Scheme"
 url="https://git.8pit.net/edward.git"
 arch="all"
@@ -11,7 +11,6 @@ depends="chicken"
 checkdepends="ed"
 options="net"
 source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/edward/archive/$pkgver.tar.gz
-	0001-tests-fix-parse-cmd-unit-tests.patch
 	static.patch"
 
 build() {
@@ -30,7 +29,6 @@ package() {
 }
 
 sha512sums="
-6604afffee4a3a541b97d1594a063f21fbe84077a8b9bb3333ec317044ce32ba2bd6da590bcda95597a792814bba4ceade29c3c048c39419acc2e37e589ecd16  edward-0.4.0.tar.gz
-55a10b7566871b09d0733de25fb17f9f49e9772ecdcde3de9eae6065e2f8481bfb6edd33ad33ce3708961580d9c19c4f2fe98b807db1f57a8d5c731f46e5e71b  0001-tests-fix-parse-cmd-unit-tests.patch
+d56fbd62e6694b71199fc276849c55a2f395772c6ea132ed23904fc1230fa7ed58d6bb651297b0c30f9194fbcf23e8c11dc77c5e029cdb83acf9666ba8719391  edward-0.4.1.tar.gz
 c3d96d8d47cbf4636b29b7a55f83ae253e3cfc5d3a0ec851a96906c2adf1e0ac011032d45e3e63ce3d7a7a324d999c1ef94f9f63b446a7237224ea94dc739f14  static.patch
 "
