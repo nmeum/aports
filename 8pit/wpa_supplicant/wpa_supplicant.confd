@@ -6,4 +6,5 @@ wpa_supplicant_args=""
 
 # The dbus interface will be enabled by default if wpa_supplicant.conf is
 # missing. use wpa_supplicant_dbus to explicitly enable/disable dbus interface
+
 wpa_supplicant_dbus=no

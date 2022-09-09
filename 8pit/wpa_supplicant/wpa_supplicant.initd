@@ -14,7 +14,7 @@ default_conf=/etc/wpa_supplicant/wpa_supplicant.conf
 
 depend() {
 	need localmount
-	use logger dbus
+	use logger
 	after bootmisc modules entropy udev-settle
 	before dns dhcpcd net
 	keyword -shutdown
@@ -74,4 +74,6 @@ start_pre() {
 		fi
 		;;
 	esac
+
+    checkpath -d -m 0755 -o root:root /var/run/wpa_supplicant
 }
