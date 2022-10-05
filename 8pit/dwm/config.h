@@ -53,7 +53,7 @@ static const char *termcmd[] = { "alacritty", NULL };
 static const char *lockcmd[] = { "slock", NULL };
 
 /* dmenu configuration */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "bemenu-run", "-p", "exec", "-m", dmenumon, NULL };
 
 /* volume control */
@@ -65,7 +65,7 @@ static const char *mutevol[]  = { "amixer", "-q", "set", "Master", "toggle", NUL
 static const char *raiseblight[] = { "xbacklight", "-inc", "5", NULL };
 static const char *lowerblight[] = { "xbacklight", "-dec", "5", NULL };
 
-static Key keys[] = {
+static const Key keys[] = {
 	/* modifier                     key           function        argument */
 	{ MODKEY,                       XK_e,         spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Pause,     spawn,          {.v = lockcmd } },
@@ -120,7 +120,7 @@ static Key keys[] = {
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
+static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
