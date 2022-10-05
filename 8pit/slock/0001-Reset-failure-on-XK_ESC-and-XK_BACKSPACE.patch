@@ -1,4 +1,4 @@
-From 654fed61cb459b1d8d0a6a418bd4a947461acd32 Mon Sep 17 00:00:00 2001
+From 536aca2c001639f531a7a164ae214d647681600b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
 Date: Tue, 22 Nov 2016 17:06:37 +0100
 Subject: [PATCH] Reset failure on XK_ESC and XK_BACKSPACE
@@ -8,7 +8,7 @@ Subject: [PATCH] Reset failure on XK_ESC and XK_BACKSPACE
  1 file changed, 2 insertions(+)
 
 diff --git a/slock.c b/slock.c
-index d2f0886..2d03bbe 100644
+index 5ae738c..62a98b9 100644
 --- a/slock.c
 +++ b/slock.c
 @@ -174,10 +174,12 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
@@ -19,11 +19,8 @@ index d2f0886..2d03bbe 100644
  				break;
  			case XK_BackSpace:
  				if (len)
- 					passwd[len--] = '\0';
+ 					passwd[--len] = '\0';
 +				failure = 0;
  				break;
  			default:
  				if (num && !iscntrl((int)buf[0]) &&
--- 
-2.10.2
-

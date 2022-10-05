@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=slock
-pkgver=1.4
+pkgver=1.5
 pkgrel=1
 pkgdesc="A simple screen locker for X"
 url="http://tools.suckless.org/slock/"
@@ -38,6 +38,8 @@ package() {
 		-C "$builddir" install || return 1
 }
 
-sha512sums="ad285360dd3f16a225159abaf2f82fabf2c675bd74478cf717f68cbe5941a6c620e3c88544ce675ce3ff19af4bb0675c9405685e0f74ee4e84f7d34c61a0532f  slock-1.4.tar.gz
-0c2145e5ef9cd9671404ae2904637aeee68d38c93236a9ef368b431a882d7d04b1f085eb26054dfea86d5a7bba973ff85bd2d5d533ef2307d8ff43560e77e2ce  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
-ad2009dcb3767d72813b5e1f2748b4a27ac8780e46acfd83fbae90e37520ac81414a6328c4195ff2a4f949b0f8fac23a6291f5ff10726caffd4420d02606d27e  config.h"
+sha512sums="
+2402b1e49f5dbe06cca2f3a31efedce6359413b240f2b98c57147483591a873c3c5457dbf6707485167002ff6d7ee0e9005d9fa506a51bf71337624e8728bb43  slock-1.5.tar.gz
+0ecd34bcce2bf8822b24d17d45cd3897fc57418a54694183f251999b3513b958be58da34fec4dbd038edc496136c41370d4364b39e141b4a86ab891ddc747b5d  0001-Reset-failure-on-XK_ESC-and-XK_BACKSPACE.patch
+ad2009dcb3767d72813b5e1f2748b4a27ac8780e46acfd83fbae90e37520ac81414a6328c4195ff2a4f949b0f8fac23a6291f5ff10726caffd4420d02606d27e  config.h
+"
