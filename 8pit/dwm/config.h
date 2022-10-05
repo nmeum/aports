@@ -49,12 +49,9 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* commands */
+static const char *dmenucmd[] = { "bemenu-run", "-p", "exec", NULL };
 static const char *termcmd[] = { "alacritty", NULL };
 static const char *lockcmd[] = { "slock", NULL };
-
-/* dmenu configuration */
-static const char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "bemenu-run", "-p", "exec", "-m", dmenumon, NULL };
 
 /* volume control */
 static const char *raisevol[] = { "amixer", "-q", "set", "Master", "5%+", NULL };
