@@ -2,8 +2,8 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm
 pkgver=6.4
-_commit="6e095a6aa2f23c7db109afad482a551b65dd8841"
-pkgrel=1
+_commit="9c1c51eeccfdf4cc444c63fee98fb03394905676"
+pkgrel=2
 pkgdesc="dwm - dynamic window manager"
 url="https://dwm.suckless.org"
 arch="all"
@@ -11,7 +11,7 @@ license="MIT"
 makedepends="libxft-dev libx11-dev libxinerama-dev"
 subpackages="$pkgname-doc"
 options="!check" # no test suite
-source="$pkgname-$pkgver-8pit.tar.gz::https://github.com/nmeum/dwm/archive/${_commit}.tar.gz
+source="$pkgname-$_commit-8pit.tar.gz::https://github.com/nmeum/dwm/archive/${_commit}.tar.gz
 	dwm.desktop
 	config.h"
 builddir="$srcdir"/$pkgname-$_commit
@@ -37,7 +37,7 @@ package() {
 }
 
 sha512sums="
-a897a828dd07dc0567c12a949512e20fadc07294ccb6cdb2a1d8a33af94133632452928db5437947360918f674a3af57bbafd4f728bc914db4186fdf676ec32e  dwm-6.4-8pit.tar.gz
+2dbbfdaad0542fa0b7ba322ab1674faae257c16c367e28591069956988ca737b501bac59e063920c7b3910a87dc3c6b6be7cac67bc4f28a01f1e75eb4cdcee4e  dwm-9c1c51eeccfdf4cc444c63fee98fb03394905676-8pit.tar.gz
 e8d200e40242531b33fc521501318f0c01fec2cd6029abbcf28cdd775909079bdc51e589d599e66729f36357d4b355db0e03160708d0756cf9e7f3f8b60b1d80  dwm.desktop
 7b26305374ccda7c80ca50a42bcec632b67612fd3a68a47bda37fbb23a257b4ec34d49159d8953bb4d864442b898c76279d76bcb61a3d4469d6c2c055153f25f  config.h
 "
