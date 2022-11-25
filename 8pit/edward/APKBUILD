@@ -1,8 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=edward
-pkgver=0.4.1_git20221114
-_commit=044d7e30963ce22248a0e3e5be9d24131b6d2115
+pkgver=0.5.0
 pkgrel=0
 pkgdesc="Implementation of the ed text editor in Scheme"
 url="https://git.8pit.net/edward.git"
@@ -11,9 +10,8 @@ license="GPL-3.0-or-later"
 depends="chicken"
 checkdepends="ed"
 options="net"
-source="$pkgname-$_commit.tar.gz::https://github.com/nmeum/edward/archive/${_commit}.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/edward/archive/refs/tags/$pkgver.tar.gz
 	static.patch"
-builddir="$srcdir/$pkgname-$_commit"
 
 build() {
 	export CHICKEN_INSTALL_REPOSITORY="$builddir"
@@ -31,6 +29,6 @@ package() {
 }
 
 sha512sums="
-460b206f965f3192d0ddf6f03e9e87f2dab4c47e306dbfce0fcbb616f81677719efd3d7277bb181deb5028133e4fb40efd3b5227951da51605ee4864a79418f2  edward-044d7e30963ce22248a0e3e5be9d24131b6d2115.tar.gz
+cf0404400ec9debea85424763f3acfd6b3e0d75b6aca0dd180af4cb10ed507c1e29298f29947ca89bd1300b9eebcc26af5b975d3871a533af671b3127b1523f2  edward-0.5.0.tar.gz
 c3d96d8d47cbf4636b29b7a55f83ae253e3cfc5d3a0ec851a96906c2adf1e0ac011032d45e3e63ce3d7a7a324d999c1ef94f9f63b446a7237224ea94dc739f14  static.patch
 "
