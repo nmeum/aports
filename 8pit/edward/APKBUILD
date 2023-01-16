@@ -2,26 +2,26 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=edward
 pkgver=0.5.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Implementation of the ed text editor in Scheme"
-url="https://git.8pit.net/edward.git"
+url="https://github.com/nmeum/edward"
 arch="all"
 license="GPL-3.0-or-later"
-depends="chicken"
+makedepends="chicken"
 checkdepends="ed"
 options="net"
-source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/edward/archive/refs/tags/$pkgver.tar.gz
+source="https://github.com/nmeum/edward/archive/refs/tags/$pkgver/edward-$pkgver.tar.gz
 	static.patch"
 
 build() {
 	export CHICKEN_INSTALL_REPOSITORY="$builddir"
 	export CHICKEN_REPOSITORY_PATH="$(env -i chicken-install -repository):$builddir"
 
-	chicken-install -n -feature release
+	chicken-install -n
 }
 
 check() {
-	./run-tests.sh -feature release
+	./run-tests.sh
 }
 
 package() {
