@@ -3,7 +3,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=vim
-pkgver=9.0.1261
+pkgver=9.0.1304
 pkgrel=1
 pkgdesc="Improved vi-style text editor"
 url="https://www.vim.org/"
@@ -203,6 +203,6 @@ xxd() {
 }
 
 sha512sums="
-f95001f82bbb840d546c9423b25c2ddedd28356569f3be914af8e04fed48b0e20189afb379c58822df204d7b206bd4db6ab291cf7d468cc3638379c5c0c2a430  vim-9.0.1261.tar.gz
+ddfe180c69a0d72c71a5eb06af59f44c944fd4be404f284971c08f518f4f0f60814bd5de38743237a3b7a73e7764ba0b2adb2c7755ff767af4385284d35b27ca  vim-9.0.1304.tar.gz
 9ed58e38fe9d72f934eb507b27c18590c33c648eb7ca2639a9afdcaa1c2c4e0873a4e4252d2b6cc28127d1ded227a1e8ac338c93958526f98a3b66dbdf6afcc8  vimrc
 "
