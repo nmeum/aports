@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# https://www.unicode.org/Public/emoji/13.1/emoji-test.txt
+# https://www.unicode.org/Public/emoji/15.0/emoji-test.txt
 EMOJI_TEST="/usr/share/bemenu-emoji/emoji-test.txt"
 
 # Requires WM to support EWMH standard.
