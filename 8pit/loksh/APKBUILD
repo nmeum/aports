@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=loksh
 pkgver=7.3
-pkgrel=0
+pkgrel=1
 pkgdesc="A Linux port of OpenBSD's ksh"
 url="https://github.com/dimkr/$pkgname"
 arch="all"
