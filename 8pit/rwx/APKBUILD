@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=rwx
 pkgver=20171226
-pkgrel=0
+pkgrel=1
 pkgdesc="Run a programm while X is running"
 url="https://github.com/nmeum/rwx"
 arch="all"

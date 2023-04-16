@@ -3,7 +3,7 @@
 pkgname=bemenu-emoji
 pkgver=20230403
 _unicodever=15.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A simple bemenu-based emoji picker"
 url="https://github.com/nmeum/aports/blob/master/8pit/bemenu-emoji/bemenu-emoji.sh"
 arch="noarch"

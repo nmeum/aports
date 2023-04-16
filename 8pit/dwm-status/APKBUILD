@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=dwm-status
 pkgver=20190721
-pkgrel=2
+pkgrel=3
 pkgdesc="Yet another stupid dwm status tool"
 url="https://github.com/nmeum/dwm-status"
 arch="all"

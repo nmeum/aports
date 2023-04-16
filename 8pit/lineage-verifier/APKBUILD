@@ -3,7 +3,7 @@
 pkgname="lineage-verifier"
 _commit="0c65c4f13c489e18b9cf6be9c11f54794217ae5a"
 pkgver=20190408
-pkgrel=0
+pkgrel=1
 pkgdesc="Tool for verifying lineage build authenticity"
 url="https://github.com/LineageOS/update_verifier"
 arch="noarch"

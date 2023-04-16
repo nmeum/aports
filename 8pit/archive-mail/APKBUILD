@@ -3,7 +3,7 @@
 pkgname=archive-mail
 pkgver=0_git20210919
 _commit=9f8fea18dae20df9bd7df922f1edc90c5cd9d673
-pkgrel=0
+pkgrel=1
 pkgdesc="Maintains a maildir archive synced with a current maildir"
 url="https://github.com/nmeum/archive-mail"
 arch="all"

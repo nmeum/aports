@@ -3,7 +3,7 @@
 pkgname=dwm
 pkgver=6.4
 _commit="9c1c51eeccfdf4cc444c63fee98fb03394905676"
-pkgrel=2
+pkgrel=3
 pkgdesc="dwm - dynamic window manager"
 url="https://dwm.suckless.org"
 arch="all"

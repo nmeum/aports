@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=void-zzz
 pkgver=20160211
-pkgrel=0
+pkgrel=1
 pkgdesc="A really simple suspend script from Void Linux"
 url="https://github.com/nmeum/aports/blob/master/8pit/zzz/zzz.sh"
 arch="noarch"

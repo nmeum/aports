@@ -3,7 +3,7 @@
 pkgname=neo-layout
 pkgver=22102017
 _commit=326393d53b22fe16cf93c6ca6a05b079b72ae46b
-pkgrel=0
+pkgrel=1
 pkgdesc="An ergonomic keyboard layout"
 url="http://neo-layout.org/"
 arch="noarch"
