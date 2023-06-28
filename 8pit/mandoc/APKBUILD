@@ -8,6 +8,7 @@ pkgdesc="mandoc (formerly mdocml) UNIX manpage compiler toolset"
 url="https://mandoc.bsd.lv/"
 arch="all"
 license="ISC and BSD-2-Clause and BSD-3-Clause"
+depends="less"
 makedepends="zlib-dev"
 checkdepends="perl"
 install="$pkgname-apropos.post-deinstall"
@@ -36,7 +37,6 @@ prepare() {
 	MANPATH_DEFAULT="/usr/share/man:/usr/local/man:/usr/local/share/man"
 	MANPATH_BASE="/usr/share/man"
 	LN="ln -sf"
-	HAVE_LESS_T=0
 __EOF__
 }
 
