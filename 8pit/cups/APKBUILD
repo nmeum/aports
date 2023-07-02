@@ -1,20 +1,33 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=cups
-pkgver=2.4.2
-pkgrel=6
+pkgver=2.4.6
+pkgrel=1
 pkgdesc="The CUPS Printing System"
 url="https://github.com/OpenPrinting/cups/"
 arch="all"
 license="Apache-2.0"
-subpackages="$pkgname-dbg $pkgname-dev $pkgname-doc $pkgname-libs ipptool $pkgname-client
-	$pkgname-lang $pkgname-openrc"
 depends_dev="libgcrypt-dev gnutls-dev zlib-dev"
-makedepends="$depends_dev libpaper-dev libjpeg-turbo-dev
-	linux-headers libusb-dev"
+makedepends="
+	$depends_dev
+	libjpeg-turbo-dev
+	libpaper-dev
+	libusb-dev
+	linux-headers
+	"
 depends="cups-client poppler-utils openssl"
 install="cups.pre-install"
 pkggroups="lp lpadmin"
 pkgusers="lp"
+subpackages="
+	$pkgname-dbg
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-libs
+	ipptool
+	$pkgname-client
+	$pkgname-lang
+	$pkgname-openrc
+	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/OpenPrinting/cups/archive/v$pkgver.tar.gz
 	$pkgname.logrotate
 	cupsd.initd
@@ -24,6 +37,8 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/OpenPrinting/cups/archive/v$
 	"
 
 # secfixes:
+#   2.4.2-r7:
+#     - CVE-2023-32324
 #   2.4.2-r0:
 #     - CVE-2022-26691
 #   2.3.3-r0:
@@ -34,11 +49,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/OpenPrinting/cups/archive/v$
 #     - CVE-2019-8675
 #   2.2.10-r0:
 #     - CVE-2018-4700
-
-prepare() {
-	default_prepare
-	update_config_sub
-}
 
 build() {
 	./configure \
@@ -67,7 +77,7 @@ build() {
 		--enable-ssl=yes \
 		--enable-gnutls \
 		--disable-launchd \
-		--with-optim="$CFLAGS"
+		--with-optim="$CFLAGS -flto=auto"
 	make
 }
 
@@ -143,7 +153,7 @@ _mv() {
 }
 
 sha512sums="
-1942a677a78df0dcfaaae4b93cf7bf4ba59865d270d89d893831cb47a02f6b7e581c56bbb9264d39504b46d81c3b17ba89f7c5e21f20628f12ddf7161ac6a574  cups-2.4.2.tar.gz
+390b1a1afca4b6a2cacc42caca26b72888dfb049c663ea3ea1f2f8662c0becaa198ee27bd6ac13c7938c1a3c103ca206fdf2337a130294a1bd3b00f000ddfc35  cups-2.4.6.tar.gz
 cf64211da59e79285f99d437c02fdd7db462855fb2920ec9563ba47bd8a9e5cbd10555094940ceedeb41ac805c4f0ddb9147481470112a11a76220d0298aef79  cups.logrotate
 cdc90a542e1dc747dcea1d45550b8516586c3e9bbb685ecfb072cd3cee1771eda82a7820cb97f729770bd99e4ba4acc5707d0d02d2efe0afd18326a10e2cbb22  cupsd.initd
 148eb01f0861e1cd0861a174a5c5262c49b079b27b972b4e90656b9b9357ec710e861604c30e897818f550e9c1cdcefcd8c8bc955ba4a333902a74cdd8dfb5a6  cups-no-export-ssllibs.patch
