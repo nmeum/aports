@@ -3,12 +3,11 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=mandoc
 pkgver=1.14.6
-pkgrel=9
+pkgrel=10
 pkgdesc="mandoc (formerly mdocml) UNIX manpage compiler toolset"
 url="https://mandoc.bsd.lv/"
 arch="all"
 license="ISC"
-depends="less"
 makedepends="zlib-dev"
 checkdepends="perl"
 install="$pkgname-apropos.post-deinstall"
@@ -16,6 +15,7 @@ replaces="mdocml"
 provides="mdocml=$pkgver-r$pkgrel"
 subpackages="$pkgname-doc $pkgname-dev $pkgname-apropos $pkgname-soelim"
 source="https://mandoc.bsd.lv/snapshots/mandoc-$pkgver.tar.gz
+	dynamic-tagfile-support.patch
 	shared-libmandoc.patch
 	outdated-warn-disable.patch
 	$pkgname.cron
@@ -75,6 +75,7 @@ soelim() {
 
 sha512sums="
 54286070812a47b629f68757046d3c9a1bdd2b5d1c3b84a5c8e4cb92f1331afa745443f7238175835d8cfbe5b8dd442e00c75c3a5b5b8f8efd8d2ec8f636dad4  mandoc-1.14.6.tar.gz
+d84afd0f462dc3c00753f3db5b2690d8f0954b51f5b679667a75f8ea34cb3d2e961d732218b8c1c3a39c209df70ab273b583c4899c56482e7f8761c4b9fea02c  dynamic-tagfile-support.patch
 b512bcb8bae11853a3006e2122d7e652806d4bf2234638d8809fd823375b5b0bd590f7d6a90412baffcc3b7b6a0f197a10986728a70f24fe628f91bfb651d266  shared-libmandoc.patch
 6eda39920cccb1238b104bb90ac4be2c32883897c72363560d8d39345819cdeff535680e78396052b2b8f981e169ad9b3c30da724def80a1501785d82ce7fa25  outdated-warn-disable.patch
 1af9627ee519ecf7d4962db52c83b28f3eb4e9fc6bf38e674bd5e17b21076c3c74c9eed2a1161812f8ac0c75471986b73fcf0acfc7065bc2c15280e1d696a00b  mandoc.cron
