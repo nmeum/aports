@@ -2,7 +2,7 @@
  * on systems using neither PAM nor elogind. The code is basically
  * taken from dumb-runtime-dir and hence licensed under 0BSD.
  *
- * The tool creates a subdirectory in RUNTIME_DIR_PARENT and prints
+ * The tool creates a directory with RUNTIME_DIR_PREFIX and prints
  * its path. The caller is responsible for setting XDG_RUNTIME_DIR
  * accordingly. Contrary to the spec, the directory is never removed. */
 
@@ -28,13 +28,13 @@ main(void) {
 
 	/* The bit size of uintmax_t will always be larger than the number of
 	 * bytes needed to print it. */
-	char buffer[sizeof("XDG_RUNTIME_DIR="RUNTIME_DIR_PARENT"/") +
+	char buffer[sizeof("XDG_RUNTIME_DIR="RUNTIME_DIR_PREFIX) +
 		sizeof(uintmax_t) * 8];
 	/* Valid UIDs are always positive even if POSIX allows the uid_t type
 	 * itself to be signed. Therefore, we can convert to uintmax_t for
 	 * safe formatting. */
 	int ret = snprintf(buffer, sizeof(buffer),
-		"XDG_RUNTIME_DIR="RUNTIME_DIR_PARENT"/%ju", (uintmax_t)uid);
+		"XDG_RUNTIME_DIR="RUNTIME_DIR_PREFIX"%ju", (uintmax_t)uid);
 	assert(ret >= 0 && (size_t)ret < sizeof(buffer));
 	const char *path = buffer + sizeof("XDG_RUNTIME_DIR=") - 1;
 

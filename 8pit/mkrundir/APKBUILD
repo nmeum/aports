@@ -13,7 +13,7 @@ builddir="$srcdir"
 
 build() {
 	"${CC:-gcc}" -Wall -Wextra -Wpedantic \
-		-DRUNTIME_DIR_PARENT='"/run/user"' \
+		-DRUNTIME_DIR_PREFIX='"/run/user-"' \
 		$CFLAGS $LDFLAGS -o mkrundir mkrundir.c
 }
 
@@ -23,5 +23,5 @@ package() {
 }
 
 sha512sums="
-405b33fb2ebf3f551bc87d71d336279451ae434ad4831383448b809da47afbf7700328b32cc838c67aaf57d02eacd1eda1b9b95f391922dc7fe36850dfb7c6b8  mkrundir.c
+bda7c4bada77da90caea248ece4247bf36023852abb8cde9da14cbbacb6d3557f0f45cdcbae3f856a8c709466142aff554f8e0522f0e2d69eec5104fad7f8c20  mkrundir.c
 "
