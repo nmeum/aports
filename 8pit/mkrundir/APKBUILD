@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=mkrundir
 pkgver=1.0.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A simple SUID binary for creating an XDG_RUNTIME_DIR"
 url="https://github.com/nmeum/aports/tree/master/8pit/mkrundir"
 arch="all"
@@ -23,5 +23,5 @@ package() {
 }
 
 sha512sums="
-bda7c4bada77da90caea248ece4247bf36023852abb8cde9da14cbbacb6d3557f0f45cdcbae3f856a8c709466142aff554f8e0522f0e2d69eec5104fad7f8c20  mkrundir.c
+98ee984883bb5ed037187e25f968836a31ffb39d46320745b8dc6ef3f1bc4dc64df25dbd5a583b8a4a31ba85a7b861ced2e6b57ed35afe28c0e022c28112f5b2  mkrundir.c
 "

@@ -22,21 +22,18 @@ main(void) {
 	uid_t gid = getgid();
 	uid_t uid = getuid();
 
-	/* The following has been taken from dumb-runtime-dir.
+	/* The following has been taken from dumb-runtime-dir and slightly modified.
 	 *
 	 * See: https://github.com/ifreund/dumb_runtime_dir/blob/v1.0.4/pam_dumb_runtime_dir.c#L51-L61 */
 
 	/* The bit size of uintmax_t will always be larger than the number of
 	 * bytes needed to print it. */
-	char buffer[sizeof("XDG_RUNTIME_DIR="RUNTIME_DIR_PREFIX) +
-		sizeof(uintmax_t) * 8];
+	char path[sizeof(RUNTIME_DIR_PREFIX) + sizeof(uintmax_t) * 8];
 	/* Valid UIDs are always positive even if POSIX allows the uid_t type
 	 * itself to be signed. Therefore, we can convert to uintmax_t for
 	 * safe formatting. */
-	int ret = snprintf(buffer, sizeof(buffer),
-		"XDG_RUNTIME_DIR="RUNTIME_DIR_PREFIX"%ju", (uintmax_t)uid);
-	assert(ret >= 0 && (size_t)ret < sizeof(buffer));
-	const char *path = buffer + sizeof("XDG_RUNTIME_DIR=") - 1;
+	int ret = snprintf(path, sizeof(path), RUNTIME_DIR_PREFIX"%ju", (uintmax_t)uid);
+	assert(ret >= 0 && (size_t)ret < sizeof(path));
 
 	if (mkdir(path, 0700) < 0) {
 		/* It's ok if the directory already exists, in that case we just
