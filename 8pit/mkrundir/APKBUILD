@@ -1,0 +1,27 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=mkrundir
+pkgver=1.0.0
+pkgrel=0
+pkgdesc="A simple SUID binary for creating an XDG_RUNTIME_DIR"
+url="https://github.com/nmeum/aports/tree/master/8pit/mkrundir"
+arch="all"
+license=""0BSD
+source="mkrundir.c"
+options="suid !check"
+builddir="$srcdir"
+
+build() {
+	"${CC:-gcc}" -Wall -Wextra -Wpedantic \
+		-DRUNTIME_DIR_PARENT='"/run/user"' \
+		$CFLAGS $LDFLAGS -o mkrundir mkrundir.c
+}
+
+package() {
+	install -o root -g root -Dm4755 \
+		mkrundir "$pkgdir"/usr/bin/mkrundir
+}
+
+sha512sums="
+405b33fb2ebf3f551bc87d71d336279451ae434ad4831383448b809da47afbf7700328b32cc838c67aaf57d02eacd1eda1b9b95f391922dc7fe36850dfb7c6b8  mkrundir.c
+"
