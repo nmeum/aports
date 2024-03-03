@@ -2,6 +2,9 @@
 # zzz - really simple suspend script.
 # Copied from void linux (licensed under public domain).
 
+# Fixed PATH, makes it a bit saner to allow execution of this via sudoers.
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 USAGE="Usage: ${0##*/} [-nSzZR]
    -n   dry run (sleep for 5s instead of suspend/hibernate)
    -S   Low-power idle (ACPI S0)
