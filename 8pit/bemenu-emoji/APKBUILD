@@ -3,12 +3,12 @@
 pkgname=bemenu-emoji
 pkgver=20230403
 _unicodever=15.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple bemenu-based emoji picker"
 url="https://github.com/nmeum/aports/blob/master/8pit/bemenu-emoji/bemenu-emoji.sh"
 arch="noarch"
 license="public-domain"
-depends="bemenu xdotool"
+depends="bemenu wtype"
 options="!check" # no test suite
 source="https://www.unicode.org/Public/emoji/$_unicodever/emoji-test.txt
 	bemenu-emoji.sh"
@@ -23,5 +23,5 @@ package() {
 
 sha512sums="
 894d2036867f2a117b8e5fd59b33148b3bb88d09b022d4a09f57df7e6135c3468b9c3d0fa8c80010ace3b916190b8039ad622f04b790abb1db8697c3f2050015  emoji-test.txt
-50ba242102957311aeb6bcc8fe6346fb060aa4e0ee2084e1e675724e0fe8729ceeb64764b5660e5640eb0a01a693afe0821bcfa9942413467e0034d563958be9  bemenu-emoji.sh
+0af249701dcb4971691e5c31a38854d2acd7cd5f030eb36852bffbd0a84db957222b493774639ad5140fa1866e6dfbb35c6c32b15d3f726d91869ed94e4bd0d3  bemenu-emoji.sh
 "
