@@ -3,7 +3,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=mandoc
 pkgver=1.14.6
-pkgrel=13
+pkgrel=14
 pkgdesc="mandoc (formerly mdocml) UNIX manpage compiler toolset"
 url="https://mandoc.bsd.lv/"
 arch="all"
@@ -22,7 +22,7 @@ source="https://mandoc.bsd.lv/snapshots/mandoc-$pkgver.tar.gz
 	"
 
 # higher than community/man-db for this
-provides="doc-provider"
+provides="doc-provider mdocml=$pkgver-r$pkgrel"
 provider_priority=100
 
 prepare() {
@@ -55,12 +55,7 @@ package() {
 
 apropos() {
 	pkgdesc="makewhatis/whatis and apropos tools and index"
-	mkdir -p "$subpkgdir"/usr/sbin "$subpkgdir"/usr/bin
-	mv "$pkgdir"/usr/bin/apropos \
-		"$pkgdir"/usr/bin/whatis \
-		"$subpkgdir"/usr/bin/
-	mv "$pkgdir"/usr/sbin/makewhatis \
-		"$subpkgdir"/usr/sbin/
+	amove usr/bin/apropos usr/bin/whatis usr/sbin/makewhatis
 	install -Dm755 "$srcdir"/$pkgname.cron \
 		"$subpkgdir"/etc/periodic/daily/makewhatis
 }
@@ -68,9 +63,7 @@ apropos() {
 soelim() {
 	pkgdesc="so elimination tool"
 	depends=""
-	mkdir -p "$subpkgdir"/usr/bin
-	mv "$pkgdir"/usr/bin/soelim \
-		"$subpkgdir"/usr/bin/
+	amove usr/bin/soelim
 }
 
 sha512sums="
