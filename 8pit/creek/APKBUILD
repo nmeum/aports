@@ -1,19 +1,22 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=creek
-pkgver=0.4.0
+_commit="8cd6a19fd0e5c340fed4d78d2acbd5cabb9d8197"
+pkgver=0.4.0_git20240601
 pkgrel=0
 pkgdesc="A small screenlocker for Wayland compositors"
 url="https://github.com/nmeum/creek"
 arch="aarch64 x86_64" # blocked by zig
 license="MIT"
 makedepends="zig wayland-protocols wayland-dev fcft-dev pixman-dev"
-source="https://files.8pit.net/dl/creek-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/creek/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
 
 build() {
 	DESTDIR="$builddir/out" zig build \
 		--prefix /usr \
 		-Doptimize=ReleaseSafe \
+		-Dpie \
 		-Dcpu=baseline \
 		install
 }
@@ -24,5 +27,5 @@ package() {
 }
 
 sha512sums="
-2bb2886c52ed2dade3f0334a04b6d918e56454f7d7a569a92e18193d8487ffcf00a6c11940dca688586e80980e7fff1fe8b6c12d02a5820c55fffdcaa16b7e64  creek-0.4.0.tar.gz
+b3560b2f32bd61f2b6378181443b5c17ec985a67425fda0ab856f6db9e4ae3c756091b91a643ef122c81488f6cfe43a28234ae7759db09a19c6f4c792722a4d7  creek-0.4.0_git20240601.tar.gz
 "
