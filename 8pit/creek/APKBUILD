@@ -9,6 +9,7 @@ url="https://github.com/nmeum/creek"
 arch="aarch64 x86_64" # blocked by zig
 license="MIT"
 makedepends="zig wayland-protocols wayland-dev fcft-dev pixman-dev"
+options="net"
 source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/creek/archive/$_commit.tar.gz"
 builddir="$srcdir/$pkgname-$_commit"
 
