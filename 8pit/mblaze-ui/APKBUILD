@@ -1,0 +1,30 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=mblaze-ui
+pkgver=0_git20230909
+_commit=153809b98ccc2abe22e26a4de395cef9e9192750
+pkgrel=0
+pkgdesc="A minimal TUI for the mblaze email client"
+url="https://github.com/nmeum/mblaze-ui"
+arch="all"
+license="GPL-3.0-or-later"
+makedepends="go"
+options="!check chmod-clean"
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/mblaze-ui/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
+
+export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
+export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
+export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+
+build() {
+	go build -o $pkgname -trimpath
+}
+
+package() {
+	install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
+}
+
+sha512sums="
+a1bf5c7de71e2d03ccf42a658c98ebc975667a032a53517303fadcacc7fd3efffd0d6205a81c1f4d595f2602a635af0c76123350558a70c2b230c71d9e053102  mblaze-ui-0_git20230909.tar.gz
+"
