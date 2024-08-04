@@ -9,7 +9,7 @@ url="https://github.com/nmeum/mblaze-ui"
 arch="all"
 license="GPL-3.0-or-later"
 makedepends="go"
-options="!check chmod-clean"
+options="!check chmod-clean net"
 source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/mblaze-ui/archive/$_commit.tar.gz"
 builddir="$srcdir/$pkgname-$_commit"
 
