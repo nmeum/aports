@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=mblaze-ui
-pkgver=0_git20230909
-_commit=153809b98ccc2abe22e26a4de395cef9e9192750
+pkgver=0_git20240811
+_commit=5e37002a498a125c4857a973259c414cdc7f1aaf
 pkgrel=0
 pkgdesc="A minimal TUI for the mblaze email client"
 url="https://github.com/nmeum/mblaze-ui"
@@ -26,5 +26,5 @@ package() {
 }
 
 sha512sums="
-a1bf5c7de71e2d03ccf42a658c98ebc975667a032a53517303fadcacc7fd3efffd0d6205a81c1f4d595f2602a635af0c76123350558a70c2b230c71d9e053102  mblaze-ui-0_git20230909.tar.gz
+db199493babe1d7f076da83d0e4ab1981698f8f6b33e723788e279217b9179253eccbccfc6edb5846b568c258ab189f8ad04feeecf70b5c0dc339ece339588a7  mblaze-ui-0_git20240811.tar.gz
 "
