@@ -2,7 +2,7 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=creek-status
 pkgver=20190721
-pkgrel=0
+pkgrel=1
 pkgdesc="A status bar tool for the creek status bar"
 url="https://github.com/nmeum/dwm-status"
 arch="all"
@@ -31,5 +31,5 @@ package() {
 sha512sums="
 3171dfd1595b9d3ee167b1c123e7fc0ca5d293518d9389de906b1525f803e454436f4e466b4cba300f4e0ae0d44fc64294d5c1431189877d257ff4c2b4e350ee  creek-status-20190721.tar.gz
 32dc850895d73dc2f721f3b35e27f9f100055fd1ec0fb35cd20277e7c1aba72c8691a63da98c72c9827a14d94750e62d6aad3c264d717c57cb02f85eeff2ec4d  0001-Compile-without-X11-print-text-to-standard-output.patch
-a0634d36844480499dd859a1bb13ec2d0ec7a426ca9c453105ced84e5b6baf3445c272739256ea2ee0394dc329224c019b1875648f0123d984fd209e61b23394  config.h
+7a251419f1f835a9e647c4a8d43f89ff572cb3109b55a22e2ec6d45c24fd5fe3d6b6c868ac32e689bd413a2b3ec74e216594e83a7003d756b8e13a6bb6c270a9  config.h
 "
