@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=creek
-pkgver=0.4.2_git20240923
-_commit=33d3e7572d48c1098f4b5672363e9982bac4a574
+pkgver=0.4.2_git20241020
+_commit=034105946ae23b1d1e9544adef4bee8e72e56c1d
 pkgrel=0
 pkgdesc="A small screenlocker for Wayland compositors"
 url="https://github.com/nmeum/creek"
@@ -28,5 +28,5 @@ package() {
 }
 
 sha512sums="
-2d550dab3c8a1d172576a49659d9c83616a58c54ff80be00aaa087e026a7fa00cd4e3b326c32fea7629810b197e4a6b63c0dde4226073e6f0f6685cb44d2a894  creek-0.4.2_git20240923.tar.gz
+f96f131b677cb5ff7ecbd3d55186e788dd75fb35d1ea0f1de4ac06e148008ce6f4fc701cf406bf4741d159d7559e36da5a3b87a7a0297a39e6da68c7cc1e3fb5  creek-0.4.2_git20241020.tar.gz
 "
