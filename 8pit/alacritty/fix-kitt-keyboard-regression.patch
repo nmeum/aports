@@ -1,0 +1,21 @@
+See https://github.com/alacritty/alacritty/issues/8308#issuecomment-2549419499
+
+diff --git a/alacritty/src/input/keyboard.rs b/alacritty/src/input/keyboard.rs
+index 14755594..52118421 100644
+--- a/alacritty/src/input/keyboard.rs
++++ b/alacritty/src/input/keyboard.rs
+@@ -368,7 +368,13 @@ impl SequenceBuilder {
+             {
+                 format!("{unicode_key_code}:{alternate_key_code}")
+             } else {
+-                unicode_key_code.to_string()
++                if self.modifiers.contains(SequenceModifiers::SHIFT) {
++                    // Report the un-shifted version of the key if the shift modifier is active.
++                    // E.g., `ctrl+shift+a` must be `CSI 97; modifier u`, not `CSI 65; modifiers`.
++                    unicode_key_code.to_string()
++                } else {
++                    alternate_key_code.to_string()
++                }
+             };
+ 
+             Some(SequenceBase::new(payload.into(), SequenceTerminator::Kitty))
