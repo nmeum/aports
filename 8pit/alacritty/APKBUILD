@@ -1,6 +1,6 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=alacritty
-pkgver=0.14.0
+pkgver=0.15.0
 pkgrel=1
 pkgdesc="cross-platform, GPU-accelerated terminal emulator"
 url="https://github.com/alacritty/alacritty"
@@ -81,6 +81,6 @@ package() {
 }
 
 sha512sums="
-3001ca78b3f4b2a22076cb701108b77263962c1f4cb50a17219dfb0165d11a1f7b4e879af0358c1c7a5cca7949951169127e45603cfb74e932f14f2299f76962  alacritty-0.14.0.tar.gz
+a4cb13a3d280fad8b803b1c41c314bf946d935b6725ef26405a48472f4d2c93e2ae5820720437b0e6387d7c78e96bfa09c910775bc400e7fbda412b62b72c84d  alacritty-0.15.0.tar.gz
 67e979a47e92a56a277764632e125a51b14fa5d8e520305d0c1b2e1652f6c12c7fea5705e3d002b9bf80b55daa31d65ede5d37b9f320d6f63482c65e1431041e  fix-kitt-keyboard-regression.patch
 "
