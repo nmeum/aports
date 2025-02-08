@@ -1,0 +1,33 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=dam
+pkgver=0_git20250205
+_commit=6078a20af4bcd4768c3eb16edb91976edd87157d
+pkgrel=0
+pkgdesc="A itsy-bitsy dwm-esque bar for the river compositor"
+url="https://codeberg.org/sewn/dam"
+arch="all"
+license="MIT"
+depends="wayland-dev wayland-protocols fcft-dev pixman-dev"
+source="https://codeberg.org/sewn/dam/archive/$_commit.tar.gz"
+options="!check"
+builddir="$srcdir/$pkgname"
+
+prepare() {
+	default_prepare
+
+	# Avoid having to depend on the foot terminal emulator.
+	sed -i config.def.h -e '/termcmd/d'
+}
+
+build() {
+	make
+}
+
+package() {
+	make PREFIX=/usr DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+e2955b6521f93a19e1c86b8fb8ba235cf9caf512fc324c85e1ee272cb55b7eddac9a243e6cd6a8ecaac30e18685f2021b982368b4d7d473363242d856cf79786  6078a20af4bcd4768c3eb16edb91976edd87157d.tar.gz
+"
