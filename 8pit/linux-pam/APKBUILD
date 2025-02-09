@@ -1,27 +1,21 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Contributor: Natanael Copa <ncopa@alpinelinux.org>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=linux-pam
-pkgver=1.6.1
+pkgver=1.7.0
 pkgrel=2
 pkgdesc="Linux PAM (Pluggable Authentication Modules for Linux)"
 url="https://www.kernel.org/pub/linux/libs/pam"
 arch="all"
 license="BSD-3-Clause"
-depends_dev="gettext-dev"
 makedepends="
-	$depends_dev
-	autoconf
-	automake
 	bison
 	flex-dev
-	libtool
 	linux-headers
+	meson
 	"
 options="suid !check"
 subpackages="$pkgname-dev $pkgname-manual::noarch $pkgname-doc"
 source="https://github.com/linux-pam/linux-pam/releases/download/v$pkgver/Linux-PAM-$pkgver.tar.xz
-	https://github.com/linux-pam/linux-pam/releases/download/v$pkgver/Linux-PAM-$pkgver-docs.tar.xz
 
 	base-auth.pamd
 	base-account.pamd
@@ -41,38 +35,34 @@ builddir="$srcdir"/Linux-PAM-$pkgver
 #     - CVE-2020-27780
 
 build() {
-	./configure \
-		--build=$CBUILD \
-		--host=$CHOST \
-		--prefix=/usr \
-		--libdir=/usr/lib \
-		--sysconfdir=/etc \
-		--mandir=/usr/share/man \
-		--infodir=/usr/share/info \
-		--localstatedir=/var \
-		--disable-nls \
-		--disable-db \
-		--disable-examples
-	make
+	export CFLAGS="$CFLAGS -flto=auto"
+	export LDFLAGS="$LDFLAGS"
+	abuild-meson \
+		-Dexamples=false \
+		-Dhtmldir=/usr/share/doc/Linux-PAM \
+		-Ddocdir=/usr/share/man \
+		build .
+
+	meson compile -C build
 }
 
 package() {
-	make DESTDIR="$pkgdir" install
+	DESTDIR="$pkgdir" meson install -C build
 
 	# install our pam.d files
-	install -Dm644 "$srcdir"/base-auth.pamd "$pkgdir"/etc/pam.d/base-auth
-	install -Dm644 "$srcdir"/base-password.pamd "$pkgdir"/etc/pam.d/base-password
-	install -Dm644 "$srcdir"/base-account.pamd "$pkgdir"/etc/pam.d/base-account
-	install -Dm644 "$srcdir"/base-session.pamd "$pkgdir"/etc/pam.d/base-session
+	install -Dm644 "$srcdir"/base-auth.pamd "$pkgdir"/usr/lib/pam.d/base-auth
+	install -Dm644 "$srcdir"/base-password.pamd "$pkgdir"/usr/lib/pam.d/base-password
+	install -Dm644 "$srcdir"/base-account.pamd "$pkgdir"/usr/lib/pam.d/base-account
+	install -Dm644 "$srcdir"/base-session.pamd "$pkgdir"/usr/lib/pam.d/base-session
 	install -Dm644 "$srcdir"/base-session-noninteractive.pamd \
-		"$pkgdir"/etc/pam.d/base-session-noninteractive
-	install -Dm644 "$srcdir"/other.pamd "$pkgdir"/etc/pam.d/other
-	install -Dm644 "$srcdir"/login.pamd "$pkgdir"/etc/pam.d/login
-	install -Dm644 "$srcdir"/su.pamd "$pkgdir"/etc/pam.d/su
+		"$pkgdir"/usr/lib/pam.d/base-session-noninteractive
+	install -Dm644 "$srcdir"/other.pamd "$pkgdir"/usr/lib/pam.d/other
+	install -Dm644 "$srcdir"/login.pamd "$pkgdir"/usr/lib/pam.d/login
+	install -Dm644 "$srcdir"/su.pamd "$pkgdir"/usr/lib/pam.d/su
 
 	# make "unix_chkpwd" shadow group and enable g+s
-	chgrp shadow "$pkgdir"/sbin/unix_chkpwd \
-		&& chmod g+s "$pkgdir"/sbin/unix_chkpwd
+	chgrp shadow "$pkgdir"/usr/sbin/unix_chkpwd \
+		&& chmod g+s "$pkgdir"/usr/sbin/unix_chkpwd
 
 	# we don't ship systemd
 	rm -r "$pkgdir"/usr/lib/systemd
@@ -85,12 +75,11 @@ manual() {
 }
 
 sha512sums="
-ddb5a5f296f564b76925324550d29f15d342841a97815336789c7bb922a8663e831edeb54f3dcd1eaf297e3325c9e2e6c14b8740def5c43cf3f160a8a14fa2ea  Linux-PAM-1.6.1.tar.xz
-c6054ec6832f604c0654cf074e4e241c44037fd41cd37cca7da94abe008ff72adc4466d31bd254517eda083c7ec3f6aefd37785b3ee3d0d4553250bd29963855  Linux-PAM-1.6.1-docs.tar.xz
+ab5cadb0eb5e95e36146fdbbc77eef4e5e0f38aeee4e819b080a1316f69969c3c33e4a2daf3246ded4c2e58ce517d7f1acb0d8de02a4898ff753f4c3aeec51cf  Linux-PAM-1.7.0.tar.xz
 988e4ba32fe6b7adeb4898c784eb40d6f88f3fca78ead82b61686f0e1597f306abb3ee338aa2e4cf2db0191b8c1a7e319332e7f6d6aed3ab381f71c0a3355de9  base-auth.pamd
 5d3e960ead44dcb2b3f732825482eefab9a9ffa4d4d5fc1d30cbf2fe8c5c896f1114a0ad3a6c606fa9fbf5c43400388f4ee8d7fca8110721eabfc9691004756b  base-account.pamd
 b3a900d6067ba04faa8016d9408da75917e8c0502020a4048bba1de2ca54c705c4d5f8307e759080fd5a9d5f3522f52a708803f1f01627eac56d9d7c6d363d13  base-password.pamd
-d963071b93c1178a15142db1929bd8cc5c46654fa68e299c4bcf1d4325adbc541195df7c034221daf6cc7f8937d771b5707acbdd36eee98a36180ee07529138d  base-session.pamd
+186605fcfdc6793304d3e0a2192c1719ee748c29ae153aeb3209e44069740055d6e96f222ecfb7b03d66a5802e2896686f9c2fe160367ebbc9b753f55b4d2d0f  base-session.pamd
 2f18114b8a6a78ed798646962526876f3536b4759c00dce339e21f0695ea71d0917c048dc852c3d1c79bd17cd19dc513a3c6463abaffcff3f792b906cec98ede  base-session-noninteractive.pamd
 299bb3791652174a4d836d60f146200bb692ad80c20c18e6e872543ac8885156ff1a7ca00acaf55b89672fa98f00b8df53879c9ab1913a9cc91f620163dd50be  other.pamd
 ae3a807bc121eb59b54f5e53ff8efdde972610cf7463b6a38bccbc89b49954aa2e0a8693919b01f8bc7a956ba58c97de34a28963bc14f526b70b3073d64427b5  login.pamd
