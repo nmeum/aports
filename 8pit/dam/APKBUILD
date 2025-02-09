@@ -3,7 +3,7 @@
 pkgname=dam
 pkgver=0_git20250205
 _commit=6078a20af4bcd4768c3eb16edb91976edd87157d
-pkgrel=1
+pkgrel=2
 pkgdesc="A itsy-bitsy dwm-esque bar for the river compositor"
 url="https://codeberg.org/sewn/dam"
 arch="all"
