@@ -3,12 +3,12 @@
 pkgname=dam
 pkgver=0_git20250205
 _commit=6078a20af4bcd4768c3eb16edb91976edd87157d
-pkgrel=0
+pkgrel=1
 pkgdesc="A itsy-bitsy dwm-esque bar for the river compositor"
 url="https://codeberg.org/sewn/dam"
 arch="all"
 license="MIT"
-depends="wayland-dev wayland-protocols fcft-dev pixman-dev"
+makedepends="wayland-dev wayland-protocols fcft-dev pixman-dev"
 source="https://codeberg.org/sewn/dam/archive/$_commit.tar.gz"
 options="!check"
 builddir="$srcdir/$pkgname"
