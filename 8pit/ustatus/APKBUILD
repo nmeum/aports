@@ -1,0 +1,34 @@
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
+pkgname=ustatus
+pkgver=20190721_git20250413
+_commit=56775fcae87311d296a12411704f2e77bde84ee0
+pkgrel=0
+pkgdesc="Minimal status tool for dwm-like status bars"
+url="https://github.com/nmeum/ustatus"
+arch="all"
+license="WTFPL"
+makedepends="tinyalsa-dev"
+options="!check" # no test suite
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/ustatus/archive/$_commit.tar.gz
+	config.h"
+builddir="$srcdir/ustatus-$_commit"
+
+prepare() {
+	default_prepare
+	cp "$srcdir"/config.h "$builddir"/config.h
+}
+
+build() {
+	make
+}
+
+package() {
+	install -Dm755 "$builddir"/ustatus \
+		"$pkgdir"/usr/bin/ustatus
+}
+
+sha512sums="
+bffc5ec4d1a7e7e10b9e80a77b5d2eae919190b2755e5e936a1a422cd04ad064f42da14fd7b1a3d91a37c0fe89ee1400aa98f398585bb0257eb39ab90e41794a  ustatus-20190721_git20250413.tar.gz
+7a251419f1f835a9e647c4a8d43f89ff572cb3109b55a22e2ec6d45c24fd5fe3d6b6c868ac32e689bd413a2b3ec74e216594e83a7003d756b8e13a6bb6c270a9  config.h
+"
