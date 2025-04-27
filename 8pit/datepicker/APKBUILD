@@ -1,0 +1,56 @@
+maintainer="Sören Tempel <soeren+alpine@soeren-tempel.net>"
+pkgname=datepicker
+_commit=9f79d371ba2132cd5af7a8614acdb27756120f63
+pkgver=0.1.0_git20250423
+pkgrel=0
+pkgdesc="An fzf-like tool to interactively select a date in a provided format"
+url="https://github.com/nmeum/datepicker"
+arch="all"
+license="GPL-3.0-or-later"
+makedepends="ghc cabal ncurses-dev"
+options="net"
+source="$pkgname-$pkgver.tar.gz::https://github.com/nmeum/datepicker/archive/$_commit.tar.gz
+	cabal.project.freeze"
+builddir="$srcdir/$pkgname-$_commit"
+
+# Directory were cabal files are stored.
+export CABAL_DIR="$srcdir/dist"
+
+# Needed to fix build on aarch64.
+export PATH="$PATH:/usr/lib/llvm15/bin"
+
+cabal_update() {
+	cd $builddir
+	cabal v2-update
+	(
+		cabal v2-freeze \
+			--shadow-installed-packages \
+			--disable-tests
+		mv cabal.project.freeze "$startdir/"
+	)
+}
+
+prepare() {
+	default_prepare
+	ln -sf "$srcdir/cabal.project.freeze" \
+		"$builddir/cabal.project.freeze"
+}
+
+build() {
+	cabal v2-update
+	cabal v2-build $pkgname:exes \
+		--jobs=${JOBS:-1} \
+		--prefix=/usr \
+		--docdir=/usr/share/doc/$pkgname \
+		--sysconfdir=/etc
+}
+
+package() {
+	# See https://github.com/haskell/cabal/issues/6919#issuecomment-761563498
+	cabal list-bin $pkgname:exes | xargs install -Dm755 -t "$pkgdir"/usr/bin
+}
+
+sha512sums="
+0057d9497e672290d1d878ebc982e97b82727da71640b6dd9833ad17c5c45087522175a564ee46ff40e836c1e7f689ec01af79a32780fcc0a7d874b48c1f6f94  datepicker-0.1.0_git20250423.tar.gz
+2524ae1fa809702895b8b6d312256a062070dfb3d49d551176c322537b1da19da772bc29fb52c84202ac9d731b98f2149ca067e7a77692e9526948d1f024b997  cabal.project.freeze
+"
