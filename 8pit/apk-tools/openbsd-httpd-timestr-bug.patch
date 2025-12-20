@@ -1,0 +1,22 @@
+From 01f3fbd5c008630a948d993d902bda3e8e800362 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=B6ren=20Tempel?= <soeren+git@soeren-tempel.net>
+Date: Sat, 20 Dec 2025 12:52:49 +0100
+Subject: [PATCH] libfetch: allow UTC as a timezone string in libfetch too
+
+This is a workaround for a bug in OpenBSD httpd.
+---
+ libfetch/http.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libfetch/http.c b/libfetch/http.c
+index d57d8e8..f48036b 100644
+--- a/libfetch/http.c
++++ b/libfetch/http.c
+@@ -488,6 +488,7 @@ http_parse_mtime(const char *p, time_t *mtime)
+ 	 *  Sun Nov  6 08:49:37 1994       ; ANSI C's asctime() format
+ 	 */
+ 	r = strptime(p, "%a, %d %b %Y %H:%M:%S GMT", &tm);
++	if (!r) r = strptime(p, "%a, %d %b %Y %H:%M:%S UTC", &tm);
+ 	if (!r) r = strptime(p, "%A, %d-%b-%y %H:%M:%S GMT", &tm);
+ 	if (!r) r = strptime(p, "%a %b %d %H:%M:%S %Y", &tm);
+ 	setlocale(LC_TIME, locale);
