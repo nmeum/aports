@@ -1,7 +1,7 @@
 maintainer="Sören Tempel <soeren+alpine@soeren-tempel.net>"
 pkgname=datepicker
 pkgver=1.0.1
-pkgrel=0
+pkgrel=1
 pkgdesc="An fzf-like tool to interactively select a date in a provided format"
 url="https://github.com/nmeum/datepicker"
 arch="all"
@@ -50,5 +50,5 @@ package() {
 
 sha512sums="
 f7470806b4ee615ab9c98d1fc4db5964bd269887eb3926d0e68db4c7d63494eaae4e950b941d1d83c75b44fba16695c3db8bf0ca75c090c9fdb3c3ab678a7e3f  datepicker-1.0.1.tar.gz
-2524ae1fa809702895b8b6d312256a062070dfb3d49d551176c322537b1da19da772bc29fb52c84202ac9d731b98f2149ca067e7a77692e9526948d1f024b997  cabal.project.freeze
+a5876773198c6ca4255e13127340c09b59c81cd0a3546f8d470fee3c899d4c8186a72488c8bf20791bb99e42869c119a9e6be492073fc18c291ca9ef34f90dcc  cabal.project.freeze
 "
