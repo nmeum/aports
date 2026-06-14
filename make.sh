@@ -11,7 +11,7 @@ TDEST="pkg/8pit"
 mkdir -p "${TDEST}"
 
 banner "Invoking buildrepo."
-buildrepo -a "$(pwd)" -d "$(pwd)/${TDEST%/*}" -R -p 8pit
+buildrepo -a "$(pwd)" -d "$(pwd)/${TDEST%/*}" -R -p 8pit --purge
 
 banner "Pushing packages to remote repository."
 rsync -av --delete-excluded "${TDEST}/" "${RDEST}/"
